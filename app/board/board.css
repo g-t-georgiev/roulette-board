@@ -8,15 +8,17 @@
 #roulette-board-area {
     position: relative;
 
-    display: grid;
-    grid-template-columns: 3fr repeat(13, 2fr);
-    grid-template-rows: repeat(5, 1fr);
-
     max-inline-size: 900px;
     min-block-size: 300px;
 
     margin-block: 5rem 3rem;
     margin-inline: auto;
+}
+
+.gameboard {
+    display: grid;
+    grid-template-columns: 3fr repeat(13, 2fr);
+    grid-template-rows: repeat(5, 1fr);
 }
 
 .bet {
