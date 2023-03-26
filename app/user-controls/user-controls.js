@@ -26,15 +26,15 @@ export class RouletteUserControls extends HTMLElement {
 
             <section class="user-controls">
                 <button type="button" role="button" class="btn btn-undo" disabled is="roulette-undo-button">
-                    <img src="/assets/images/btn-undo.png" width="48" height="48" alt="btn-undo" />
+                    <img class="btn-icon" src="/assets/images/btn-undo.png" width="55" height="55" alt="btn-undo" />
                 </button>
 
                 <button type="button" role="button" class="btn btn-clear" disabled is="roulette-clear-button">
-                    <img src="/assets/images/btn-clear.png" width="48" height="48" alt="btn-clear" />
+                    <img class="btn-icon" src="/assets/images/btn-clear.png" width="55" height="55" alt="btn-clear" />
                 </button>
 
                 <button type="button" role="button" class="btn btn-double" disabled is="roulette-double-button">
-                    <img src="/assets/images/btn-x2.png" width="48" height="48" alt="btn-double" />
+                    <img class="btn-icon" src="/assets/images/btn-x2.png" width="55" height="55" alt="btn-double" />
                 </button>
 
                 <section class="chips">
