@@ -32,12 +32,21 @@
     border: 1px solid black;
 }
 
+.gameboard:not([disabled]) .bet:hover {
+    transition: all .3s ease-in-out;
+    cursor: pointer;
+}
+
 .inside-bet {
     grid-column: span 1;
     grid-row: span 1;
 
     font-size: 1.5rem;
     color: #fff;
+}
+
+.gameboard:not([disabled]) .inside-bet:hover {
+    scale: 1.05;
 }
 
 .inside-bet.zero {
@@ -48,21 +57,37 @@
     border-bottom-left-radius: 15rem;
 
     font-size: 2rem;
-
     background-color: green;
+}
+
+.gameboard:not([disabled]) .inside-bet.zero:hover {
+    filter: opacity(95%);
+    scale: 1.05;
 }
 
 .inside-bet.red {
     background-color: red;
 }
 
+.gameboard:not([disabled]) .inside-bet.red:hover {
+    filter: opacity(80%);
+}
+
 .inside-bet.black {
     background-color: black;
+}
+
+.gameboard:not([disabled]) .inside-bet.black:hover {
+    filter: opacity(90%);
 }
 
 .outside-bet {
     color: #000;
     background-color: transparent;
+}
+
+.gameboard:not([disabled]) .outside-bet:hover {
+    scale: 1.05;
 }
 
 .outside-bet.dozen {
@@ -88,6 +113,10 @@
     grid-row: span 1;
 
     font-size: 1.15rem;
+}
+
+.gameboard:not([disabled]) .outside-bet.column:hover {
+    scale: 1.05;
 }
 
 .outside-bet.range {
