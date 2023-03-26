@@ -1,0 +1,15 @@
+@import '/assets/styles/reset.css';
+@import '/assets/styles/main.css';
+
+:host {
+    display: block;
+}
+
+#roulette-board-app-container {
+    margin-block-start: 2rem;
+}
+
+.notification {
+    text-align: center;
+    margin-block: 1rem;
+}

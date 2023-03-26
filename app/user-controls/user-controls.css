@@ -1,0 +1,49 @@
+@import '/assets/styles/reset.css';
+@import '/assets/styles/main.css';
+
+:host {
+    display: block;
+}
+
+.user-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .75rem;
+
+    inline-size: 500px;
+    margin-block-start: 1rem 3rem;
+    margin-inline: auto;
+}
+
+/* Buttons */
+
+.btn {
+    cursor: pointer;
+    transition: all .4s ease-in-out;
+
+    min-inline-size: 48px;
+    aspect-ratio: 1 / 1;
+}
+
+.btn:is(.disabled, :disabled) {
+    filter: contrast(70%) opacity(70%);
+    cursor: default;
+}
+
+.btn:not(:is(.disabled, :disabled)):hover {
+    transform: scale(1.1);
+}
+
+/* Chips */
+
+.chips {
+    flex-grow: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+
+    margin-inline-start: 15%;
+}

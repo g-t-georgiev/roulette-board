@@ -1,0 +1,19 @@
+:root {
+    --bg-color: #f5f1f0;
+    --txt-color: #222;
+}
+
+html {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+body {
+    color: var(--txt-color);
+    background-color: var(--bg-color);
+}
+
+h1, h2, h3, h4 {
+    font-weight: 400;
+}

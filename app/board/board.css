@@ -1,0 +1,18 @@
+@import '/assets/styles/reset.css';
+@import '/assets/styles/main.css';
+
+:host {
+    display: block;
+}
+
+#roulette-board-area {
+    position: relative;
+
+    max-inline-size: 700px;
+    min-block-size: 175px;
+
+    border: 2px solid #000;
+
+    margin-block: 5rem 3rem;
+    margin-inline: auto;
+}

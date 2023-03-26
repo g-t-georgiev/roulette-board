@@ -1,0 +1,38 @@
+@import '/assets/styles/reset.css';
+@import '/assets/styles/main.css';
+
+:host {
+    display: none;
+    position: absolute;
+
+    inline-size: 23px;
+    aspect-ratio: 1 / 1;
+
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 23px;
+    text-align: center;
+
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+:host([chip-id]) {
+    display: inline-block;
+}
+
+:host([chip-id="1"]) {
+    background-image: url("/assets/images/chip-background-1.png");
+}
+
+:host([chip-id="2"]) {
+    background-image: url("/assets/images/chip-background-2.png");
+}
+
+:host([chip-id="3"]) {
+    background-image: url("/assets/images/chip-background-3.png");
+}
+
+:host::before {
+    content: attr(chip-value);
+}
