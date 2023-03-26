@@ -60,7 +60,7 @@ export class RouletteBoard extends HTMLElement {
         this.#template.innerHTML = `
             <link rel="stylesheet" href="/app/board/board.css" />
             
-            <section class="gameboard" id="roulette-board-area">
+            <section class="gameboard" id="roulette-board-area" disabled>
                 <article class="bet inside-bet zero">0</article>
                 <article class="bet inside-bet straight-up odd red">3</article>
                 <article class="bet inside-bet straight-up even black">6</article>
@@ -181,7 +181,9 @@ export class RouletteBoard extends HTMLElement {
                     this.#cursorMetaInfo.selected = selected;
                     this.#cursor = selected ? document.createElement('roulette-cursor') : null;
 
-                    //TODO: Toggle lock/unlock betting functionality
+                    // Toggle game board effects
+                    const gameboard = this.#shadowRoot.querySelector('.gameboard');
+                    gameboard.toggleAttribute('disabled', !selected);
                 }, 
                 this
             );
