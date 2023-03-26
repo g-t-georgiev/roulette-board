@@ -61,7 +61,6 @@ export class RouletteBoard extends HTMLElement {
             <link rel="stylesheet" href="/app/board/board.css" />
             
             <section class="gameboard" id="roulette-board-area">
-
                 <article class="bet inside-bet zero">0</article>
                 <article class="bet inside-bet straight-up odd red">3</article>
                 <article class="bet inside-bet straight-up even black">6</article>
@@ -111,7 +110,6 @@ export class RouletteBoard extends HTMLElement {
                 <article class="bet outside-bet black">Black</article>
                 <article class="bet outside-bet odd">Odd</article>
                 <article class="bet outside-bet range">19&nbsp;&ndash;&nbsp;36</article>
-                
             </section>`.trim();
     }
 
@@ -151,8 +149,12 @@ export class RouletteBoard extends HTMLElement {
     _cursorMoveHandler(e) {
         if (!this.#cursor) return;
 
-        this.#cursor.style.setProperty('top', `${e.offsetY + 15}px`);
-        this.#cursor.style.setProperty('left', `${e.offsetX + 15}px`);
+        const cursorOffsetY = e.pageY - 130;
+        const cursorOffsetX = e.pageX - 220;
+        // console.log(cursorOffsetY, cursorOffsetX);
+
+        this.#cursor.style.setProperty('top', `${cursorOffsetY}px`);
+        this.#cursor.style.setProperty('left', `${cursorOffsetX}px`);
     }
 
     connectedCallback() {
