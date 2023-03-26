@@ -13,8 +13,8 @@
 .chip {
     position: relative;
 
-    inline-size: 70px;
-    block-size: 70px;
+    inline-size: 90px;
+    aspect-ratio: 1 / 1;
 
     opacity: .5;
     overflow: hidden;
