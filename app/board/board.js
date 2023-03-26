@@ -36,8 +36,6 @@ export class RouletteBoard extends HTMLElement {
     /**
      * Cleans up previous cursor element occurences and 
      * adds newly passed element to the board game area.
-     * Validates if new value is an instance of RouletteCursor or null and throws
-     * TypeError on every other occasion.
      */
     set #cursor(el) {
         this.#rouletteBoardArea.querySelectorAll('roulette-cursor')
