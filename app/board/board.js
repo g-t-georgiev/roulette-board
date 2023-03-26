@@ -4,10 +4,15 @@ import EventBus from '../services/eventBus.js';
 
 customElements.define('roulette-cursor', RouletteCursor);
 
-// Roulette wheel numbers sequence
 // Ranges 1-10 and 19-28 odd numbers are red, even numbers are black
 // Ranges 11-18 and 29-36 odd numbers are black, even numbers are red 
-// 0 32 15 19 4 21 2 25 17 34 6 27 13 36 11 30 8 23 10 5 24 16 33 1 20 14 31 9 22 18 29 7 28 12 35 3 26
+const numSequence =  new Set([ 
+    0, 32, 15, 19, 4, 21,  
+    2, 25, 17, 34, 6, 27, 13, 36, 
+    11, 30, 8, 23, 10, 5, 24, 
+    16, 33, 1, 20, 14, 31, 9, 
+    22, 18, 29, 7, 28, 12, 35, 3, 26 
+]);
 
 export class RouletteBoard extends HTMLElement {
 
@@ -79,6 +84,8 @@ export class RouletteBoard extends HTMLElement {
             </style>
             
             <section id="roulette-board-area"></section>`.trim();
+
+
     }
 
     /**
