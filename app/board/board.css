@@ -8,11 +8,100 @@
 #roulette-board-area {
     position: relative;
 
-    max-inline-size: 700px;
-    min-block-size: 175px;
+    display: grid;
+    grid-template-columns: 3fr repeat(13, 2fr);
+    grid-template-rows: repeat(5, 1fr);
 
-    border: 2px solid #000;
+    max-inline-size: 900px;
+    min-block-size: 300px;
 
     margin-block: 5rem 3rem;
     margin-inline: auto;
+}
+
+.bet {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1rem;
+    font-weight: 500;
+
+    border: 1px solid black;
+}
+
+.inside-bet {
+    grid-column: span 1;
+    grid-row: span 1;
+
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.inside-bet.zero {
+    grid-column: 1 / span 1;
+    grid-row: span 3;
+
+    border-top-left-radius: 15rem;
+    border-bottom-left-radius: 15rem;
+
+    font-size: 2rem;
+
+    background-color: green;
+}
+
+.inside-bet.red {
+    background-color: red;
+}
+
+.inside-bet.black {
+    background-color: black;
+}
+
+.outside-bet {
+    color: #000;
+    background-color: transparent;
+}
+
+.outside-bet.dozen {
+    grid-row: span 1;
+
+    font-size: 1.2rem;
+}
+
+.outside-bet.dozen:nth-child(41) {
+    grid-column: 2 / span 4;
+}
+
+.outside-bet.dozen:nth-child(42) {
+    grid-column: 6 / span 4;
+}
+
+.outside-bet.dozen:nth-child(43) {
+    grid-column: 10 / span 4;
+}
+
+.outside-bet.column {
+    grid-column: -2 / span 1;
+    grid-row: span 1;
+
+    font-size: 1.15rem;
+}
+
+.outside-bet.range {
+    font-size: 1.15rem;
+}
+
+.outside-bet.range:nth-child(44) {
+    grid-column: 2 / span 2;
+}
+
+.outside-bet.outside-bet.range:nth-child(49) {
+    grid-column: -4 / span 2;
+}
+
+.outside-bet:is(.black, .red, .even, .odd) {
+    grid-column: span 2;
+
+    font-size: 1.15rem;
 }
