@@ -60,9 +60,9 @@ export class RouletteBoard extends HTMLElement {
 
     #render() {
         this.#template.innerHTML = `
-            <!-- <link rel="stylesheet" href="/app/board/board.css" /> -->
+            <link rel="stylesheet" href="/app/board/board.css" />
             
-            <style>
+            <!-- <style>
                 @import '/assets/styles/reset.css';
                 @import '/assets/styles/main.css';
 
@@ -81,7 +81,7 @@ export class RouletteBoard extends HTMLElement {
                     margin-block: 5rem 3rem;
                     margin-inline: auto;
                 }
-            </style>
+            </style> -->
             
             <section id="roulette-board-area"></section>`.trim();
 
