@@ -42,11 +42,7 @@ export class RouletteChip extends HTMLElement {
             this.#selected = !this.#selected;
         }
 
-        if (this.#selected) {
-            this.setAttribute('selected', this.#selected);
-        } else {
-            this.removeAttribute('selected');
-        }
+        this.toggleAttribute('selected', this.#selected);
     }
 
     /**
