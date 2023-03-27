@@ -1,4 +1,10 @@
+import EventBus from "../../services/event-bus.js";
+import BetManager from "../../services/bet-manager.js";
+
 export class RouletteDoubleButton extends HTMLButtonElement {
+
+    #betPlacedSubscription;
+    #betsClearedSubscription;
     
     constructor() {
         super();
@@ -12,7 +18,9 @@ export class RouletteDoubleButton extends HTMLButtonElement {
             return;
         }
         
-        console.log('Double bets button clicked!');
+        // console.log('Double bets button clicked!');
+        BetManager.doubleBets();
+        EventBus.publish('roulette:betsdoubled');
     }
 
     connectedCallback() {
@@ -20,7 +28,25 @@ export class RouletteDoubleButton extends HTMLButtonElement {
         if (!this.rendered) {
             this.rendered = true;
             // console.log('Double button component rendered!');
+
             this.addEventListener('pointerdown', this._clickHandler);
+
+            this.#betPlacedSubscription = EventBus.subscribe(
+                'roulette:betplaced', 
+                (slot, chip) => {
+                    // console.log(slot, chip);
+                    if (!this.disabled) return;
+
+                    this.disabled = false;
+                }
+            );
+
+            this.#betsClearedSubscription = EventBus.subscribe(
+                'roulette:betscleared',
+                () => {
+                    this.disabled = true;
+                }
+            );
         }
 
     }
@@ -28,23 +54,8 @@ export class RouletteDoubleButton extends HTMLButtonElement {
     disconnectedCallback() {
         // console.log('Double button component removed!');
         this.removeEventListener('pointerdown', this._clickHandler);
-    }
-
-    static get observedAttributes() {
-        return [ 'disabled' ];
-    }
-
-    attributeChangedCallback(name, oldValue, newValue) {
-        // console.log(`Attribute "${name}" changed from "${oldValue}" to "${newValue}"`);
-
-        if (oldValue === newValue) {
-            return;
-        }
-
-        if (name === 'disabled') {
-            this.classList.toggle('disabled', this.disabled);
-        }
-
+        this.#betPlacedSubscription?.unsubscribe();
+        this.#betsClearedSubscription?.unsubscribe();
     }
 
 }
