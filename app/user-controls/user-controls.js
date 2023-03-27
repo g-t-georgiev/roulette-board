@@ -58,8 +58,7 @@ export class RouletteUserControls extends HTMLElement {
     }
 
     /**
-     * Manage custom events about selected chip and toggle 
-     * chip components' active class and selected property accordingly.
+     * Manage custom events about selected chip.
      * @param {CustomEvent<{ chipId: string, value: string, selected: boolean }>} e 
      */
     _chipSelectHandler(e) {
