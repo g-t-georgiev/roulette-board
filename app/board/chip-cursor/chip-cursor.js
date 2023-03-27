@@ -9,7 +9,46 @@ export class RouletteCursor extends HTMLElement {
     }
 
     #render() {
-        this.#template.innerHTML = `<link rel="stylesheet" href="/app/board/chip-cursor/chip-cursor.css" />`.trim();
+        this.#template.innerHTML = `
+            <!-- <link rel="stylesheet" href="/app/board/chip-cursor/chip-cursor.css" /> -->
+        
+            <style>
+                :host {
+                    display: inline-block;
+                    position: absolute;
+                
+                    inline-size: 23px;
+                    aspect-ratio: 1 / 1;
+                
+                    font-size: 12px;
+                    font-weight: 700;
+                    line-height: 23px;
+                    text-align: center;
+                
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                }
+                
+                :host([disabled]) {
+                    display: none;
+                }
+                
+                :host([chip-id="1"]) {
+                    background-image: url("/assets/images/chip-background-1.png");
+                }
+                
+                :host([chip-id="2"]) {
+                    background-image: url("/assets/images/chip-background-2.png");
+                }
+                
+                :host([chip-id="3"]) {
+                    background-image: url("/assets/images/chip-background-3.png");
+                }
+                
+                :host::before {
+                    content: attr(chip-value);
+                }
+            </style>`.trim();
     }
 
     /**
