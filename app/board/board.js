@@ -147,10 +147,14 @@ export class RouletteBoard extends HTMLElement {
     _cursorMoveHandler(e) {
         if (!this.#cursor) return;
 
+        // Calculated position based on cursor 
+        // position inside the game board component
         const cursorOffsetY = (e.clientY - this.#rouletteBoardArea.offsetTop) * 100 / this.#rouletteBoardArea.offsetHeight;
         const cursorOffsetX = (e.clientX - this.#rouletteBoardArea.offsetLeft) * 100 / this.#rouletteBoardArea.offsetWidth;
         // console.log(cursorOffsetY, cursorOffsetX);
 
+        // Apply cursor positioning through inline styles, 
+        // setting top and left offsets with extra spacing around. 
         this.#cursor.style.setProperty('top', `${cursorOffsetY + 3}%`);
         this.#cursor.style.setProperty('left', `${cursorOffsetX + 2}%`);
     }
