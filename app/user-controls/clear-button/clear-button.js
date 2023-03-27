@@ -1,4 +1,9 @@
+import EventBus from "../../services/event-bus.js";
+import BetManager from "../../services/bet-manager.js";
+
 export class RouletteClearButton extends HTMLButtonElement {
+
+    #subscription;
     
     constructor() {
         super();
@@ -12,7 +17,14 @@ export class RouletteClearButton extends HTMLButtonElement {
             return;
         }
 
-        console.log('Clear button clicked!');
+        // console.log('Clear button clicked!');
+        const success = BetManager.clearBets();
+        // console.log(success);
+
+        if (success) {
+            this.disabled = success;
+            EventBus.publish('roulette:betscleared');
+        }
     }
 
     connectedCallback() {
@@ -21,6 +33,12 @@ export class RouletteClearButton extends HTMLButtonElement {
             this.rendered = true;
             // console.log('Clear button component rendered!');
             this.addEventListener('pointerdown', this._clickHandler);
+            this.#subscription = EventBus.subscribe('roulette:betplaced', (slot, chip) => {
+                // console.log(slot, chip);
+                if (!this.disabled) return;
+
+                this.disabled = false;
+            });
         }
 
     }
@@ -28,23 +46,7 @@ export class RouletteClearButton extends HTMLButtonElement {
     disconnectedCallback() {
         // console.log('Clear button component removed!');
         this.removeEventListener('pointerdown', this._clickHandler);
-    }
-
-    static get observedAttributes() {
-        return [ 'disabled' ];
-    }
-
-    attributeChangedCallback(name, oldValue, newValue) {
-        // console.log(`Attribute "${name}" changed from "${oldValue}" to "${newValue}"`);
-        
-        if (oldValue === newValue) {
-            return;
-        }
-
-        if (name === 'disabled') {
-            this.classList.toggle('disabled', this.disabled);
-        }
-
+        this.#subscription?.unsubscribe();
     }
 
 }
