@@ -19,14 +19,14 @@ export class RouletteBoard extends HTMLElement {
     #subscription;
 
     /**
-     * @type HTMLElement
+     * @type HTMLElement | null
      */
-    #gameboard;
+    #gameboard = null;
 
     /**
-     * @type RouletteCursor
+     * @type RouletteCursor | null
      */
-    #cursor;
+    #cursor = null;
 
     constructor() {
         super();
@@ -126,10 +126,10 @@ export class RouletteBoard extends HTMLElement {
      * @param {PointerEvent} e 
      */
     _cursorMoveHandler(e) {
-        if (!this.#cursor) return;
+        if (!this.#cursor || !this.#gameboard) return;
 
-        const y = (e.clientY - this.#gameboard.offsetTop) * 100 / this.#gameboard.offsetHeight;
-        const x = (e.clientX - this.#gameboard.offsetLeft) * 100 / this.#gameboard.offsetWidth;
+        const y = (e.clientY - this.#gameboard?.offsetTop) * 100 / this.#gameboard?.offsetHeight;
+        const x = (e.clientX - this.#gameboard?.offsetLeft) * 100 / this.#gameboard?.offsetWidth;
         // console.log(x, y);
         this.#cursor.move(x, y);
     }
@@ -143,9 +143,9 @@ export class RouletteBoard extends HTMLElement {
             this.#shadowRoot.append(this.#template.content.cloneNode(true));
 
             this.#gameboard = this.#shadowRoot.querySelector('#roulette-board-area');
-            this.#gameboard.addEventListener('pointerenter', this._cursorEnterHandler);
-            this.#gameboard.addEventListener('pointerleave', this._cursorLeaveHandler);
-            this.#gameboard.addEventListener('pointermove', this._cursorMoveHandler);
+            this.#gameboard?.addEventListener('pointerenter', this._cursorEnterHandler);
+            this.#gameboard?.addEventListener('pointerleave', this._cursorLeaveHandler);
+            this.#gameboard?.addEventListener('pointermove', this._cursorMoveHandler);
 
             this.#subscription = EventBus.subscribe(
                 'roulette:chipselect', 
@@ -159,7 +159,7 @@ export class RouletteBoard extends HTMLElement {
 
                         if (!this.#cursor) {
                             this.#cursor = document.createElement('roulette-cursor');
-                            this.#gameboard.append(this.#cursor);
+                            this.#gameboard?.append(this.#cursor);
                         }
 
                         this.#cursor.init(chipId, value);                        
@@ -169,7 +169,7 @@ export class RouletteBoard extends HTMLElement {
                     }
                     
                     // Toggle gameboard interaction effects
-                    this.#gameboard.toggleAttribute('disabled', !selected);
+                    this.#gameboard?.toggleAttribute('disabled', !selected);
                 }, 
                 this
             );
@@ -178,9 +178,9 @@ export class RouletteBoard extends HTMLElement {
 
     disconnectedCallback() {
         // console.log('Roulette board component is removed!');
-        this.#gameboard.removeEventListener('pointerenter', this._cursorEnterHandler);
-        this.#gameboard.removeEventListener('pointerleave', this._cursorLeaveHandler);
-        this.#gameboard.removeEventListener('pointermove', this._cursorMoveHandler);
+        this.#gameboard?.removeEventListener('pointerenter', this._cursorEnterHandler);
+        this.#gameboard?.removeEventListener('pointerleave', this._cursorLeaveHandler);
+        this.#gameboard?.removeEventListener('pointermove', this._cursorMoveHandler);
         this.#subscription.unsubscribe();
     }
 
