@@ -41,55 +41,60 @@ export class RouletteBoard extends HTMLElement {
             <link rel="stylesheet" href="/app/board/board.css" />
             
             <section class="gameboard" id="roulette-board-area" disabled>
-                <article class="bet inside-bet zero">0</article>
-                <article class="bet inside-bet straight-up odd red">3</article>
-                <article class="bet inside-bet straight-up even black">6</article>
-                <article class="bet inside-bet straight-up odd red">9</article>
-                <article class="bet inside-bet straight-up even red">12</article>
-                <article class="bet inside-bet straight-up odd black">15</article>
-                <article class="bet inside-bet straight-up even red">18</article>
-                <article class="bet inside-bet straight-up odd red">21</article>
-                <article class="bet inside-bet straight-up even black">24</article>
-                <article class="bet inside-bet straight-up odd red">27</article>
-                <article class="bet inside-bet straight-up even red">30</article>
-                <article class="bet inside-bet straight-up odd black">33</article>
-                <article class="bet inside-bet straight-up even red">36</article>
-                <article class="bet outside-bet column">2:1</article>
-                <article class="bet inside-bet straight-up even black">2</article>
-                <article class="bet inside-bet straight-up odd red">5</article>
-                <article class="bet inside-bet straight-up even black">8</article>
-                <article class="bet inside-bet straight-up odd black">11</article>
-                <article class="bet inside-bet straight-up even red">14</article>
-                <article class="bet inside-bet straight-up odd black">17</article>
-                <article class="bet inside-bet straight-up even black">20</article>
-                <article class="bet inside-bet straight-up odd red">23</article>
-                <article class="bet inside-bet straight-up even black">26</article>
-                <article class="bet inside-bet straight-up odd black">29</article>
-                <article class="bet inside-bet straight-up even red">32</article>
-                <article class="bet inside-bet straight-up odd black">35</article>
-                <article class="bet outside-bet column">2:1</article>
-                <article class="bet inside-bet straight-up odd red">1</article>
-                <article class="bet inside-bet straight-up even black">4</article>
-                <article class="bet inside-bet straight-up odd red">7</article>
-                <article class="bet inside-bet straight-up even black">10</article>
-                <article class="bet inside-bet straight-up odd black">13</article>
-                <article class="bet inside-bet straight-up even red">16</article>
-                <article class="bet inside-bet straight-up odd red">19</article>
-                <article class="bet inside-bet straight-up even black">22</article>
-                <article class="bet inside-bet straight-up odd red">25</article>
-                <article class="bet inside-bet straight-up even black">28</article>
-                <article class="bet inside-bet straight-up odd black">31</article>
-                <article class="bet inside-bet straight-up even red">34</article>
-                <article class="bet outside-bet column">2:1</article>
-                <article class="bet outside-bet dozen">1st&nbsp;12</article>
-                <article class="bet outside-bet dozen">2nd&nbsp;12</article>
-                <article class="bet outside-bet dozen">3rd&nbsp;12</article>
-                <article class="bet outside-bet range">1&nbsp;&ndash;&nbsp;18</article>
-                <article class="bet outside-bet even">Even</article>
-                <article class="bet outside-bet red">Red</article>
-                <article class="bet outside-bet black">Black</article>
-                <article class="bet outside-bet odd">Odd</article>
-                <article class="bet outside-bet range">19&nbsp;&ndash;&nbsp;36</article>
+                <!-- 1st row -->
+                <div class="bet inside-bet zero">0</div>
+                <div class="bet inside-bet straight-up odd red">3</div>
+                <div class="bet inside-bet straight-up even black">6</div>
+                <div class="bet inside-bet straight-up odd red">9</div>
+                <div class="bet inside-bet straight-up even red">12</div>
+                <div class="bet inside-bet straight-up odd black">15</div>
+                <div class="bet inside-bet straight-up even red">18</div>
+                <div class="bet inside-bet straight-up odd red">21</div>
+                <div class="bet inside-bet straight-up even black">24</div>
+                <div class="bet inside-bet straight-up odd red">27</div>
+                <div class="bet inside-bet straight-up even red">30</div>
+                <div class="bet inside-bet straight-up odd black">33</div>
+                <div class="bet inside-bet straight-up even red">36</div>
+                <div class="bet outside-bet column">2:1</div>
+                <!-- 2nd row -->
+                <div class="bet inside-bet straight-up even black">2</div>
+                <div class="bet inside-bet straight-up odd red">5</div>
+                <div class="bet inside-bet straight-up even black">8</div>
+                <div class="bet inside-bet straight-up odd black">11</div>
+                <div class="bet inside-bet straight-up even red">14</div>
+                <div class="bet inside-bet straight-up odd black">17</div>
+                <div class="bet inside-bet straight-up even black">20</div>
+                <div class="bet inside-bet straight-up odd red">23</div>
+                <div class="bet inside-bet straight-up even black">26</div>
+                <div class="bet inside-bet straight-up odd black">29</div>
+                <div class="bet inside-bet straight-up even red">32</div>
+                <div class="bet inside-bet straight-up odd black">35</div>
+                <div class="bet outside-bet column">2:1</div>
+                <!-- 3rd row -->
+                <div class="bet inside-bet straight-up odd red">1</div>
+                <div class="bet inside-bet straight-up even black">4</div>
+                <div class="bet inside-bet straight-up odd red">7</div>
+                <div class="bet inside-bet straight-up even black">10</div>
+                <div class="bet inside-bet straight-up odd black">13</div>
+                <div class="bet inside-bet straight-up even red">16</div>
+                <div class="bet inside-bet straight-up odd red">19</div>
+                <div class="bet inside-bet straight-up even black">22</div>
+                <div class="bet inside-bet straight-up odd red">25</div>
+                <div class="bet inside-bet straight-up even black">28</div>
+                <div class="bet inside-bet straight-up odd black">31</div>
+                <div class="bet inside-bet straight-up even red">34</div>
+                <div class="bet outside-bet column">2:1</div>
+                <!-- 4th row -->
+                <div class="bet outside-bet dozen">1st&nbsp;12</div>
+                <div class="bet outside-bet dozen">2nd&nbsp;12</div>
+                <div class="bet outside-bet dozen">3rd&nbsp;12</div>
+                <!-- 5th row -->
+                <div class="bet outside-bet range">1&nbsp;&ndash;&nbsp;18</div>
+                <div class="bet outside-bet even">Even</div>
+                <div class="bet outside-bet red">Red</div>
+                <div class="bet outside-bet black">Black</div>
+                <div class="bet outside-bet odd">Odd</div>
+                <div class="bet outside-bet range">19&nbsp;&ndash;&nbsp;36</div>
             </section>`.trim();
     }
 
