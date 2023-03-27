@@ -17,9 +17,9 @@ export class PubSub {
      * invoked on each event with the specific type is emitted and an optional third argument, 
      * which when presented serves as execution context (this) for the handler callback.
      * @param {string} evntType event type name
-     * @param {(...args: any[]) => void} handler subscriber callback invoked on each event emitted
-     * @param {any} [thisArg] if present is used as this for the handler
-     * @returns {{ unsubscribe: () => void }} object exposing unsunscribe functionality
+     * @param {(...args: any[]) => void} handler Subscriber callback invoked on each event emitted
+     * @param {any} [thisArg] If present is used as this for the handler
+     * @returns {{ unsubscribe: () => void }} Object exposing unsubscribe functionality
      */
     subscribe(evntType, handler, thisArg) {
         const id = Symbol("id");
@@ -46,8 +46,8 @@ export class PubSub {
 
     /**
      * Emits an event of certain type with arguments to be passed down to the subscribers.
-     * @param {string} evntType event type name
-     * @param  {...any} args arguments list to be passed to subscribers
+     * @param {string} evntType Event type name
+     * @param  {...any} args Arguments list to be passed to subscribers
      * @returns {void}
      */
     publish(evntType, ...args) {
