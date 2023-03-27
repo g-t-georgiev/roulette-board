@@ -2,7 +2,7 @@
 @import '/assets/styles/main.css';
 
 :host {
-    display: none;
+    display: inline-block;
     position: absolute;
 
     inline-size: 23px;
@@ -17,8 +17,8 @@
     background-size: contain;
 }
 
-:host([chip-id]) {
-    display: inline-block;
+:host([disabled]) {
+    display: none;
 }
 
 :host([chip-id="1"]) {
