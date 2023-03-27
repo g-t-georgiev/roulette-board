@@ -2,9 +2,9 @@
  * Contains reference to all gameboard slots, as map keys,
  * and a list of corresponding chip objects, with their 
  * respective id and value properties, as map values.
- * @type {WeakMap<HTMLElement, { id: string, value: string }[]>}
+ * @type {Map<HTMLElement, { id: string, value: string }[]>}
  */
-const bets = new WeakMap();
+const bets = new Map();
 
 /**
  * Stores the currently selected chip.
@@ -51,6 +51,9 @@ function placeBet(slot, chip) {
 
     const slotBets = bets.get(slot);
     slotBets.push(chip);
+    // console.log(slotBets);
+    bets.set(slot, slotBets);
+    // console.log(bets.get(slot));
 }
 
 /**
@@ -68,6 +71,7 @@ function undoLastBet(slot) {
 
     if (slotBets.length > 0) {
         slotBets.pop();
+        bets.set(slot, slotBets);
         return true;
     }
     
@@ -81,41 +85,34 @@ function undoLastBet(slot) {
  * false if slot was empty already prior to the method invokation.
  * @param {HTMLElement} slot 
  */
-function clearBets(slot) {
-    if (!bets.has(slot)) {
-        throw new Error('Cannot clear bets from unregistered slot.');
-    }
+function clearBets() {
 
-    const slotBets = bets.get(slot);
+    let isEmpty;
 
-    if (slotBets.length > 0) {
-        slotBets.length = 0;
-        return true;
-    }
-    
-    return false;
+    bets.forEach((entries, key) => {
+        // console.log(key, entries);
+        if (entries.length > 0) {
+            // console.log(key, entries);
+            entries.length = 0;
+        }
+    });
+
+    isEmpty = Object.values(bets).every(entry => entry.length === 0);
+
+    return isEmpty;
 }
 
 /**
- * Doubles all bets in a slot. Throws error if 
- * unregistered slot is passed as argument.
- * Returns false if slot was empty prior to method invokation,
- * true if operation was successful.
+ * Doubles all bets on the board.
  * @param {HTMLElement} slot 
  */
-function doubleBets(slot) {
-    if (!bets.has(slot)) {
-        throw new Error('Cannot double bets from unregistered slot.');
-    }
-
-    const slotBets = bets.get(slot);
-
-    if (slotBets.length > 0) {
-        bets.set(slot, slotBets.concat(slotBets));
-        return true;
-    }
-    
-    return false;
+function doubleBets() {
+    bets.forEach((entries, key) => {
+        if (entries.length > 0) {
+            bets.set(key, entries.concat(entries));
+            // console.log(bets.get(key));
+        }
+    });
 }
 
 /**
