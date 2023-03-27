@@ -1,5 +1,6 @@
 import { RouletteCursor } from './chip-cursor/chip-cursor.js';
 import EventBus from '../services/event-bus.js';
+import BetManager from '../services/bet-manager.js';
 
 customElements.define('roulette-cursor', RouletteCursor);
 
@@ -162,10 +163,16 @@ export class RouletteBoard extends HTMLElement {
                             this.#gameboard?.append(this.#cursor);
                         }
 
-                        this.#cursor.init(chipId, value);                        
+                        this.#cursor.init(chipId, value);
+
+                        // Notify BetManager about the currently selected chip
+                        BetManager.updatePendingBet({ id: chipId, value });
                     } else {
                         this.#cursor?.remove();
                         this.#cursor = null;
+                        
+                        // Notify BetManager about the currently selected chip
+                        BetManager.updatePendingBet(null);
                     }
                     
                     // Toggle gameboard interaction effects
