@@ -10,7 +10,8 @@ export class RouletteChip extends HTMLElement {
     #value = this.getAttribute('value');
     #selected = this.hasAttribute('selected');
 
-    #subscription;
+    #chipSelectSubscription;
+    #betPlacedSubscription;
     
     constructor() {
         super();
@@ -74,12 +75,24 @@ export class RouletteChip extends HTMLElement {
             this.addEventListener('pointerdown', this._clickHandler);
             this.#shadowRoot.append(this.#template.content.cloneNode(true));
 
-            this.#subscription = EventBus.subscribe('roulette:chipselect', (chipId, value, selected) => {
+            this.#chipSelectSubscription = EventBus.subscribe('roulette:chipselect', (chipId, value, selected) => {
                 // console.log(chipId, value, selected);
 
                 if (chipId !== this.#chipId && this.#selected) {
                     this.#toggleSelectedState();
                 }
+            });
+
+            this.#betPlacedSubscription = EventBus.subscribe('roulette:betplaced', (slot, chip) => {
+                // console.log(slot, chip);
+
+                // If placed chip id does not match return early
+                if (this.#chipId !== chip.id) return;
+
+                // Otherwise toggle chip selection
+                // console.log(this.#selected);
+                this.#toggleSelectedState();
+                // console.log(this.#selected);
             });
 
             if (this.#selected) {
@@ -100,7 +113,8 @@ export class RouletteChip extends HTMLElement {
     disconnectedCallback() {
         // console.log('Chip component removed!');
         this.removeEventListener('pointerdown', this._clickHandler);
-        this.#subscription.unsubscribe();
+        this.#chipSelectSubscription?.unsubscribe();
+        this.#betPlacedSubscription?.unsubscribe();
     }
 
 }
