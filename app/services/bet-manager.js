@@ -99,8 +99,25 @@ function doubleBets(slot) {
     return false;
 }
 
+/**
+ * Deletes a slot by reference. If unregistered 
+ * slot reference is passed an error is thrown. 
+ * Returns true or false depending on if the delete 
+ * operation was successful.
+ * @param {HTMLElement} slot 
+ * @returns 
+ */
+function deleteSlot(slot) {
+    if (!bets.has(slot)) {
+        throw new Error('Cannot delete unregistered slot.');
+    }
+
+    return bets.delete(slot);
+}
+
 export default {
     register,
+    deleteSlot,
     placeBet,
     undoLastBet,
     clearBets,
