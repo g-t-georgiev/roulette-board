@@ -1,4 +1,4 @@
-import EventBus from '../../services/eventBus.js';
+import EventBus from '../../services/event-bus.js';
 import { customEventFactory } from '../../../utils/customEventFactory.js';
 
 export class RouletteChip extends HTMLElement {
@@ -84,7 +84,9 @@ export class RouletteChip extends HTMLElement {
 
             if (this.#selected) {
                 const detail = { chipId: this.#chipId, value: this.#value, selected: this.#selected };
-                const config = { bubbles: true, composed: true, detail };
+                // Add 'composed: true' if the event should penetrate the shadow DOM
+                // of the RouletteUserControls component (parent) in this case.
+                const config = { bubbles: true, composed: false, detail };
                 const event = customEventFactory('roulette:chipselect', config);
                 
                 Promise.all([
