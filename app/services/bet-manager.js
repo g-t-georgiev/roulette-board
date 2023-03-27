@@ -7,6 +7,13 @@
 const bets = new WeakMap();
 
 /**
+ * Stores the currently selected chip.
+ * Null if not chip has been selected.
+ * @type {{ id: string, value: string } | null}
+ */
+const pendingBet = null;
+
+/**
  * Registers a new slot. Throws an error if 
  * already registered slot reference is passed.
  * @param {HTMLElement} slot 
@@ -116,6 +123,7 @@ function deleteSlot(slot) {
 }
 
 export default {
+    pendingBet,
     registerSlot,
     deleteSlot,
     placeBet,
