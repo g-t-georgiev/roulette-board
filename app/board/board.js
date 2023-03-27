@@ -147,12 +147,12 @@ export class RouletteBoard extends HTMLElement {
     _cursorMoveHandler(e) {
         if (!this.#cursor) return;
 
-        const cursorOffsetY = e.pageY - 130;
-        const cursorOffsetX = e.pageX - 470;
+        const cursorOffsetY = (e.clientY - this.#rouletteBoardArea.offsetTop) * 100 / this.#rouletteBoardArea.offsetHeight;
+        const cursorOffsetX = (e.clientX - this.#rouletteBoardArea.offsetLeft) * 100 / this.#rouletteBoardArea.offsetWidth;
         // console.log(cursorOffsetY, cursorOffsetX);
 
-        this.#cursor.style.setProperty('top', `${cursorOffsetY}px`);
-        this.#cursor.style.setProperty('left', `calc(${cursorOffsetX}px)`);
+        this.#cursor.style.setProperty('top', `${cursorOffsetY + 3}%`);
+        this.#cursor.style.setProperty('left', `${cursorOffsetX + 2}%`);
     }
 
     connectedCallback() {
