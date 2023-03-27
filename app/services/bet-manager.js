@@ -11,7 +11,19 @@ const bets = new WeakMap();
  * Null if not chip has been selected.
  * @type {{ id: string, value: string } | null}
  */
-const pendingBet = null;
+let pendingBet = null;
+
+/**
+ * Updates pending bet with the currently selected chip.
+ * @param {{ id: string, value: string } | null} chip 
+ */
+function updatePendingBet(chip) {
+    pendingBet = chip;
+}
+
+function getPendingBet() {
+    return pendingBet;
+}
 
 /**
  * Registers a new slot. Throws an error if 
@@ -123,7 +135,8 @@ function deleteSlot(slot) {
 }
 
 export default {
-    pendingBet,
+    updatePendingBet, 
+    getPendingBet,
     registerSlot,
     deleteSlot,
     placeBet,
