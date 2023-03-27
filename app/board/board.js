@@ -6,11 +6,11 @@ customElements.define('roulette-cursor', RouletteCursor);
 // Ranges 1-10 and 19-28 odd numbers are red, even numbers are black;
 // Ranges 11-18 and 29-36 odd numbers are black, even numbers are red;
 
-export const numSequence =  new Set([ 
-    0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 
-    11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 
-    22, 18, 29, 7, 28, 12, 35, 3, 26 
-]);
+// new Set([ 
+//     0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 
+//     11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 
+//     22, 18, 29, 7, 28, 12, 35, 3, 26 
+// ]);
 
 export class RouletteBoard extends HTMLElement {
 
@@ -21,30 +21,12 @@ export class RouletteBoard extends HTMLElement {
     /**
      * @type HTMLElement
      */
-    #rouletteBoardArea;
-
-    #cursorMetaInfo = Object.preventExtensions({
-        chipId: null,
-        value: null,
-        selected: false
-    });
-
-    get #cursor() {
-        return this.#rouletteBoardArea.querySelector('roulette-cursor');
-    }
+    #gameboard;
 
     /**
-     * Cleans up previous cursor element occurences and 
-     * adds newly passed element to the board game area.
+     * @type RouletteCursor
      */
-    set #cursor(el) {
-        this.#rouletteBoardArea.querySelectorAll('roulette-cursor')
-            .forEach(cursor => cursor.remove());
-
-        if (el != null) {
-            this.#rouletteBoardArea.append(el);
-        }
-    }
+    #cursor;
 
     constructor() {
         super();
@@ -112,51 +94,39 @@ export class RouletteBoard extends HTMLElement {
     }
 
     /**
-     * Manages pointer enter events inside roulette board component.
-     * Attaches chip-id and chip-value attributes to cursor component if presented.
-     * @param {PointerEvent} e 
-     * @returns {void}
+     * Manages pointer enter events inside gameboard component. 
+     * Toggle the styles for displaying of the chip icon upon entering 
+     * of mouse cursor inside the boundaries of the gameboard component.
      */
-    _cursorEnterHandler(e) {
+    _cursorEnterHandler() {
         if (!this.#cursor) return;
 
-        this.#cursor.setAttribute('chip-id', this.#cursorMetaInfo.chipId);
-        this.#cursor.setAttribute('chip-value', this.#cursorMetaInfo.value);
+        this.#cursor.show();
     }
 
     /**
-     * Manages pointer leave events inside roulette board component.
-     * Detaches chip-id and chip-value attributes from cursor component if presented.
-     * @param {PointerEvent} e 
-     * @returns {void}
+     * Manages pointer leave events inside gameboard component. 
+     * Toggle the styles for hiding chip icon upon leaving of mouse
+     * cursor beyond the boundaries of the gameboard component.
      */
-    _cursorLeaveHandler(e) {
+    _cursorLeaveHandler() {
         if (!this.#cursor) return;
 
-        this.#cursor.removeAttribute('style');
-        this.#cursor.removeAttribute('chip-id');
-        this.#cursor.removeAttribute('chip-value');
+        this.#cursor.hide();
     }
 
     /**
-     * Manages pointer move events inside roulette board component.
-     * Detaches chip-id and chip-value attributes from cursor component if presented.
+     * Manages pointer move events inside gameboard component. 
+     * Toggle the styles necessary for mouse tracking of the chip icon.
      * @param {PointerEvent} e 
-     * @returns {void}
      */
     _cursorMoveHandler(e) {
         if (!this.#cursor) return;
 
-        // Calculated position based on cursor 
-        // position inside the game board component
-        const cursorOffsetY = (e.clientY - this.#rouletteBoardArea.offsetTop) * 100 / this.#rouletteBoardArea.offsetHeight;
-        const cursorOffsetX = (e.clientX - this.#rouletteBoardArea.offsetLeft) * 100 / this.#rouletteBoardArea.offsetWidth;
-        // console.log(cursorOffsetY, cursorOffsetX);
-
-        // Apply cursor positioning through inline styles, 
-        // setting top and left offsets with extra spacing around. 
-        this.#cursor.style.setProperty('top', `${cursorOffsetY + 3}%`);
-        this.#cursor.style.setProperty('left', `${cursorOffsetX + 2}%`);
+        const y = (e.clientY - this.#gameboard.offsetTop) * 100 / this.#gameboard.offsetHeight;
+        const x = (e.clientX - this.#gameboard.offsetLeft) * 100 / this.#gameboard.offsetWidth;
+        // console.log(x, y);
+        this.#cursor.move(x, y);
     }
 
     connectedCallback() {
@@ -167,25 +137,34 @@ export class RouletteBoard extends HTMLElement {
             // console.log('Roulette board component is rendered!');
             this.#shadowRoot.append(this.#template.content.cloneNode(true));
 
-            this.#rouletteBoardArea = this.#shadowRoot.querySelector('#roulette-board-area');
-            this.#rouletteBoardArea.addEventListener('pointerenter', this._cursorEnterHandler);
-            this.#rouletteBoardArea.addEventListener('pointerleave', this._cursorLeaveHandler);
-            this.#rouletteBoardArea.addEventListener('pointermove', this._cursorMoveHandler);
+            this.#gameboard = this.#shadowRoot.querySelector('#roulette-board-area');
+            this.#gameboard.addEventListener('pointerenter', this._cursorEnterHandler);
+            this.#gameboard.addEventListener('pointerleave', this._cursorLeaveHandler);
+            this.#gameboard.addEventListener('pointermove', this._cursorMoveHandler);
 
             this.#subscription = EventBus.subscribe(
                 'roulette:chipselect', 
                 (chipId, value, selected) => {
-                    // console.log(chipId, value, selected);
 
-                    // Toggle chip cursor logic
-                    this.#cursorMetaInfo.chipId = chipId;
-                    this.#cursorMetaInfo.value = value;
-                    this.#cursorMetaInfo.selected = selected;
-                    this.#cursor = selected ? document.createElement('roulette-cursor') : null;
+                    // Toggle chip cursor
+                    if (selected) {
+                        // Probably unnecessary preventative clean-up of all chip instances
+                        // before creating and appending new ones to the DOM
+                        // this.#gameboard.querySelectorAll('roulette-cursor').forEach(el => el.remove());
 
-                    // Toggle game board effects
-                    const gameboard = this.#shadowRoot.querySelector('.gameboard');
-                    gameboard.toggleAttribute('disabled', !selected);
+                        if (!this.#cursor) {
+                            this.#cursor = document.createElement('roulette-cursor');
+                            this.#gameboard.append(this.#cursor);
+                        }
+
+                        this.#cursor.init(chipId, value);                        
+                    } else {
+                        this.#cursor?.remove();
+                        this.#cursor = null;
+                    }
+                    
+                    // Toggle gameboard interaction effects
+                    this.#gameboard.toggleAttribute('disabled', !selected);
                 }, 
                 this
             );
@@ -194,9 +173,9 @@ export class RouletteBoard extends HTMLElement {
 
     disconnectedCallback() {
         // console.log('Roulette board component is removed!');
-        this.#rouletteBoardArea.removeEventListener('pointerenter', this._cursorEnterHandler);
-        this.#rouletteBoardArea.removeEventListener('pointerleave', this._cursorLeaveHandler);
-        this.#rouletteBoardArea.removeEventListener('pointermove', this._cursorMoveHandler);
+        this.#gameboard.removeEventListener('pointerenter', this._cursorEnterHandler);
+        this.#gameboard.removeEventListener('pointerleave', this._cursorLeaveHandler);
+        this.#gameboard.removeEventListener('pointermove', this._cursorMoveHandler);
         this.#subscription.unsubscribe();
     }
 
