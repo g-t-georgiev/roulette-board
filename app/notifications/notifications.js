@@ -1,13 +1,27 @@
 import EventBus from '../services/event-bus.js';
 
+const defaultTxt = 'Select a chip to start betting';
+
 export class RouletteNotifications extends HTMLHeadingElement {
 
-    #subscription;
+    // #timerId;
+
+    #chipSelectSubscription;
+    #betPlacedSubscription;
+    #betsClearedSubscription;
+    #betsDoubledSubscription;
 
     constructor() {
         super();
         this.rendered = false;
     }
+
+    // #resetTxt() {
+    //     this.#timerId = setTimeout(() => {
+    //         this.textContent = defaultTxt;
+    //         this.#timerId = null;
+    //     }, 1.2e3);
+    // }
 
     connectedCallback() {
 
@@ -15,7 +29,7 @@ export class RouletteNotifications extends HTMLHeadingElement {
             this.rendered = true;
             // console.log('Notifications component is rendered!');
 
-            this.#subscription = EventBus.subscribe(
+            this.#chipSelectSubscription = EventBus.subscribe(
                 'roulette:chipselect', 
                 (chipId, value, selected) => {
                     // console.log(chipId, value, selected);
@@ -25,15 +39,43 @@ export class RouletteNotifications extends HTMLHeadingElement {
                         return;
                     }
 
-                    this.textContent = 'Select a chip to start betting';
+                    this.textContent = defaultTxt;
                 },
                 this
+            );
+
+            this.#betPlacedSubscription = EventBus.subscribe(
+                'roulette:betplaced',
+                (slot, chip) => {
+                    // console.log(slot, chip);
+                    this.textContent = `You've placed a chip with value of ${chip.value} to ${slot.textContent}`;
+                    // this.#resetTxt();
+                }
+            );
+
+            this.#betsClearedSubscription = EventBus.subscribe(
+                'roulette:betscleared',
+                () => {
+                    this.textContent = 'You\'ve cleared all of your bets from the board';
+                    // this.#resetTxt();
+                }
+            );
+
+            this.#betsDoubledSubscription = EventBus.subscribe(
+                'roulette:betsdoubled',
+                () => {
+                    this.textContent = 'You\'ve doubled all of your bets on the board';
+                    // this.#resetTxt();
+                }
             );
         }
     }
 
     disconnectedCallback() {
         // console.log('Notifications component is removed!');
-        this.#subscription.unsubscribe();
+        this.#chipSelectSubscription?.unsubscribe();
+        this.#betPlacedSubscription?.unsubscribe();
+        this.#betsClearedSubscription?.unsubscribe();
+        this.#betsDoubledSubscription?.unsubscribe();
     }
 }
