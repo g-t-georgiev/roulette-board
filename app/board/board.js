@@ -1,5 +1,5 @@
 import { RouletteCursor } from './chip-cursor/chip-cursor.js';
-import EventBus from '../services/eventBus.js';
+import EventBus from '../services/event-bus.js';
 
 customElements.define('roulette-cursor', RouletteCursor);
 

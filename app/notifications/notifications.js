@@ -1,4 +1,4 @@
-import EventBus from '../services/eventBus.js';
+import EventBus from '../services/event-bus.js';
 
 export class RouletteNotifications extends HTMLHeadingElement {
 
