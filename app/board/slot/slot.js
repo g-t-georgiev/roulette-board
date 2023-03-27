@@ -12,7 +12,7 @@ export class RouletteSlot extends HTMLElement {
         if (!this.rendered) {
             this.rendered = true;
             console.log('Slot component was rendered!');
-            BetManager.register(this);
+            BetManager.registerSlot(this);
         }
 
     }
