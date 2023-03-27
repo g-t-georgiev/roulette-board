@@ -11,7 +11,7 @@ const bets = new WeakMap();
  * already registered slot reference is passed.
  * @param {HTMLElement} slot 
  */
-function register(slot) {
+function registerSlot(slot) {
     if (bets.has(slot)) {
         throw new Error('Cannot register a slot twice.');
     }
@@ -116,7 +116,7 @@ function deleteSlot(slot) {
 }
 
 export default {
-    register,
+    registerSlot,
     deleteSlot,
     placeBet,
     undoLastBet,
