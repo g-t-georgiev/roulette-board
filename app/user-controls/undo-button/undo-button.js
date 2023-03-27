@@ -1,4 +1,10 @@
+import EventBus from '../../services/event-bus.js';
+import BetManager from '../../services/bet-manager.js';
+
 export class RouletteUndoButton extends HTMLButtonElement {
+
+    #betPlacedSubscription;
+    #betsClearedSubscription;
     
     constructor() {
         super();
@@ -13,6 +19,7 @@ export class RouletteUndoButton extends HTMLButtonElement {
         }
 
         console.log('Undo button clicked!');
+        // BetManager.undoLastBet();
     }
 
     connectedCallback() {
@@ -20,7 +27,26 @@ export class RouletteUndoButton extends HTMLButtonElement {
         if (!this.rendered) {
             this.rendered = true;
             // console.log('Undo button component rendered!');
+
             this.addEventListener('pointerdown', this._clickHandler);
+
+            this.#betPlacedSubscription = EventBus.subscribe(
+                'roulette:betplaced',
+                (slot, chip) => {
+                    // console.log(slot, chip);
+                    if (!this.disabled) return;
+
+                    this.disabled = false;
+                }
+            );
+
+            this.#betsClearedSubscription = EventBus.subscribe(
+                'roulette:betscleared',
+                () => {
+                    this.disabled = true;
+                }
+            );
+
         }
     
     }
@@ -28,23 +54,8 @@ export class RouletteUndoButton extends HTMLButtonElement {
     disconnectedCallback() {
         // console.log('Undo button component removed!');
         this.removeEventListener('pointerdown', this._clickHandler);
-    }
-
-    static get observedAttributes() {
-        return [ 'disabled' ];
-    }
-
-    attributeChangedCallback(name, oldValue, newValue) {
-        // console.log(`Attribute "${name}" changed from "${oldValue}" to "${newValue}"`);
-
-        if (oldValue === newValue) {
-            return;
-        }
-
-        if (name === 'disabled') {
-            this.classList.toggle('disabled', this.disabled);
-        }
-
+        this.#betPlacedSubscription?.unsubscribe();
+        this.#betsClearedSubscription?.unsubscribe();
     }
 
 }
