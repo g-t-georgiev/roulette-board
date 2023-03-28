@@ -1,6 +1,5 @@
 import BetManager from '../../services/bet-manager.js';
 import EventBus from '../../services/event-bus.js';
-import { customEventFactory } from '../../../utils/customEventFactory.js';
 
 export class RouletteSlot extends HTMLElement {
 
@@ -10,27 +9,55 @@ export class RouletteSlot extends HTMLElement {
         this._clickHandler = this._clickHandler.bind(this);
     }
 
+    /**
+     * Creates an instance of a chip element.
+     * @param {{ id: string, value: string }} data 
+     * @returns 
+     */
+    #createSlotChipElem(data) {
+        const elem = document.createElement('div');
+
+        elem.classList.add('chip');
+        elem.dataset.id = data.id;
+        elem.textContent = data.value;
+
+        const img = document.createElement('img');
+        img.classList.add('chip-icon');
+        img.setAttribute('src', `/assets/images/chip-background-${data.id}.png`);
+        img.setAttribute('alt', 'chip icon');
+        img.setAttribute('width', '30');
+        img.setAttribute('height', '30');
+
+        elem.append(img);
+
+        return elem;
+    }
+
+    getTextContent() {
+        const spanElem = this.querySelector('.slot-txt');
+        // console.log(spanElem);
+        const textContent = spanElem.textContent;
+        // console.log(textContent);
+        return textContent;
+    }
+
     _clickHandler() {
-        const detail = { target: this };
-        const config = { bubbles: true, composed: false, cancelable: true, detail };
-        // Create and initialize slot click event
-        // If event is not interrupted dispatchEvent will return true
-        const event = customEventFactory('roulette:slotclick', config);
-        const success = this.dispatchEvent(event);
-        // console.log(success);
+        // console.log('Slot toggled.');
 
-        if (!success) return;
+        const selectedChipDTO = BetManager.getPendingBet();
+        // console.log(selectedChipDTO);
 
-        // If event was not interrupted
-        // that probably means there is a 
-        // selected chip at the moment
-        const chip = BetManager.getPendingBet();
-        // console.log(chip);
+        if (!selectedChipDTO) return;
 
-        // Call the bet initializer functionality
-        BetManager.placeBet(this, chip);
-        // Emit placed bet event
-        EventBus.publish('roulette:betplaced', this, chip);
+        const slotChip = this.#createSlotChipElem({ ...selectedChipDTO });
+        const betsCount = BetManager.placeBet({ chip: { ...selectedChipDTO, ref: slotChip }, slot: this });
+        // console.log(betsCount);
+
+        if (betsCount === 1) {
+            EventBus.publish('roulette:notempty');
+        }
+        
+        EventBus.publish('roulette:bet', this, selectedChipDTO);
     }
 
     connectedCallback() {
@@ -38,7 +65,6 @@ export class RouletteSlot extends HTMLElement {
         if (!this.rendered) {
             this.rendered = true;
             // console.log('Slot component was rendered!');
-            BetManager.registerSlot(this);
             this.addEventListener('pointerdown', this._clickHandler);
         }
 

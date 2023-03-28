@@ -3,6 +3,8 @@ import { RouletteClearButton } from './clear-button/clear-button.js';
 import { RouletteDoubleButton } from './double-button/double-button.js';
 import { RouletteChip } from './chip/chip.js';
 
+import EventBus from '../services/event-bus.js';
+
 customElements.define('roulette-undo-button', RouletteUndoButton, { extends: 'button' });
 customElements.define('roulette-clear-button', RouletteClearButton, { extends: 'button' });
 customElements.define('roulette-double-button', RouletteDoubleButton, { extends: 'button' });
@@ -10,6 +12,8 @@ customElements.define('roulette-double-button', RouletteDoubleButton, { extends:
 customElements.define('roulette-chip', RouletteChip);
 
 export class RouletteUserControls extends HTMLElement {
+
+    #subscriptions = [];
 
     #template = document.createElement('template');
     #shadowRoot = this.attachShadow({ mode: 'open' });
@@ -59,14 +63,27 @@ export class RouletteUserControls extends HTMLElement {
 
     /**
      * Manage custom events about selected chip.
-     * @param {CustomEvent<{ chipId: string, value: string, selected: boolean }>} e 
+     * @param {CustomEvent<{ id: string, value: string, selected: boolean }>} e 
      */
     _chipSelectHandler(e) {
-        const { chipId: selectedId, selected } = e.detail;
-        console.log(selectedId, selected);
+        // console.log(e);
 
-        const selectedChips = this.shadowRoot.querySelectorAll('roulette-chip[selected]');
-        selectedChips.forEach(console.log);
+        const chips = this.shadowRoot.querySelectorAll('roulette-chip');
+        // console.log(chips);
+
+        /**
+         * Callback looping over chip instances with selected attribute.
+         * Calls #toggleSelectState method if a possible previously selected chip instance
+         * is not the trigger of the current event.
+         * @param {RouletteChip} chip 
+         */
+        const cb = chip => {
+            const isEvntTarget = chip.getAttribute('chip-id') === e.detail.id;
+            const isSelected = isEvntTarget && e.detail.selected;
+            chip.toggleSelectedState(isSelected);
+        };
+
+        chips.forEach(cb);
     }
 
     connectedCallback() {
@@ -76,13 +93,56 @@ export class RouletteUserControls extends HTMLElement {
             this.#render();
             // console.log('User controls component rendered.');
             this.#shadowRoot.append(this.#template.content.cloneNode(true));
-            // this.addEventListener('roulette:chipselect', this._chipSelectHandler);
+            this.addEventListener('roulette:chip', this._chipSelectHandler);
+
+            this.#subscriptions.push(
+                
+                EventBus.subscribe(
+                    'roulette:bet', 
+                    (slot, selectedChipDTO) => {
+                        // console.log(slot, selectedChipDTO);
+
+                        this.#shadowRoot.querySelectorAll('roulette-chip').forEach(
+                            chip => {
+                                const currChipId = chip.getAttribute('chip-id');
+
+                                if (selectedChipDTO.id === currChipId) {
+                                    chip.toggleSelectedState();
+                                }
+                            }
+                        );
+                    }
+                ),
+                EventBus.subscribe(
+                    'roulette:clear', 
+                    () => {
+                        this.#shadowRoot.querySelectorAll('.btn').forEach(
+                            btn => {
+                                btn.toggleDisabledState(true);
+                            }
+                        );
+                    }, 
+                    this
+                ),
+                EventBus.subscribe(
+                    'roulette:notempty',
+                    () => {
+                        this.#shadowRoot.querySelectorAll('.btn').forEach(
+                            btn => {
+                                btn.toggleDisabledState(false);
+                            }
+                        );
+                    },
+                    this
+                )
+            );
         }
     }
 
     disconnectedCallback() {
         // console.log('User controls component removed.');
-        // this.removeEventListener('roulette:chipselect', this._chipSelectHandler);
+        this.removeEventListener('roulette:chip', this._chipSelectHandler);
+        this.#subscriptions.forEach(_=>_?.unsubscribe());
     }
 
 }

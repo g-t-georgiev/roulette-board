@@ -14,7 +14,6 @@ class RouletteApp extends HTMLElement {
     constructor() {
         super();
         this.rendered = false;
-        this._chipSelectHandler = this._chipSelectHandler.bind(this);
     }
 
     #render() {
@@ -47,30 +46,13 @@ class RouletteApp extends HTMLElement {
             <section>`.trim();
     }
 
-    /**
-     * Catch custom events about selected chip and update 
-     * roulette board component chip status attributes accordingly.
-     * @param {CustomEvent<{ chipId: string, value: string, selected: boolean }>} e 
-     */
-    _chipSelectHandler(e) {
-        const { chipId, value, selected } = e.detail;
-        console.log(chipId, value, selected);
-    }
-
     connectedCallback() {
         
         if (!this.rendered) {
             this.rendered = true;
             this.#render();
-            // console.log('App component rendered!');
-            // this.addEventListener('roulette:chipselect', this._chipSelectHandler);
             this.#shadowRoot.append(this.#template.content.cloneNode(true));
         }
-    }
-
-    disconnectedCallback() {
-        // console.log('App component removed!');
-        // this.removeEventListener('roulette:chipselect', this._chipSelectHandler);
     }
 
 }

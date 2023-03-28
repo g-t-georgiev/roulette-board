@@ -2,9 +2,6 @@ import EventBus from '../../services/event-bus.js';
 import BetManager from '../../services/bet-manager.js';
 
 export class RouletteUndoButton extends HTMLButtonElement {
-
-    #betPlacedSubscription;
-    #betsClearedSubscription;
     
     constructor() {
         super();
@@ -12,14 +9,30 @@ export class RouletteUndoButton extends HTMLButtonElement {
         this._clickHandler = this._clickHandler.bind(this);
     }
 
-    _clickHandler(e) {
-        if (this.disabled) {
-            console.log('Undo button is disabled!');
-            return;
-        }
+    /**
+     * Toggles disabled state
+     * @param {boolean} value 
+     */
+    toggleDisabledState(value) {
+        this.disabled = value;
+    }
 
-        console.log('Undo button clicked!');
-        // BetManager.undoLastBet();
+    _clickHandler() {
+        if (this.disabled) return;
+        
+        const result = BetManager.undoLastBet();
+        // console.log(result);
+
+        if (!result) return;
+
+        const hasPlacedBets = BetManager.hasPlacedBets();
+        // console.log(hasPlacedBets);
+
+        if (!hasPlacedBets) {
+            EventBus.publish('roulette:clear');
+        } else {
+            EventBus.publish('roulette:undo', { id: result.chip.id, value: result.chip.value, slot: result.slot });
+        }
     }
 
     connectedCallback() {
@@ -27,25 +40,7 @@ export class RouletteUndoButton extends HTMLButtonElement {
         if (!this.rendered) {
             this.rendered = true;
             // console.log('Undo button component rendered!');
-
             this.addEventListener('pointerdown', this._clickHandler);
-
-            this.#betPlacedSubscription = EventBus.subscribe(
-                'roulette:betplaced',
-                (slot, chip) => {
-                    // console.log(slot, chip);
-                    if (!this.disabled) return;
-
-                    this.disabled = false;
-                }
-            );
-
-            this.#betsClearedSubscription = EventBus.subscribe(
-                'roulette:betscleared',
-                () => {
-                    this.disabled = true;
-                }
-            );
 
         }
     
@@ -54,8 +49,6 @@ export class RouletteUndoButton extends HTMLButtonElement {
     disconnectedCallback() {
         // console.log('Undo button component removed!');
         this.removeEventListener('pointerdown', this._clickHandler);
-        this.#betPlacedSubscription?.unsubscribe();
-        this.#betsClearedSubscription?.unsubscribe();
     }
 
 }

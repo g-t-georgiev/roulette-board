@@ -1,141 +1,123 @@
 /**
+ * @typedef chip 
+ * @property {string} id 
+ * @property {string} value 
+ * @property {HTMLElement} ref 
+ */
+
+/**
  * Contains reference to all gameboard slots, as map keys,
  * and a list of corresponding chip objects, with their 
  * respective id and value properties, as map values.
- * @type {Map<HTMLElement, { id: string, value: string }[]>}
+ * @type {Array<{ chip: chip, slot: HTMLElement }>}
  */
-const bets = new Map();
+let bets = [];
 
 /**
  * Stores the currently selected chip.
  * Null if not chip has been selected.
- * @type {{ id: string, value: string } | null}
+ * @type {Pick<chip, 'id' | 'value'> | null}
  */
 let pendingBet = null;
 
 /**
- * Updates pending bet with the currently selected chip.
- * @param {{ id: string, value: string } | null} chip 
+ * Updates pending bet value with the currently selected chip data.
+ * @param {Pick<chip, 'id' | 'value'> | null} chip 
  */
-function updatePendingBet(chip) {
+function setPendingBet(chip) {
     pendingBet = chip;
 }
 
+/**
+ * Gets the selected chip data or null if such is not present.
+ */
 function getPendingBet() {
     return pendingBet;
 }
 
-/**
- * Registers a new slot. Throws an error if 
- * already registered slot reference is passed.
- * @param {HTMLElement} slot 
- */
-function registerSlot(slot) {
-    if (bets.has(slot)) {
-        throw new Error('Cannot register a slot twice.');
-    }
-
-    bets.set(slot, []);
+function hasPlacedBets() {
+    return bets.length > 0;
 }
 
 /**
- * Adds a new bet (chip) to that slot's list of bets.
- * Throws error if unregistered slot is passed as argument.
- * @param {HTMLElement} slot 
- * @param {{ id: string, value: string }} chip 
+ * Places a new bet on the board. 
+ * Returns the updated bets count.
+ * @param {{ chip: chip, slot: HTMLElement }} bet 
  */
-function placeBet(slot, chip) {
-    if (!bets.has(slot)) {
-        throw new Error('Cannot place a bet in an unregistered slot.');
-    }
-
-    const slotBets = bets.get(slot);
-    slotBets.push(chip);
-    // console.log(slotBets);
-    bets.set(slot, slotBets);
-    // console.log(bets.get(slot));
+function placeBet(bet) {
+    const { chip, slot } = bet;
+    // console.log(chip, slot);
+    const betsCount = bets.push({ chip: { ...chip }, slot });
+    slot.append(bets[bets.length - 1].chip.ref);
+    // console.log(bets[bets.length - 1]);
+    return betsCount;
 }
 
 /**
- * Undo last bet made. Throws error 
- * if unregirestered slot is passed as argument. 
- * Returns true if slot is not empty, false otherwise.
+ * Undo last bet made. Return the revoked bet or 
+ * false if operation was unsucccessful.
  * @param {HTMLElement} slot 
  */
-function undoLastBet(slot) {
-    if (!bets.has(slot)) {
-        throw new Error('Cannot undo last bet on unregistered slot.');
+function undoLastBet() {
+    if (!bets.length) {
+        return false;
     }
 
-    const slotBets = bets.get(slot);
-
-    if (slotBets.length > 0) {
-        slotBets.pop();
-        bets.set(slot, slotBets);
-        return true;
-    }
-    
-    return false;
+    const revokedBet = bets.pop();
+    // console.log(revokedBet);
+    revokedBet.chip.ref?.remove();
+    return revokedBet;
 }
 
 /**
- * Clears all the bets from a slot.
- * Throws error if unregistered slot is passed as argument. 
- * Returns true if slot was cleared successfully and 
- * false if slot was empty already prior to the method invokation.
- * @param {HTMLElement} slot 
+ * Clears all the bets from the board. Returns true if 
+ * all bets were cleared successfully and false otherwise.
  */
 function clearBets() {
+    if (!bets.length) {
+        return false;
+    }
 
-    let isEmpty;
-
-    bets.forEach((entries, key) => {
-        // console.log(key, entries);
-        if (entries.length > 0) {
-            // console.log(key, entries);
-            entries.length = 0;
+    bets.forEach(
+        ({ chip, slot }) => {
+            // console.log(chip, slot);
+            chip.ref?.remove();
         }
-    });
+    );
 
-    isEmpty = Object.values(bets).every(entry => entry.length === 0);
-
-    return isEmpty;
+    bets.length = 0;
+    return true;
 }
 
 /**
- * Doubles all bets on the board.
+ * Doubles all bets on the board. Returns 
+ * true if operation was successful and false otherwise.
  * @param {HTMLElement} slot 
  */
 function doubleBets() {
-    bets.forEach((entries, key) => {
-        if (entries.length > 0) {
-            bets.set(key, entries.concat(entries));
-            // console.log(bets.get(key));
-        }
-    });
-}
-
-/**
- * Deletes a slot by reference. If unregistered 
- * slot reference is passed an error is thrown. 
- * Returns true or false depending on if the delete 
- * operation was successful.
- * @param {HTMLElement} slot 
- * @returns 
- */
-function deleteSlot(slot) {
-    if (!bets.has(slot)) {
-        throw new Error('Cannot delete unregistered slot.');
+    if (!bets.length) {
+        return false;
     }
 
-    return bets.delete(slot);
+    // console.log(bets);
+
+    const copy = [ ...bets ].map(
+        ({ chip, slot }) => {
+            const chipRefClone = chip.ref?.cloneNode(true);
+            slot.append(chipRefClone);
+            return { chip: { ...chip, ref: chipRefClone }, slot };
+        }
+    );
+
+    bets = [ ...bets, ...copy ];
+    // console.log(bets);
+    return true;
 }
 
 export default {
-    updatePendingBet, 
+    setPendingBet, 
     getPendingBet,
-    registerSlot,
-    deleteSlot,
+    hasPlacedBets,
     placeBet,
     undoLastBet,
     clearBets,
