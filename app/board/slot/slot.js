@@ -15,7 +15,7 @@ export class RouletteSlot extends HTMLElement {
      * @param {boolean} stacked 
      * @returns 
      */
-    #createSlotChipElem(data, stacked = false) {
+    createSlotChipElem(data, stacked = false) {
         const elem = document.createElement('div');
 
         elem.classList.add('chip');
@@ -59,7 +59,7 @@ export class RouletteSlot extends HTMLElement {
         const lastPlacedChipNodeValue = chipsNodeList.item(chipsNodeList.length - 1)?.textContent ?? 0;
         const summedValue = Number(lastPlacedChipNodeValue) + Number(selectedChipDTO.value);
 
-        const slotChip = this.#createSlotChipElem({ ...selectedChipDTO, value: summedValue }, chipsNodeList.length + 1 > 1);
+        const slotChip = this.createSlotChipElem({ ...selectedChipDTO, value: summedValue }, chipsNodeList.length + 1 > 1);
         const betsCount = BetManager.placeBet({ chip: { ...selectedChipDTO, ref: slotChip }, slot: this });
         // console.log(betsCount);
 
