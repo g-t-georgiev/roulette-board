@@ -1,3 +1,25 @@
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 800px) {
+
+    #roulette-board-area {
+        --gameboard-inline-size: 37rem;
+
+        max-inline-size: var(--gameboard-inline-size);
+        min-inline-size: var(--gameboard-inline-size);
+        min-block-size: calc(var(--gameboard-inline-size) * 0.37);
+    }
+
+    .gameboard {
+        rotate: z 90deg;
+        translate: 10% -110%;
+        transform-origin: bottom left;
+    }
+
+    :is(.inside-bet, .column) .slot-txt {
+        rotate: z -90deg;
+    }
+
+    .bet .chip {
+        rotate: z -90deg;
+    }
 
 }
