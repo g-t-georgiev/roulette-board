@@ -14,6 +14,13 @@
 let bets = [];
 
 /**
+ * Holds a slice of the latest bets 
+ * for presented slots from the board.
+ * @type {Map<HTMLElement, chip>}
+ */
+const latestBets = new Map();
+
+/**
  * Stores the currently selected chip.
  * Null if not chip has been selected.
  * @type {Pick<chip, 'id' | 'value'> | null}
@@ -35,6 +42,10 @@ function getPendingBet() {
     return pendingBet;
 }
 
+/**
+ * Returns true if there are entries 
+ * in bets list, false otherwise.
+ */
 function hasPlacedBets() {
     return bets.length > 0;
 }
@@ -99,40 +110,48 @@ function doubleBets() {
         return false;
     }
 
-    // console.log(bets);
+    bets.forEach(
+        ({ chip, slot}) => {
 
-    const latestSlotBets = bets.reduce(
-        (store, bet, index) => {
-            const { chip, slot } = bet;
-
-            return store.set(slot, chip);
-        },
-        new Map()
-    );
-
-    // console.log(latestSlotBets);
-
-    latestSlotBets.forEach(
-        (chip, slot) => {
-            // console.log(chip, slot);
-
-            let summedValue = 0;
-
-            if (chip.ref.classList.contains('stacked')) {
-                summedValue = Number(chip.ref.textContent);
-            } else {
-                summedValue = Number(chip.value);
-            }
-
-            const newSlotChip = slot.createSlotChipElem({ id: chip.id, value: summedValue * 2 }, true);
-            slot.append(newSlotChip);
-            bets.push({ chip: { id: chip.id, value: chip.value * 2, ref: newSlotChip }, slot });
+            latestBets.set(slot, chip);
         }
     );
 
-    latestSlotBets.clear();
+    latestBets.forEach(
+        (chip, slot) => {
+            // console.log(chip, slot);
 
-    // console.log(bets);
+            let value = 0;
+
+            if (chip.ref.classList.contains('stacked')) {
+                value = Number(chip.ref.textContent);
+            } else {
+                value = Number(chip.value);
+            }
+
+            const newChipElem = slot.createSlotChipElem(
+                { 
+                    id: chip.id, 
+                    value: value * 2 
+                }, 
+                true
+            );
+
+            slot.append(newChipElem);
+            bets.push(
+                { 
+                    chip: { 
+                        id: chip.id, 
+                        value: value, 
+                        ref: newChipElem 
+                    }, 
+                    slot 
+                }
+            );
+        }
+    );
+
+    latestBets.clear();
     return true;
 }
 
