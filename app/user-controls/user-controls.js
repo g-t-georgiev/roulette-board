@@ -27,6 +27,7 @@ export class RouletteUserControls extends HTMLElement {
     #render() {
         this.#template.innerHTML = `
             <link rel="stylesheet" href="/app/user-controls/user-controls.css" />
+            <link rel="stylesheet" href="/app/user-controls/responsive.css" />
 
             <section class="user-controls">
                 <button type="button" role="button" class="btn btn-undo" disabled is="roulette-undo-button">
