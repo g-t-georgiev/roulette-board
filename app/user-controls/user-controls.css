@@ -20,7 +20,7 @@
 /* Buttons */
 
 .btn {
-    min-inline-size: clamp(2rem, 5vw, 4rem);
+    min-inline-size: clamp(2rem, 5vw, 3.25rem);
     aspect-ratio: 1 / 1;
 
     cursor: pointer;
