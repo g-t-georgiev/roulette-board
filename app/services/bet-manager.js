@@ -101,20 +101,29 @@ function doubleBets() {
 
     // console.log(bets);
 
-    const copy = [ ...bets ].map(
-        ({ chip, slot }) => {
-            const nodeList = slot.querySelectorAll('.chip');
-            const lastBetPlaced = nodeList.item(nodeList.length - 1) ?? 0;
-            const chipRefClone = chip.ref?.cloneNode(true);
-            chipRefClone.textContent = Number(lastBetPlaced.textContent) + Number(chip.value);
-            chipRefClone.classList.add('stacked');
-            slot.append(chipRefClone);
+    const latestSlotBets = bets.reduce(
+        (store, bet, index) => {
+            const { chip, slot } = bet;
 
-            return { chip: { ...chip, ref: chipRefClone }, slot };
+            return store.set(slot, chip);
+        },
+        new Map()
+    );
+
+    // console.log(latestSlotBets);
+
+    latestSlotBets.forEach(
+        (chip, slot) => {
+            // console.log(chip, slot);
+
+            const newSlotChip = slot.createSlotChipElem({ id: chip.id, value: chip.value * 2 }, true);
+            slot.append(newSlotChip);
+            bets.push({ chip: { id: chip.id, value: chip.value * 2, ref: newSlotChip }, slot });
         }
     );
 
-    bets = [ ...bets, ...copy ];
+    latestSlotBets.clear();
+
     // console.log(bets);
     return true;
 }
