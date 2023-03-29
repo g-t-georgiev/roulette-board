@@ -279,13 +279,18 @@ export class RouletteBoard extends HTMLElement {
     /**
      * Manages pointer move events inside gameboard component. 
      * Toggle the styles necessary for mouse tracking of the chip icon.
-     * @param {PointerEvent} e 
+     * @param {MouseEvent} e 
      */
     _cursorMoveHandler(e) {
         if (!this.#cursor || !this.#gameboard) return;
 
-        const y = (e.clientY - this.#gameboard?.offsetTop) * 100 / this.#gameboard?.offsetHeight;
-        const x = (e.clientX - this.#gameboard?.offsetLeft) * 100 / this.#gameboard?.offsetWidth;
+        let y = (e.clientY - this.#gameboard?.offsetTop) * 100 / this.#gameboard?.offsetHeight;
+        let x = (e.clientX - this.#gameboard?.offsetLeft) * 100 / this.#gameboard?.offsetWidth;
+
+        if (window.matchMedia('(max-width: 800px)').matches) {
+            this.#cursor.hide();
+        }
+
         // console.log(x, y);
         this.#cursor.move(x, y);
     }
