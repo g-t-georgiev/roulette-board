@@ -10,8 +10,8 @@
 #roulette-board-area {
     position: relative;
 
-    max-inline-size: 900px;
-    min-block-size: 300px;
+    max-inline-size: clamp(730px, 55vw, 1100px);
+    min-block-size: calc(clamp(730px, 55vw, 1100px) * 0.3);
 
     margin-block: 5rem;
     margin-inline: auto;
@@ -34,7 +34,7 @@
     justify-content: center;
     align-items: center;
 
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: 500;
 
     border: 1px solid black;
@@ -52,6 +52,10 @@
     background-size: cover;
 }
 
+.chip.stacked {
+    filter: grayscale(1) opacity(75%);
+}
+
 .bet .chip {
     position: absolute;
     top: 50%;
@@ -62,16 +66,14 @@
     justify-content: center;
     align-items: center;
 
-    inline-size: 3rem;
+    inline-size: calc(max(51vw, 2rem) / 15);
     aspect-ratio: 1 / 1;
 
     padding: .25rem;
 
-    font-size: 1rem;
+    font-size: clamp(.85rem, 1.5vw, 1.5rem);
     font-weight: 600;
     color: #000;
-
-    opacity: .6;
 }
 
 .bet .chip-icon {
@@ -80,10 +82,6 @@
     block-size: 100%;
     object-fit: cover;
     z-index: -1;
-}
-
-.bet .chip:only-of-type {
-    opacity: 1;
 }
 
 /* Continue with betting slot styles... */
@@ -97,7 +95,7 @@
     grid-column: span 1;
     grid-row: span 1;
 
-    font-size: 1.5rem;
+    font-size: clamp(.95rem, 1.1vw, 1.5rem);
     color: #fff;
 }
 
@@ -112,7 +110,7 @@
     border-top-left-radius: 15rem;
     border-bottom-left-radius: 15rem;
 
-    font-size: 2rem;
+    font-size: clamp(1rem, 2vw, 2rem);
     background-color: green;
 }
 
@@ -140,7 +138,7 @@
 .outside-bet.dozen {
     grid-row: span 1;
 
-    font-size: 1.2rem;
+    font-size: clamp(.95rem, 1.5vw, 1.2rem);
 }
 
 .outside-bet.dozen:nth-child(41) {
@@ -159,11 +157,11 @@
     grid-column: -2 / span 1;
     grid-row: span 1;
 
-    font-size: 1.15rem;
+    font-size: clamp(.85rem, 1.5vw, 1.15rem);
 }
 
 .outside-bet.range {
-    font-size: 1.15rem;
+    font-size: clamp(.85rem, 1.5vw, 1.15rem);
 }
 
 .outside-bet.range:nth-child(44) {
@@ -177,5 +175,5 @@
 .outside-bet:is(.black, .red, .even, .odd) {
     grid-column: span 2;
 
-    font-size: 1.15rem;
+    font-size: clamp(.85rem, 1.5vw, 1.15rem);
 }
