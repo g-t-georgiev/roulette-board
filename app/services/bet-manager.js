@@ -116,7 +116,15 @@ function doubleBets() {
         (chip, slot) => {
             // console.log(chip, slot);
 
-            const newSlotChip = slot.createSlotChipElem({ id: chip.id, value: chip.value * 2 }, true);
+            let summedValue = 0;
+
+            if (chip.ref.classList.contains('stacked')) {
+                summedValue = Number(chip.ref.textContent);
+            } else {
+                summedValue = Number(chip.value);
+            }
+
+            const newSlotChip = slot.createSlotChipElem({ id: chip.id, value: summedValue * 2 }, true);
             slot.append(newSlotChip);
             bets.push({ chip: { id: chip.id, value: chip.value * 2, ref: newSlotChip }, slot });
         }
