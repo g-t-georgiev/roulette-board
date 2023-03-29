@@ -96,23 +96,26 @@ export class RouletteUserControls extends HTMLElement {
             this.addEventListener('roulette:chip', this._chipSelectHandler);
 
             this.#subscriptions.push(
-                
-                EventBus.subscribe(
-                    'roulette:bet', 
-                    (slot, selectedChipDTO) => {
-                        // console.log(slot, selectedChipDTO);
+                // EventBus.subscribe(
+                //     'roulette:bet', 
+                //     (slot, selectedChipDTO) => {
+                //         // console.log(slot, selectedChipDTO);
 
-                        this.#shadowRoot.querySelectorAll('roulette-chip').forEach(
-                            chip => {
-                                const currChipId = chip.getAttribute('chip-id');
+                //         // toggle selected state for the chip
+                //         // the bet was initiated with
 
-                                if (selectedChipDTO.id === currChipId) {
-                                    chip.toggleSelectedState();
-                                }
-                            }
-                        );
-                    }
-                ),
+                //         this.#shadowRoot.querySelectorAll('roulette-chip').forEach(
+                //             chip => {
+                //                 const currChipId = chip.getAttribute('chip-id');
+                //                 const isTarget = selectedChipDTO.id === currChipId;
+
+                //                 if (isTarget) {
+                //                     chip.toggleSelectedState();
+                //                 }
+                //             }
+                //         );
+                //     }
+                // ),
                 EventBus.subscribe(
                     'roulette:clear', 
                     () => {

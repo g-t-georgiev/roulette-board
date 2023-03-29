@@ -103,8 +103,13 @@ function doubleBets() {
 
     const copy = [ ...bets ].map(
         ({ chip, slot }) => {
+            const nodeList = slot.querySelectorAll('.chip');
+            const lastBetPlaced = nodeList.item(nodeList.length - 1) ?? 0;
             const chipRefClone = chip.ref?.cloneNode(true);
+            chipRefClone.textContent = Number(lastBetPlaced.textContent) + Number(chip.value);
+            chipRefClone.classList.add('stacked');
             slot.append(chipRefClone);
+
             return { chip: { ...chip, ref: chipRefClone }, slot };
         }
     );

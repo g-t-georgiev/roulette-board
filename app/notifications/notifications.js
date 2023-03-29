@@ -34,7 +34,7 @@ export class RouletteNotifications extends HTMLHeadingElement {
                 EventBus.subscribe(
                     'roulette:bet',
                     (slot, chip) => {
-                        this.textContent = `You've placed a chip with value of ${chip.value} to ${slot.getTextContent() ?? 'N/A'}`;
+                        this.textContent = `You've placed a chip with value of ${chip.value} to  slot ${slot.getTextContent() ?? 'N/A'}`;
                     },
                     this
                 ),

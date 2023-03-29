@@ -302,7 +302,6 @@ export class RouletteBoard extends HTMLElement {
             this.#gameboard?.addEventListener('pointerenter', this._cursorEnterHandler);
             this.#gameboard?.addEventListener('pointerleave', this._cursorLeaveHandler);
             this.#gameboard?.addEventListener('pointermove', this._cursorMoveHandler);
-            this.#gameboard?.addEventListener('roulette:slotclick', this._slotClickHandler);
 
             this.#subscriptions.push(
                 EventBus.subscribe(
@@ -337,22 +336,19 @@ export class RouletteBoard extends HTMLElement {
                     }, 
                     this
                 ),
-                EventBus.subscribe(
-                    'roulette:bet', 
-                    (slot, chip) => {
-                        // console.log(slot, chip);
+                // EventBus.subscribe(
+                //     'roulette:bet', 
+                //     (slot, chip) => {
+                //         // console.log(slot, chip);
+
+                //         this.#cursor?.remove();
+                //         this.#cursor = null;
     
-                        // Clear cursor
-                        this.#cursor?.remove();
-                        this.#cursor = null;
-    
-                        // Nullify previously selected chip
-                        BetManager.setPendingBet(null);
-    
-                        // Toggle gameboard interaction effects
-                        this.#gameboard?.toggleAttribute('disabled', true);
-                    }
-                ),
+                //         BetManager.setPendingBet(null);
+                    
+                //         this.#gameboard?.toggleAttribute('disabled', true);
+                //     }
+                // ),
                 EventBus.subscribe(
                     'roulette:clear',
                     () => {
