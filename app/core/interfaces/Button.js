@@ -7,7 +7,7 @@ export class ButtonComponent extends HTMLButtonElement {
     constructor() {
         super();
 
-        if (this.constructor.name === 'Component') {
+        if (this.constructor.name === 'ButtonComponent') {
             throw new Error('Button is an abstract class.');
         }
     }
