@@ -1,7 +1,7 @@
-import EventBus from "../../services/event-bus.js";
-import BetManager from "../../services/bet-manager.js";
+import { ButtonComponent } from '../../core/interfaces/index.js';
+import { EventBus, BetManager } from '../../core/services/index.js'
 
-export class RouletteDoubleButton extends HTMLButtonElement {
+export class DoubleButtonComponent extends ButtonComponent {
     
     constructor() {
         super();
@@ -9,36 +9,22 @@ export class RouletteDoubleButton extends HTMLButtonElement {
         this._clickHandler = this._clickHandler.bind(this);
     }
 
-    /**
-     * Toggles disabled state
-     * @param {boolean} value 
-     */
-    toggleDisabledState(value) {
-        this.disabled = value;
-    }
-
     _clickHandler() {
         if (this.disabled) return;
-
         const success = BetManager.doubleBets();
 
         if (!success) return;
-        
         EventBus.publish('roulette:double');
     }
 
     connectedCallback() {
-
         if (!this.rendered) {
             this.rendered = true;
-            // console.log('Double button component rendered!');
             this.addEventListener('pointerdown', this._clickHandler);
         }
-
     }
 
     disconnectedCallback() {
-        // console.log('Double button component removed!');
         this.removeEventListener('pointerdown', this._clickHandler);
     }
 

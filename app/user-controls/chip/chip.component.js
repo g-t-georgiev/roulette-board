@@ -1,14 +1,21 @@
-import EventBus from '../../services/event-bus.js';
-import { customEventFactory } from '../../../utils/customEventFactory.js';
+import { Component } from '../../core/interfaces/index.js';
+import { Roulette } from '../../../utils/Roulette.js';
+import { EventBus } from '../../core/services/index.js';
 
-export class RouletteChip extends HTMLElement {
+import createTemplate from './chip.template.js';
+
+export class ChipComponent extends Component {
 
     #template = document.createElement('template');
     #shadowRoot = this.attachShadow({ mode: 'open' });
 
-    #chipId = this.getAttribute('chip-id');
-    #value = this.getAttribute('value');
-    #selected = this.hasAttribute('selected');
+    get #selected() {
+        return this.hasAttribute('selected');
+    }
+
+    set #selected(v) {
+        this.toggleAttribute('selected', v);
+    }
     
     constructor() {
         super();
@@ -18,14 +25,10 @@ export class RouletteChip extends HTMLElement {
 
     #render() {
         this.#template
-            .innerHTML = `
-                <link rel="stylesheet" href="/app/user-controls/chip/chip.css" />
+            .innerHTML = createTemplate({ id: this.dataset.id, value: this.dataset.value }).trim();
 
-                <article class="chip">
-                    <img class="chip-img" src="/assets/images/chip-background-${this.#chipId}.png" alt="chip-background-${this.#chipId}" />
-                    <span class="chip-txt">${this.#value}</span>
-                </article>`
-            .trim();
+        this.#shadowRoot.append(this.#template.content.cloneNode(true));
+        this.addEventListener('pointerdown', this._clickHandler);
     }
 
     /**
@@ -34,30 +37,40 @@ export class RouletteChip extends HTMLElement {
      * @param {boolean | undefined} flag 
      */
     toggleSelectedState(flag) {
+        // console.log(flag);
         if (flag != null) {
             this.#selected = flag;
-        } else {
-            this.#selected = !this.#selected;
+            return;
         }
 
-        this.toggleAttribute('selected', this.#selected);
+        this.#selected = !this.#selected;
     }
 
     #notify() {
+        // console.log('Notifying...');
         const config = { 
             bubbles: true, 
             composed: false, 
+            cancelable: true,
             detail: { 
-                id: this.#chipId, 
-                value: this.#value, 
-                selected: this.#selected } 
+                id: this.dataset.id, 
+                value: this.dataset.value, 
+                selected: this.#selected 
+            } 
         };
 
-        const event = customEventFactory('roulette:chip', config);
+        const event = Roulette.customEvent('roulette:chip', config);
 
         Promise.all([
             this.dispatchEvent(event),
-            EventBus.publish('roulette:chip', { id: this.#chipId, value: this.#value, selected: this.#selected })
+            EventBus.publish(
+                'roulette:chip', 
+                { 
+                    id: this.dataset.id, 
+                    value: this.dataset.value, 
+                    selected: this.#selected 
+                }
+            )
         ]);
     }
 
@@ -77,9 +90,7 @@ export class RouletteChip extends HTMLElement {
         if (!this.rendered) {
             this.rendered = true;
             this.#render();
-            // console.log('Chip component rendered!');
-            this.addEventListener('pointerdown', this._clickHandler);
-            this.#shadowRoot.append(this.#template.content.cloneNode(true));
+            
 
             if (this.#selected) {
                 this.#notify();
@@ -88,7 +99,6 @@ export class RouletteChip extends HTMLElement {
     }
 
     disconnectedCallback() {
-        // console.log('Chip component removed!');
         this.removeEventListener('pointerdown', this._clickHandler);
     }
 

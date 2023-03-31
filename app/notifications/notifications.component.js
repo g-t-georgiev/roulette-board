@@ -1,8 +1,8 @@
-import EventBus from '../services/event-bus.js';
+import { EventBus } from '../core/services/index.js';
 
 const defaultTxt = 'Select a chip to start betting';
 
-export class RouletteNotifications extends HTMLHeadingElement {
+export class NotificationsComponent extends HTMLHeadingElement {
 
     #subscriptions = [];
 
@@ -15,7 +15,6 @@ export class RouletteNotifications extends HTMLHeadingElement {
 
         if (!this.rendered) {
             this.rendered = true;
-            // console.log('Notifications component is rendered!');
 
             this.#subscriptions.push(
                 EventBus.subscribe(
@@ -64,7 +63,6 @@ export class RouletteNotifications extends HTMLHeadingElement {
     }
 
     disconnectedCallback() {
-        // console.log('Notifications component is removed!');
         this.#subscriptions.forEach(_ => _?.unsubscribe());
     }
 }

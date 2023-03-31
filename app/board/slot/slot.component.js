@@ -1,7 +1,7 @@
-import BetManager from '../../services/bet-manager.js';
-import EventBus from '../../services/event-bus.js';
+import { Component } from '../../core/interfaces/index.js';
+import { EventBus, BetManager } from '../../core/services/index.js';
 
-export class RouletteSlot extends HTMLElement {
+export class SlotComponent extends Component {
 
     constructor() {
         super();
@@ -74,14 +74,12 @@ export class RouletteSlot extends HTMLElement {
 
         if (!this.rendered) {
             this.rendered = true;
-            // console.log('Slot component was rendered!');
             this.addEventListener('pointerdown', this._clickHandler);
         }
 
     }
 
     disconnectedCallback() {
-        // console.log('Slot component was removed!');
         this.removeEventListener('pointerdown', this._clickHandler);
     }
 
