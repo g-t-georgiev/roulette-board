@@ -155,7 +155,7 @@ function doubleBets() {
     return true;
 }
 
-export default {
+export {
     setPendingBet, 
     getPendingBet,
     hasPlacedBets,

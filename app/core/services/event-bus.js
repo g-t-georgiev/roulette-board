@@ -57,7 +57,7 @@ function publish(evntType, ...args) {
         .forEach(id => subscriptions[evntType][id](...args));
 }
 
-export default {
+export {
     publish,
     subscribe
 };
