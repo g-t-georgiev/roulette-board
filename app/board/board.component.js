@@ -6,17 +6,11 @@ import createTemplate from './board.template.js';
 import { CursorComponent } from './cursor/cursor.component.js';
 import { SlotComponent } from './slot/slot.component.js';
 
+import { sequence, resolveSlotData } from './board.data.js';
+
 customElements.define('roulette-cursor', CursorComponent);
 customElements.define('roulette-slot', SlotComponent);
 
-// Ranges 1-10 and 19-28 odd numbers are red, even numbers are black;
-// Ranges 11-18 and 29-36 odd numbers are black, even numbers are red;
-
-// new Set([ 
-//     0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 
-//     11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 
-//     22, 18, 29, 7, 28, 12, 35, 3, 26 
-// ]);
 
 export class BoardComponent extends Component {
 
@@ -44,7 +38,10 @@ export class BoardComponent extends Component {
     }
 
     #render() {
-        this.#template.innerHTML = createTemplate().trim();
+        const slotsData = sequence.map(num => resolveSlotData(num).next().value);
+        // console.log(slotsData);
+
+        this.#template.innerHTML = createTemplate({ slots: slotsData }).trim();
         this.#shadowRoot.append(this.#template.content.cloneNode(true));
 
         this.#gameboard = this.#shadowRoot.querySelector('#roulette-board-area');
