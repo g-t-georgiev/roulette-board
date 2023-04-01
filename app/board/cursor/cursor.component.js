@@ -1,10 +1,7 @@
 import { Component } from "../../core/interfaces/index.js";
 
-import createTemplate from './cursor.template.js';
-
 export class CursorComponent extends Component {
 
-    #template = document.createElement('template');
     #shadowRoot = this.attachShadow({ mode: 'open' });
 
     constructor() {
@@ -13,8 +10,11 @@ export class CursorComponent extends Component {
     }
 
     #render() {
-        this.#template.innerHTML = createTemplate().trim();
-        this.#shadowRoot.append(this.#template.content.cloneNode(true));
+        const stylesheetElem = document.createElement('link');
+        stylesheetElem.setAttribute('rel', 'stylesheet');
+        stylesheetElem.setAttribute('href', '/app/board/cursor/cursor.component.css');
+
+        this.#shadowRoot.append(stylesheetElem);
         this.toggle(false);
     }
 

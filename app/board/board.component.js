@@ -1,12 +1,10 @@
 import { Component } from '../core/interfaces/index.js';
 import { EventBus, BetManager } from '../core/services/index.js';
 
-import createTemplate from './board.template.js';
-
 import { CursorComponent } from './cursor/cursor.component.js';
 import { SlotComponent } from './slot/slot.component.js';
 
-import { sequence, resolveSlotData } from './board.data.js';
+import { getData } from './board.data.js';
 
 customElements.define('roulette-cursor', CursorComponent);
 customElements.define('roulette-slot', SlotComponent);
@@ -14,9 +12,7 @@ customElements.define('roulette-slot', SlotComponent);
 
 export class BoardComponent extends Component {
 
-    #template = document.createElement('template');
     #shadowRoot = this.attachShadow({ mode: 'open' });
-
     #subscriptions = [];
 
     /**
@@ -38,16 +34,45 @@ export class BoardComponent extends Component {
     }
 
     #render() {
-        const slotsData = sequence.map(num => resolveSlotData(num).next().value);
-        // console.log(slotsData);
+        const stylesheetLinks = [];
 
-        this.#template.innerHTML = createTemplate({ slots: slotsData }).trim();
-        this.#shadowRoot.append(this.#template.content.cloneNode(true));
+        const stylesheetElem = document.createElement('link');
+        stylesheetElem.setAttribute('rel', 'stylesheet');
+        stylesheetElem.setAttribute('href', '/app/board/board.component.css');
 
-        this.#gameboard = this.#shadowRoot.querySelector('#roulette-board-area');
+        const responsiveStylesheetElem = document.createElement('link');
+        responsiveStylesheetElem.setAttribute('rel', 'stylesheet');
+        responsiveStylesheetElem.setAttribute('href', '/app/board/responsive.part.css');
+
+        stylesheetLinks.push(stylesheetElem, responsiveStylesheetElem);
+
+        this.#gameboard = document.createElement('section');
+        this.#gameboard.classList.add('gameboard');
+        this.#gameboard.id = 'roulette-board-area';
+
+        const slotElemList = getData().map(value => {
+            // console.log(value);
+
+            const slotElem = document.createElement('roulette-slot');
+            slotElem.classList.add('bet', ...value.classList);
+
+            const slotTxtElem = document.createElement('span');
+            slotTxtElem.classList.add('slot-txt');
+            slotTxtElem.textContent = value.textContent;
+
+            slotElem.append(slotTxtElem);
+
+            return slotElem;
+        });
+
+        // console.log(slotElemList);
+
+        this.#gameboard.append(...slotElemList);
         this.#gameboard?.addEventListener('pointerenter', this._cursorEnterHandler);
         this.#gameboard?.addEventListener('pointerleave', this._cursorLeaveHandler);
         this.#gameboard?.addEventListener('pointermove', this._cursorMoveHandler);
+
+        this.#shadowRoot.append(...stylesheetLinks, this.#gameboard);
     }
 
     /**
@@ -149,7 +174,6 @@ export class BoardComponent extends Component {
     }
 
     disconnectedCallback() {
-        // console.log('Roulette board component is removed!');
         this.#gameboard?.removeEventListener('pointerenter', this._cursorEnterHandler);
         this.#gameboard?.removeEventListener('pointerleave', this._cursorLeaveHandler);
         this.#gameboard?.removeEventListener('pointermove', this._cursorMoveHandler);

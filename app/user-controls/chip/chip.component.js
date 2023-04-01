@@ -2,18 +2,16 @@ import { Component } from '../../core/interfaces/index.js';
 import { Roulette } from '../../../utils/Roulette.js';
 import { EventBus } from '../../core/services/index.js';
 
-import createTemplate from './chip.template.js';
 
 export class ChipComponent extends Component {
 
-    #template = document.createElement('template');
     #shadowRoot = this.attachShadow({ mode: 'open' });
 
-    get #selected() {
+    get selected() {
         return this.hasAttribute('selected');
     }
 
-    set #selected(v) {
+    set selected(v) {
         this.toggleAttribute('selected', v);
     }
     
@@ -24,26 +22,26 @@ export class ChipComponent extends Component {
     }
 
     #render() {
-        this.#template
-            .innerHTML = createTemplate({ id: this.dataset.id, value: this.dataset.value }).trim();
+        const stylesheetElem = document.createElement('link');
+        stylesheetElem.rel = 'stylesheet';
+        stylesheetElem.href = '/app/user-controls/chip/chip.component.css';
 
-        this.#shadowRoot.append(this.#template.content.cloneNode(true));
+        const chipContentElem = document.createElement('div');
+        chipContentElem.classList.add('chip');
+        
+        const chipIconElem = document.createElement('img');
+        chipIconElem.classList.add('chip-img');
+        chipIconElem.src = `/assets/images/chip-background-${this.dataset.id}.png`;
+        chipIconElem.alt = `chip-background-${this.dataset.id}`;
+
+        const chipTxtElem = document.createElement('span');
+        chipTxtElem.classList.add('chip-txt');
+        chipTxtElem.textContent = this.dataset.value;
+
+        chipContentElem.append(chipIconElem, chipTxtElem);
+
+        this.#shadowRoot.append(stylesheetElem, chipContentElem);
         this.addEventListener('pointerdown', this._clickHandler);
-    }
-
-    /**
-     * Toggle selected state property and update selected attribute on component accordingly.
-     * A boolean flag, which by default is undefined, can be passed to force a certain value.
-     * @param {boolean | undefined} flag 
-     */
-    toggleSelectedState(flag) {
-        // console.log(flag);
-        if (flag != null) {
-            this.#selected = flag;
-            return;
-        }
-
-        this.#selected = !this.#selected;
     }
 
     #notify() {
@@ -55,7 +53,7 @@ export class ChipComponent extends Component {
             detail: { 
                 id: this.dataset.id, 
                 value: this.dataset.value, 
-                selected: this.#selected 
+                selected: this.selected 
             } 
         };
 
@@ -68,7 +66,7 @@ export class ChipComponent extends Component {
                 { 
                     id: this.dataset.id, 
                     value: this.dataset.value, 
-                    selected: this.#selected 
+                    selected: this.selected 
                 }
             )
         ]);
@@ -81,7 +79,7 @@ export class ChipComponent extends Component {
      * was first selected and then deselected.
      */
     _clickHandler() {
-        this.toggleSelectedState();
+        this.selected = !this.selected;
         this.#notify();
     }
 
@@ -92,7 +90,7 @@ export class ChipComponent extends Component {
             this.#render();
             
 
-            if (this.#selected) {
+            if (this.selected) {
                 this.#notify();
             }
         }
