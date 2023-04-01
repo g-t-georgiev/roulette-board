@@ -1,13 +1,15 @@
 // Ranges 1-10 and 19-28 odd numbers are red, even numbers are black;
 // Ranges 11-18 and 29-36 odd numbers are black, even numbers are red;
 
-export const sequence = [ 
+const sequence = [ 
     0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 'col3-36', 
     2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35, 'col2-35', 
     1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34, 'col1-34', 
     'dozen1-12', 'dozen13-24', 'dozen25-36', 
     'range1-18', 'even', 'red', 'black', 'odd', 'range19-36'
 ];
+
+// TODO: Add values and payout odds data to slot objects in later stage
 
 /**
  * Slot metadata object returned/yielded from the
@@ -33,7 +35,7 @@ function createSlotDTO(textContent, classList) {
  * @param {number | string} entry 
  * @returns {{ value: Slot, done: boolean }}
  */
-export function* resolveSlotData(entry) {
+function* resolveSlotData(entry) {
     if (typeof entry === 'string') {
        if (entry === 'col3-36') {
             yield createSlotDTO(
@@ -52,22 +54,22 @@ export function* resolveSlotData(entry) {
                 );
        } else if (entry === 'dozen1-12') {
                 yield createSlotDTO(
-                    '1st&nbsp;12',
+                    '1st 12',
                     [ 'outside-bet', 'dozen', 'dozen-1' ]
                 );
        } else if (entry === 'dozen13-24') {
                 yield createSlotDTO(
-                    '2nd&nbsp;12',
+                    '2nd 12',
                     [ 'outside-bet', 'dozen', 'dozen-2' ]
                 );
        } else if (entry === 'dozen25-36') {
                 yield createSlotDTO(
-                    '3rd&nbsp;12',
+                    '3rd 12',
                     [ 'outside-bet', 'dozen', 'dozen-3' ]
                 );
        } else if (entry === 'range1-18') {
                 yield createSlotDTO(
-                    '1&nbsp;&ndash;&nbsp;18',
+                    '1 - 18',
                     [ 'outside-bet', 'range', 'range-1' ]
                 );
        } else if (entry === 'even') {
@@ -92,7 +94,7 @@ export function* resolveSlotData(entry) {
                 )
        } else {
                 yield createSlotDTO(
-                    '19&nbsp;&ndash;&nbsp;36',
+                    '19 - 36',
                     [ 'outside-bet', 'range', 'range-2' ]
                 );
        }
@@ -110,4 +112,11 @@ export function* resolveSlotData(entry) {
             ? createSlotDTO(entry.toString(), [ 'inside-bet', 'straight-up', 'red', 'even' ])
             : createSlotDTO(entry.toString(), [ 'inside-bet', 'straight-up', 'black', 'odd' ])
     }
+}
+
+export function getData() {
+    return sequence.map(entry => {
+        const { value, done } = resolveSlotData(entry).next();
+        return value;
+    });
 }
