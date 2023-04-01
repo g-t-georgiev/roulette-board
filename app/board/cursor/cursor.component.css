@@ -2,16 +2,20 @@
 @import '/assets/styles/main.css';
 
 :host {
+    --size: 35px;
+    --cursor-txt-color: #222;
+
     display: inline-block;
     position: absolute;
 
-    inline-size: 23px;
+    inline-size: var(--size);
     aspect-ratio: 1 / 1;
 
-    font-size: 12px;
+    font-size: calc(var(--size) / 2.5);
     font-weight: 700;
-    line-height: 23px;
+    line-height: var(--size);
     text-align: center;
+    color: var(--cursor-txt-color);
 
     background-repeat: no-repeat;
     background-size: contain;

@@ -3,13 +3,22 @@
 
 :host {
     display: block;
+    min-block-size: 100vh;
+
+    background-color: var(--bg-color);
+    color: var(--txt-color);
+}
+
+:host([theme="dark"]) {
+    --bg-color: #0e0646;
+    --txt-color: #f5f1f0;
 }
 
 #roulette-board-app-container {
-    margin-block-start: 2rem;
+    padding-block: 2rem;
 }
 
 .notification {
     text-align: center;
-    margin-block: 1rem;
+    margin-block-end: 2rem;
 }

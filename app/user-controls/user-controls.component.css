@@ -10,7 +10,7 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: .75rem;
 
     inline-size: 50vw;
     margin-block: 1rem 3rem;
@@ -20,11 +20,11 @@
 /* Buttons */
 
 .btn {
-    min-inline-size: clamp(2rem, 5vw, 3.25rem);
+    inline-size: clamp(3rem, 5vw, 4rem);
     aspect-ratio: 1 / 1;
 
     cursor: pointer;
-    transition: all .4s ease-in-out;
+    transition: all .3s ease-in-out;
 }
 
 .btn-icon {
@@ -34,7 +34,7 @@
 }
 
 .btn:is(.disabled, :disabled) {
-    filter: contrast(70%) opacity(70%);
+    opacity: .7;
     cursor: default;
 }
 
@@ -42,13 +42,10 @@
     transform: scale(1.1);
 }
 
-/* Chips */
-
-.chips {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-
+roulette-chip:first-of-type {
     margin-inline-start: auto;
+}
+
+roulette-chip:not(:last-of-type) {
+    margin-inline-end: 1.25rem;
 }

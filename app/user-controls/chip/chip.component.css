@@ -2,23 +2,27 @@
 @import '/assets/styles/main.css';
 
 :host {
+    --txt-color: #222;
+    
     display: inline-block;
 }
 
 :host([selected]) .chip {
     opacity: 1;
-    transform: scale(1.1);
+    transform: scale(1.15);
 }
 
 .chip {
     position: relative;
 
-    inline-size: clamp(4rem, 7vw, 6rem);
+    inline-size: clamp(4rem, 7vw, 7rem);
     aspect-ratio: 1 / 1;
 
-    opacity: .5;
+    opacity: .6;
     overflow: hidden;
     cursor: grab;
+
+    transition: all .1s ease-in-out;
 }
 
 .chip-txt {
@@ -29,6 +33,7 @@
 
     font-size: clamp(1.35rem, 2vw, 2rem);
     font-weight: 600;
+    color: var(--txt-color);
 }
 
 .chip-img {
