@@ -1,0 +1,23 @@
+:host {
+    display: block;
+}
+
+button {
+    margin-block: 1rem 2rem;
+    margin-inline: 1rem;
+    padding: .5rem .75rem;
+
+    color: currentColor;
+    background-color: transparent;
+    border: 2px solid currentColor;
+    outline-color: transparent;
+    
+    font-size: 1.2rem;
+    text-align: center;
+
+    cursor: pointer;
+}
+
+button::before {
+    content: 'Theme: ';
+}
