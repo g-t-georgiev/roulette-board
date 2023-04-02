@@ -3,10 +3,11 @@ import { EventBus, BetManager } from '../../core/services/index.js';
 
 export class SlotComponent extends Component {
 
+    #shadowRoot = this.attachShadow({ mode: 'open' });
+
     constructor() {
         super();
         this.rendered = false;
-        this._clickHandler = this._clickHandler.bind(this);
     }
 
     /**
@@ -35,15 +36,72 @@ export class SlotComponent extends Component {
         return elem;
     }
 
+    appendSlotChipElem(chip) {
+        this.#shadowRoot.append(chip);
+    }
+
+    /**
+     * Protected wrapper method forwarding the calls to 
+     * its private counterpart with the 'this' context 
+     * binded to the component instance.
+     * @param  {...any} args 
+     */
+    __clickHandler(...args) {
+        this.#clickHandler.call(this, ...args);
+    }
+
+    /**
+     * Returns the text content value of a slot which is a 
+     * summed representation of all chip element values.
+     */
     getTextContent() {
-        const spanElem = this.querySelector('.slot-txt');
+        const spanElem = this.#shadowRoot.querySelector('.slot-txt');
         // console.log(spanElem);
         const textContent = spanElem.textContent;
         // console.log(textContent);
         return textContent;
     }
 
-    _clickHandler() {
+    /**
+     * Sets component text content.
+     * @param {string} textContent 
+     */
+    setTextContent(textContent) {
+        // Delay DOM queries to avoid null pointer exceptions.
+        const timerId = setTimeout(() => {
+            const spanElem = this.#shadowRoot.querySelector('.slot-txt');
+            // console.log(spanElem);
+            spanElem.textContent = textContent;
+
+            clearTimeout(timerId);
+        });
+    }
+
+    #render() {
+        const stylesheets = [];
+
+        const stylesheetElem = document.createElement('link');
+        stylesheetElem.rel = 'stylesheet';
+        stylesheetElem.href = '/app/board/slot/slot.component.css';
+
+        const responsiveStylesheetElem = document.createElement('link');
+        responsiveStylesheetElem.rel = 'stylesheet';
+        responsiveStylesheetElem.href = '/app/board/slot/responsive.css';
+
+        stylesheets.push(stylesheetElem, responsiveStylesheetElem);
+
+        const spanElem = document.createElement('span');
+        spanElem.classList.add('slot-txt');
+
+        this.#shadowRoot.append(...stylesheets, spanElem);
+    }
+
+    /**
+     * Handles click events in the slot. Creates a slot chip instance for any selected chip 
+     * placed. If there other instances of a chip element are present, shows a stacked version where 
+     * the text content is the summed value of all chip elements in that slot.
+     */
+    #clickHandler() {
         // console.log('Slot toggled.');
 
         const selectedChipDTO = BetManager.getPendingBet();
@@ -54,7 +112,7 @@ export class SlotComponent extends Component {
         // get all chip nodes in the slot
         // get the last chip node value, defaults to 0
         // sum the last chip node value with the currently selected chip value
-        const chipsNodeList = this.querySelectorAll('.chip');
+        const chipsNodeList = this.#shadowRoot.querySelectorAll('.chip');
         // console.log(chipsNodeList.length);
         const lastPlacedChipNodeValue = chipsNodeList.item(chipsNodeList.length - 1)?.textContent ?? 0;
         const summedValue = Number(lastPlacedChipNodeValue) + Number(selectedChipDTO.value);
@@ -74,13 +132,14 @@ export class SlotComponent extends Component {
 
         if (!this.rendered) {
             this.rendered = true;
-            this.addEventListener('pointerdown', this._clickHandler);
+            this.addEventListener('pointerdown', this.__clickHandler);
+            this.#render();
         }
 
     }
 
     disconnectedCallback() {
-        this.removeEventListener('pointerdown', this._clickHandler);
+        this.removeEventListener('pointerdown', this.__clickHandler);
     }
 
 }
