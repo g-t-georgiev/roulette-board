@@ -55,12 +55,7 @@ export class BoardComponent extends Component {
 
             const slotElem = document.createElement('roulette-slot');
             slotElem.classList.add('bet', ...value.classList);
-
-            const slotTxtElem = document.createElement('span');
-            slotTxtElem.classList.add('slot-txt');
-            slotTxtElem.textContent = value.textContent;
-
-            slotElem.append(slotTxtElem);
+            slotElem.setTextContent(value.textContent);
 
             return slotElem;
         });
@@ -147,26 +142,6 @@ export class BoardComponent extends Component {
                         this.#gameboard?.toggleAttribute('disabled', !chip.selected);
                     }, 
                     this
-                ),
-                // EventBus.subscribe(
-                //     'roulette:bet', 
-                //     (slot, chip) => {
-                //         // console.log(slot, chip);
-
-                //         this.#cursor?.remove();
-                //         this.#cursor = null;
-    
-                //         BetManager.setPendingBet(null);
-                    
-                //         this.#gameboard?.toggleAttribute('disabled', true);
-                //     }
-                // ),
-                EventBus.subscribe(
-                    'roulette:clear',
-                    () => {
-                        // Toggle gameboard interaction effects
-                        this.#gameboard?.toggleAttribute('disabled', true);
-                    }
                 )
             );
 
