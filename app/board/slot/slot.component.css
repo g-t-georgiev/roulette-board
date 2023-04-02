@@ -1,0 +1,116 @@
+:host {
+    /* Inside bets vars */
+    --inside-bet-bg-color-red-contrast: 50%;
+    --inside-bet-bg-color-red: hsl(0, 100%, var(--inside-bet-bg-color-red-contrast, 50%));
+    --inside-bet-bg-color-black-contrast: 0%;
+    --inside-bet-bg-color-black: hsl(0, 0%, var(--inside-bet-bg-color-black-contrast, 0%));
+    --inside-bet-bg-color-zero-contrast: 25%;
+    --inside-bet-bg-color-zero: hsl(120, 100%, var(--inside-bet-bg-color-zero-contrast, 25%));
+    --inside-bet-txt-color-contrast: 100%;
+    --inside-bet-txt-color: hsl(0, 0%, var(--inside-bet-txt-color-contrast, 100%));
+
+    /* Outside bets vars */
+    --outside-bet-bg-color-contrast: 95%;
+    --outside-bet-bg-color: hsl(12, 20%, var(--outside-bet-bg-color-contrast, 95%));
+    --outside-bet-txt-color-contrast: 0%;
+    --outside-bet-txt-color: hsl(0, 0%, var(--outside-bet-txt-color-contrast, 0%));
+
+    /* Bet chip */
+    --chip-size: clamp(2rem, 3.5vw, 3rem);
+    --chip-font-size: max(.75rem, calc(var(--chip-size) / 2.5));
+
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: clamp(1rem, 1.1vw, 1.7rem);
+    font-weight: 600;
+
+    border: 1px solid black;
+}
+
+:host-context([theme="dark"]) {
+    --inside-bet-txt-color-contrast: 95%;
+    --inside-bet-bg-color-red-contrast: 40%;
+    --inside-bet-bg-color-green-contrast: 15%;
+
+    --outside-bet-bg-color-contrast: 85%;
+}
+
+:host(.inside-bet) {
+    color: var(--inside-bet-txt-color);
+}
+
+:host(.inside-bet.zero) {
+    border-top-left-radius: 15rem;
+    border-bottom-left-radius: 15rem;
+
+    background-color: var(--inside-bet-bg-color-zero);
+    font-size: clamp(1.25rem, 1.5vw, 2rem);
+}
+
+:host(.inside-bet.red) {
+    background-color: var(--inside-bet-bg-color-red);
+}
+
+:host(.inside-bet.black) {
+    background-color: var(--inside-bet-bg-color-black);
+}
+
+:host(.outside-bet) {
+    color: var(--outside-bet-txt-color);
+    background-color: var(--outside-bet-bg-color);
+
+    font-size: clamp(1rem, 1vw, 1.35rem);
+    font-weight: 500;
+}
+
+:host(.outside-bet.dozen) {
+    font-size: clamp(.95rem, 1.5vw, 1.2rem);
+}
+
+:host(.outside-bet.column) {
+    font-size: clamp(.85rem, 1.5vw, 1.15rem);
+}
+
+:host(.outside-bet.range) {
+    font-size: clamp(.85rem, 1.5vw, 1.15rem);
+}
+
+:host(.outside-bet:is(.black, .red, .even, .odd)) {
+    font-size: clamp(.85rem, 1.5vw, 1.15rem);
+}
+
+/* Placed chips styles */
+
+.chip.stacked {
+    filter: grayscale(1);
+}
+
+.chip {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    inline-size: var(--chip-size);
+    aspect-ratio: 1 / 1;
+
+    font-size: var(--chip-font-size);
+    font-weight: 600;
+    color: #000;
+}
+
+.chip-icon {
+    position: absolute;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
