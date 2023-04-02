@@ -1,25 +1,29 @@
 @media screen and (max-width: 800px) {
 
-    #roulette-board-area {
-        --gameboard-inline-size: 37rem;
-
-        max-inline-size: var(--gameboard-inline-size);
-        min-inline-size: var(--gameboard-inline-size);
-        min-block-size: calc(var(--gameboard-inline-size) * 0.37);
+    :host {
+        --gameboard-block-size: clamp(630px, 60vh, 1300px);
+        --gameboard-inline-size: calc(var(--gameboard-block-size) * 0.45);
     }
 
     .gameboard {
-        rotate: z 90deg;
-        translate: 10% -110%;
-        transform-origin: bottom left;
-    }
-
-    :is(.inside-bet, .column) .slot-txt {
-        rotate: z -90deg;
-    }
-
-    .bet .chip {
-        rotate: z -90deg;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: 4.5fr repeat(13, 2fr);
+    
+        grid-template-areas: 
+            '. . n-0 n-0 n-0'
+            'rn-1 doz-1 n-1 n-2 n-3'
+            'rn-1 doz-1 n-4 n-5 n-6'
+            'even doz-1 n-7 n-8 n-9'
+            'even doz-1 n-10 n-11 n-12'
+            'rd doz-2 n-13 n-14 n-15'
+            'rd doz-2 n-16 n-17 n-18'
+            'blck doz-2 n-19 n-20 n-21'
+            'blck doz-2 n-22 n-23 n-24'
+            'odd doz-3 n-25 n-26 n-27'
+            'odd doz-3 n-28 n-29 n-30'
+            'rn-2 doz-3 n-31 n-32 n-33'
+            'rn-2 doz-3 n-34 n-35 n-36'
+            '. . col-1 col-2 col-3';
     }
 
 }
