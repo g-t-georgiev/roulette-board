@@ -23,6 +23,10 @@ export class ThemeSwitchComponent extends Component {
     }
 
     /**
+     * Toggle theme component internal state. Method is primarily for internal use, 
+     * inside the component click event handler, but is made public for two-way communication for synchronizing 
+     * the internal state with the parent context theme state. 
+     * When an optional boolean parameter is passed, the value is assigned as the current theme state value.
      * @param {boolean | undefined} darkMode 
      */
     toggle(darkMode) {
