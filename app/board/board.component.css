@@ -2,26 +2,6 @@
 @import '/assets/styles/main.css';
 
 :host {
-    /* Inside bets vars */
-    --inside-bet-bg-color-red-contrast: 50%;
-    --inside-bet-bg-color-red: hsl(0, 100%, var(--inside-bet-bg-color-red-contrast, 50%));
-    --inside-bet-bg-color-black-contrast: 0%;
-    --inside-bet-bg-color-black: hsl(0, 0%, var(--inside-bet-bg-color-black-contrast, 0%));
-    --inside-bet-bg-color-zero-contrast: 25%;
-    --inside-bet-bg-color-zero: hsl(120, 100%, var(--inside-bet-bg-color-zero-contrast, 25%));
-    --inside-bet-txt-color-contrast: 100%;
-    --inside-bet-txt-color: hsl(0, 0%, var(--inside-bet-txt-color-contrast, 100%));
-
-    /* Outside bets vars */
-    --outside-bet-bg-color-contrast: 95%;
-    --outside-bet-bg-color: hsl(12, 20%, var(--outside-bet-bg-color-contrast, 95%));
-    --outside-bet-txt-color-contrast: 0%;
-    --outside-bet-txt-color: hsl(0, 0%, var(--outside-bet-txt-color-contrast, 0%));
-
-    /* Bet chip */
-    --size: max(2.5rem, 3vw);
-    --font-size: calc(var(--size) / 2.7);
-
     --gameboard-inline-size: clamp(730px, 55vw, 1100px);
     --gameboard-block-size: calc(var(--gameboard-inline-size) * 0.3);
 
@@ -29,21 +9,13 @@
     cursor: default;
 }
 
-:host-context([theme="dark"]) {
-    --inside-bet-txt-color-contrast: 95%;
-    --inside-bet-bg-color-red-contrast: 40%;
-    --inside-bet-bg-color-green-contrast: 15%;
-
-    --outside-bet-bg-color-contrast: 85%;
-}
-
 /* Base gameboard container styles */
 
 #roulette-board-area {
     position: relative;
 
-    max-inline-size: var(--gameboard-inline-size);
-    min-block-size: var(--gameboard-block-size);
+    inline-size: var(--gameboard-inline-size);
+    block-size: var(--gameboard-block-size);
 
     margin-block: 5rem;
     margin-inline: auto;
@@ -55,157 +27,246 @@
     display: grid;
     grid-template-columns: 3fr repeat(13, 2fr);
     grid-template-rows: repeat(5, 1fr);
+
+    grid-template-areas: 
+        'n-0 n-3 n-6 n-9 n-12 n-15 n-18 n-21 n-24 n-27 n-30 n-33 n-36 col-3'
+        'n-0 n-2 n-5 n-8 n-11 n-14 n-17 n-20 n-23 n-26 n-29 n-32 n-35 col-2'
+        'n-0 n-1 n-4 n-7 n-10 n-13 n-16 n-19 n-22 n-25 n-28 n-31 n-34 col-1'
+        '. doz-1 doz-1 doz-1 doz-1 doz-2 doz-2 doz-2 doz-2 doz-3 doz-3 doz-3 doz-3 .'
+        '. rn-1 rn-1 even even rd rd blck blck odd odd rn-2 rn-2 .';
 }
 
-/* Base betting slot styles */
-
-.bet {
-    position: relative;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    font-size: clamp(1rem, 1.1vw, 1.7rem);
-    font-weight: 600;
-
-    border: 1px solid black;
-
-    transition: all .1s ease-in-out;
+.inside-bet.n-0 {
+    grid-area: n-0;
 }
 
-.gameboard:not([disabled]) .bet:hover {
+.inside-bet.n-3 {
+    grid-area: n-3;
+}
+
+.inside-bet.n-6 {
+    grid-area: n-6;
+}
+
+.inside-bet.n-9 {
+    grid-area: n-9;
+}
+
+.inside-bet.n-12 {
+    grid-area: n-12;
+}
+
+.inside-bet.n-15 {
+    grid-area: n-15;
+}
+
+.inside-bet.n-18 {
+    grid-area: n-18;
+}
+
+.inside-bet.n-21 {
+    grid-area: n-21;
+}
+
+.inside-bet.n-24 {
+    grid-area: n-24;
+}
+
+.inside-bet.n-27 {
+    grid-area: n-27;
+}
+
+.inside-bet.n-30 {
+    grid-area: n-30;
+}
+
+.inside-bet.n-33 {
+    grid-area: n-33;
+}
+
+.inside-bet.n-36 {
+    grid-area: n-36;
+}
+
+.outside-bet.col-3 {
+    grid-area: col-3;
+}
+
+.outside-bet.col-2 {
+    grid-area: col-2;
+}
+
+.outside-bet.col-1 {
+    grid-area: col-1;
+}
+
+.inside-bet.n-2 {
+    grid-area: n-2;
+}
+
+.inside-bet.n-5 {
+    grid-area: n-5;
+}
+
+.inside-bet.n-8 {
+    grid-area: n-8;
+}
+
+.inside-bet.n-11 {
+    grid-area: n-11;
+}
+
+.inside-bet.n-14 {
+    grid-area: n-14;
+}
+
+.inside-bet.n-17 {
+    grid-area: n-17;
+}
+
+.inside-bet.n-20 {
+    grid-area: n-20;
+}
+
+.inside-bet.n-23 {
+    grid-area: n-23;
+}
+
+.inside-bet.n-26 {
+    grid-area: n-26;
+}
+
+.inside-bet.n-29 {
+    grid-area: n-29;
+}
+
+.inside-bet.n-32 {
+    grid-area: n-32;
+}
+
+.inside-bet.n-35 {
+    grid-area: n-35;
+}
+
+.outside-bet.col-2 {
+    grid-area: col-2;
+}
+
+.inside-bet.n-1 {
+    grid-area: n-1;
+}
+
+.inside-bet.n-4 {
+    grid-area: n-4;
+}
+
+.inside-bet.n-7 {
+    grid-area: n-7;
+}
+
+.inside-bet.n-10 {
+    grid-area: n-10;
+}
+
+.inside-bet.n-13 {
+    grid-area: n-13;
+}
+
+.inside-bet.n-16 {
+    grid-area: n-16;
+}
+
+.inside-bet.n-19 {
+    grid-area: n-19;
+}
+
+.inside-bet.n-22 {
+    grid-area: n-22;
+}
+
+.inside-bet.n-25 {
+    grid-area: n-25;
+}
+
+.inside-bet.n-28 {
+    grid-area: n-28;
+}
+
+.inside-bet.n-31 {
+    grid-area: n-31;
+}
+
+.inside-bet.n-34 {
+    grid-area: n-34;
+}
+
+.outside-bet.col-1 {
+    grid-area: col-1;
+}
+
+.outside-bet.dozen-1 {
+    grid-area: doz-1;
+}
+
+.outside-bet.dozen-2 {
+    grid-area: doz-2;
+}
+
+.outside-bet.dozen-3 {
+    grid-area: doz-3;
+}
+
+.outside-bet.range-1 {
+    grid-area: rn-1;
+}
+
+.outside-bet.even {
+    grid-area: even;
+}
+
+.outside-bet.red {
+    grid-area: rd;
+}
+
+.outside-bet.black {
+    grid-area: blck;
+}
+
+.outside-bet.odd {
+    grid-area: odd;
+}
+
+.outside-bet.range-2 {
+    grid-area: rn-2;
+}
+
+/* Hover effects */
+
+/* General hover effects */
+.gameboard:not([disabled]) roulette-slot:hover {
     box-shadow: inset 0 0 .5rem rgba(0, 0, 0, .6);
     cursor: pointer;
 }
 
-.inside-bet {
-    grid-column: span 1;
-    grid-row: span 1;
-
-    color: var(--inside-bet-txt-color);
-}
-
-.gameboard:not([disabled]) .inside-bet:hover {
-    box-shadow: inset 0 0 .5rem rgba(255, 255, 255, .6);
-}
-
-.inside-bet.zero {
-    grid-column: 1 / span 1;
-    grid-row: span 3;
-
-    border-top-left-radius: 15rem;
-    border-bottom-left-radius: 15rem;
-
-    font-size: clamp(1.25rem, 1.5vw, 2rem);
-    background-color: var(--inside-bet-bg-color-zero);
-}
-
-.gameboard:not([disabled]) .inside-bet.zero:hover {
+/* Zero slot effect on even numbers hover */
+.gameboard:not([disabled]):has(roulette-slot.outside-bet.even:hover) roulette-slot.inside-bet.even.zero {
     box-shadow: inset 0 0 .5rem rgba(0, 0, 0, .6);
 }
 
-.inside-bet.red {
-    background-color: var(--inside-bet-bg-color-red);
+/* Black slots effects on direct hover and when even, odd or black slot is hovered */
+.gameboard:not([disabled]) roulette-slot.inside-bet.black:hover,
+.gameboard:not([disabled]):has(roulette-slot.outside-bet.black:hover) roulette-slot.inside-bet.black,
+.gameboard:not([disabled]):has(roulette-slot.outside-bet.even:hover) roulette-slot.inside-bet.even.black,
+.gameboard:not([disabled]):has(roulette-slot.outside-bet.odd:hover) roulette-slot.inside-bet.odd.black {
+    box-shadow: inset 0 0 .8rem rgba(255, 255, 255, .7);
 }
 
-.gameboard:not([disabled]) .inside-bet.red:hover {
-    box-shadow: inset 0 0 .6rem rgba(0, 0, 0, .95);
+/* Red slots effects on direct hover and when even, odd or red slot is hovered */
+.gameboard:not([disabled]) roulette-slot.inside-bet.red:hover,
+.gameboard:not([disabled]):has(roulette-slot.outside-bet.red:hover) roulette-slot.inside-bet.red,
+.gameboard:not([disabled]):has(roulette-slot.outside-bet.even:hover) roulette-slot.inside-bet.even.red,
+.gameboard:not([disabled]):has(roulette-slot.outside-bet.odd:hover) roulette-slot.inside-bet.odd.red {
+    box-shadow: inset 0 0 1.5rem rgba(255, 255, 255, 1);
 }
 
-.inside-bet.black {
-    background-color: var(--inside-bet-bg-color-black);
-}
-
-.outside-bet {
-    color: var(--outside-bet-txt-color);
-    background-color: var(--outside-bet-bg-color);
-
-    font-size: clamp(1rem, 1vw, 1.35rem);
-    font-weight: 500;
-}
-
-.outside-bet.dozen {
-    grid-row: span 1;
-
-    font-size: clamp(.95rem, 1.5vw, 1.2rem);
-}
-
-.outside-bet.dozen:nth-child(41) {
-    grid-column: 2 / span 4;
-}
-
-.outside-bet.dozen:nth-child(42) {
-    grid-column: 6 / span 4;
-}
-
-.outside-bet.dozen:nth-child(43) {
-    grid-column: 10 / span 4;
-}
-
-.outside-bet.column {
-    grid-column: -2 / span 1;
-    grid-row: span 1;
-
-    font-size: clamp(.85rem, 1.5vw, 1.15rem);
-}
-
-.outside-bet.range {
-    font-size: clamp(.85rem, 1.5vw, 1.15rem);
-}
-
-.outside-bet.range:nth-child(44) {
-    grid-column: 2 / span 2;
-}
-
-.outside-bet.outside-bet.range:nth-child(49) {
-    grid-column: -4 / span 2;
-}
-
-.outside-bet:is(.black, .red, .even, .odd) {
-    grid-column: span 2;
-
-    font-size: clamp(.85rem, 1.5vw, 1.15rem);
-}
-
-/* Placed chips inside betting slots styles */
-
-.chip {
-    display: none;
-    
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.chip.stacked {
-    filter: grayscale(1);
-}
-
-.bet .chip {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    translate: -50% -50%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    inline-size: var(--size);
-    aspect-ratio: 1 / 1;
-    object-fit: contain;
-
-    padding: .25rem;
-
-    font-size: var(--font-size);
-    font-weight: 600;
-    color: #000;
-}
-
-.bet .chip-icon {
-    position: absolute;
-    inline-size: 100%;
-    block-size: 100%;
-    object-fit: cover;
-    z-index: -1;
-}
+/* TODO: Add hover effects for the columns, ranges and dozens */
