@@ -81,7 +81,7 @@ export class ThemeSwitchComponent extends Component {
     }
 
     disconnectedCallback() {
-        this.removeEventListener('pointerdown', this._clickHandler);
+        this.removeEventListener('pointerdown', this.__clickHandler);
     }
 
 }
