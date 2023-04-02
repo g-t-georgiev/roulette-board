@@ -103,22 +103,6 @@ export class UserControlsComponent extends Component {
             this.#render();
 
             this.#subscriptions.push(
-                // EventBus.subscribe(
-                //     'roulette:bet', 
-                //     (slot, selectedChipDTO) => {
-                //         // console.log(slot, selectedChipDTO);
-
-                //         this.#shadowRoot.querySelectorAll('roulette-chip').forEach(
-                //             chip => {
-                //                 const isTarget = selectedChipDTO.id === chip.dataset.id;
-
-                //                 if (isTarget) {
-                //                     chip.toggleSelectedState();
-                //                 }
-                //             }
-                //         );
-                //     }
-                // ),
                 EventBus.subscribe(
                     'roulette:clear', 
                     () => {
