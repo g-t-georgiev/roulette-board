@@ -36,7 +36,7 @@ export class AppComponent extends Component {
 
         const toggleThemeElem = document.createElement('roulette-theme-switch');
         const isThemeDark = this.getAttribute('theme') === 'dark';
-        toggleThemeElem.toggle(isThemeDark);
+        toggleThemeElem.__toggle(isThemeDark);
 
         contentWrapperElem.append(toggleThemeElem, notificationElem, rouletteBoardElem, rouletteUserControlsElem);
 
