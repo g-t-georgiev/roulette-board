@@ -16,10 +16,18 @@ export class ThemeSwitchComponent extends Component {
     constructor() {
         super();
         this.rendered = false;
-        this._clickHandler = this._clickHandler.bind(this);
 
         this.#switchElem.type = 'button';
         this.#switchElem.textContent = this.#darkMode ? Theme.Light : Theme.Dark;
+    }
+
+    /**
+     * Wrapper function on top of a private click handler,
+     * binding the calls context to the component instance. 
+     * @param  {...PointerEvent} args 
+     */
+    __clickHandler(...args) {
+        this.#clickHandler.call(this, ...args);
     }
 
     /**
@@ -29,7 +37,7 @@ export class ThemeSwitchComponent extends Component {
      * When an optional boolean parameter is passed, the value is assigned as the current theme state value.
      * @param {boolean | undefined} darkMode 
      */
-    toggle(darkMode) {
+    __toggle(darkMode) {
         this.#darkMode = darkMode != null ? darkMode : !this.#darkMode;
         this.#switchElem.textContent = this.#darkMode ? Theme.Light : Theme.Dark;
     }
@@ -40,11 +48,15 @@ export class ThemeSwitchComponent extends Component {
         stylesheetElem.href = '/app/theme-switch/theme-switch.component.css';
 
         this.#shadowRoot.append(stylesheetElem, this.#switchElem);
-        this.addEventListener('pointerdown', this._clickHandler);
+        this.addEventListener('pointerdown', this.__clickHandler);
     }
 
-    _clickHandler() {
-        this.toggle();
+    /**
+     * Handles click events logic. Makes internal call to the __toggle() 
+     * method for changing internal theme state and dispatches roulette:theme event.
+     */
+    #clickHandler() {
+        this.__toggle();
 
         this.dispatchEvent(
             Roulette.customEvent(
