@@ -99,18 +99,18 @@ function* resolveSlotData(entry) {
                 );
        }
     } else if (entry === 0) {
-        yield createSlotDTO(entry.toString(), [ 'inside-bet', 'zero' ]);
+        yield createSlotDTO(entry.toString(), [ 'inside-bet', 'zero', `n-${entry}` ]);
     } else if (
         (entry >= 1 && entry <= 10) || 
         (entry >= 19 && entry <= 28)
     ) {
         yield entry % 2 === 0 
-            ? createSlotDTO(entry.toString(), [ 'inside-bet', 'straight-up', 'black', 'even' ]) 
-            : createSlotDTO(entry.toString(), [ 'inside-bet', 'straight-up', 'red', 'odd' ]);
+            ? createSlotDTO(entry.toString(), [ 'inside-bet', 'straight-up', 'black', 'even', `n-${entry}` ]) 
+            : createSlotDTO(entry.toString(), [ 'inside-bet', 'straight-up', 'red', 'odd', `n-${entry}` ]);
     } else {
         return entry % 2 === 0 
-            ? createSlotDTO(entry.toString(), [ 'inside-bet', 'straight-up', 'red', 'even' ])
-            : createSlotDTO(entry.toString(), [ 'inside-bet', 'straight-up', 'black', 'odd' ])
+            ? createSlotDTO(entry.toString(), [ 'inside-bet', 'straight-up', 'red', 'even', `n-${entry}` ])
+            : createSlotDTO(entry.toString(), [ 'inside-bet', 'straight-up', 'black', 'odd', `n-${entry}` ])
     }
 }
 
