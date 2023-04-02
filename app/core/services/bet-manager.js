@@ -59,7 +59,7 @@ function placeBet(bet) {
     const { chip, slot } = bet;
     // console.log(chip, slot);
     const betsCount = bets.push({ chip: { ...chip }, slot });
-    slot.append(bets[bets.length - 1].chip.ref);
+    slot.appendSlotChipElem(bets[bets.length - 1].chip.ref);
     // console.log(bets[bets.length - 1]);
     return betsCount;
 }
@@ -137,7 +137,7 @@ function doubleBets() {
                 true
             );
 
-            slot.append(newChipElem);
+            slot.appendSlotChipElem(newChipElem);
             bets.push(
                 { 
                     chip: { 
