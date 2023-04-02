@@ -13,18 +13,21 @@ export class ThemeSwitchComponent extends Component {
     #shadowRoot = this.attachShadow({ mode: 'open' });
     #switchElem = document.createElement('button');
 
-    toggle(darkMode = false) {
-        this.#darkMode = darkMode || !this.#darkMode;
-        this.#switchElem.textContent = this.#darkMode ? Theme.Dark : Theme.Light;
-    }
-
     constructor() {
         super();
         this.rendered = false;
         this._clickHandler = this._clickHandler.bind(this);
 
         this.#switchElem.type = 'button';
-        this.#switchElem.textContent = this.#darkMode ? Theme.Dark : Theme.Light;
+        this.#switchElem.textContent = this.#darkMode ? Theme.Light : Theme.Dark;
+    }
+
+    /**
+     * @param {boolean | undefined} darkMode 
+     */
+    toggle(darkMode) {
+        this.#darkMode = darkMode != null ? darkMode : !this.#darkMode;
+        this.#switchElem.textContent = this.#darkMode ? Theme.Light : Theme.Dark;
     }
 
     #render() {
