@@ -99,7 +99,7 @@ function* resolveSlotData(entry) {
                 );
        }
     } else if (entry === 0) {
-        yield createSlotDTO(entry.toString(), [ 'inside-bet', 'zero', `n-${entry}` ]);
+        yield createSlotDTO(entry.toString(), [ 'inside-bet', 'zero', 'even', `n-${entry}` ]);
     } else if (
         (entry >= 1 && entry <= 10) || 
         (entry >= 19 && entry <= 28)
