@@ -28,9 +28,9 @@ export class BoardComponent extends Component {
     constructor() {
         super();
         this.rendered = false;
-        this._cursorEnterHandler = this._cursorEnterHandler.bind(this);
-        this._cursorLeaveHandler = this._cursorLeaveHandler.bind(this);
-        this._cursorMoveHandler = this._cursorMoveHandler.bind(this);
+        this.__cursorEnterHandler = this.#cursorEnterHandler.bind(this);
+        this.__cursorLeaveHandler = this.#cursorLeaveHandler.bind(this);
+        this.__cursorMoveHandler = this.#cursorMoveHandler.bind(this);
     }
 
     #render() {
@@ -63,9 +63,9 @@ export class BoardComponent extends Component {
         // console.log(slotElemList);
 
         this.#gameboard.append(...slotElemList);
-        this.#gameboard?.addEventListener('pointerenter', this._cursorEnterHandler);
-        this.#gameboard?.addEventListener('pointerleave', this._cursorLeaveHandler);
-        this.#gameboard?.addEventListener('pointermove', this._cursorMoveHandler);
+        this.#gameboard?.addEventListener('pointerenter', this.__cursorEnterHandler);
+        this.#gameboard?.addEventListener('pointerleave', this.__cursorLeaveHandler);
+        this.#gameboard?.addEventListener('pointermove', this.__cursorMoveHandler);
 
         this.#shadowRoot.append(...stylesheetLinks, this.#gameboard);
     }
@@ -75,7 +75,7 @@ export class BoardComponent extends Component {
      * Toggle the styles for displaying of the chip icon upon entering 
      * of mouse cursor inside the boundaries of the gameboard component.
      */
-    _cursorEnterHandler() {
+    #cursorEnterHandler() {
         if (!this.#cursor) return;
 
         this.#cursor.toggle(true);
@@ -86,7 +86,7 @@ export class BoardComponent extends Component {
      * Toggle the styles for hiding chip icon upon leaving of mouse
      * cursor beyond the boundaries of the gameboard component.
      */
-    _cursorLeaveHandler() {
+    #cursorLeaveHandler() {
         if (!this.#cursor) return;
 
         this.#cursor.toggle(false);
@@ -97,7 +97,7 @@ export class BoardComponent extends Component {
      * Toggle the styles necessary for mouse tracking of the chip icon.
      * @param {MouseEvent} e 
      */
-    _cursorMoveHandler(e) {
+    #cursorMoveHandler(e) {
         if (!this.#cursor || !this.#gameboard) return;
 
         let y = (e.clientY - this.#gameboard?.offsetTop) * 100 / this.#gameboard?.offsetHeight;
@@ -149,9 +149,9 @@ export class BoardComponent extends Component {
     }
 
     disconnectedCallback() {
-        this.#gameboard?.removeEventListener('pointerenter', this._cursorEnterHandler);
-        this.#gameboard?.removeEventListener('pointerleave', this._cursorLeaveHandler);
-        this.#gameboard?.removeEventListener('pointermove', this._cursorMoveHandler);
+        this.#gameboard?.removeEventListener('pointerenter', this.__cursorEnterHandler);
+        this.#gameboard?.removeEventListener('pointerleave', this.__cursorLeaveHandler);
+        this.#gameboard?.removeEventListener('pointermove', this.__cursorMoveHandler);
         this.#subscriptions.forEach(_ => _?.unsubscribe());
     }
 
