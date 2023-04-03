@@ -1,6 +1,11 @@
 @media screen and (max-width: 800px) {
 
     :host {
+        flex-basis: calc(50% - var(--app-container-row-gap));
+        order: 1;
+    }
+
+    #roulette-board-area {
         --gameboard-block-size: clamp(630px, 60vh, 1300px);
         --gameboard-inline-size: calc(var(--gameboard-block-size) * 0.45);
     }
