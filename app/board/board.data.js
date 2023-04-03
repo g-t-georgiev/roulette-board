@@ -154,21 +154,21 @@ function formatData(entry) {
     const classList = [];
 
     let isInColumn = isInColumnRange(3)(entry);
-    console.log(`Number ${entry} is in col 3: ` + isInColumn);
+    // console.log(`Number ${entry} is in col 3: ` + isInColumn);
 
     if (isInColumn) {
         classList.push('col-3');
     }
 
     isInColumn = isInColumnRange(2)(entry);
-    console.log(`Number ${entry} is in col 2: ` + isInColumn);
+    // console.log(`Number ${entry} is in col 2: ` + isInColumn);
 
     if (isInColumn) {
         classList.push('col-2');
     } 
 
     isInColumn = isInColumnRange(1)(entry);
-    console.log(`Number ${entry} is in col 1: ` + isInColumn);
+    // console.log(`Number ${entry} is in col 1: ` + isInColumn);
 
     if (isInColumn) {
         classList.push('col-1');
