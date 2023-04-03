@@ -5,8 +5,8 @@
     display: block;
     min-block-size: 100vh;
 
-    background-color: var(--bg-color);
-    color: var(--txt-color);
+    background-color: var(--bg-color, #f5f1f0);
+    color: var(--txt-color, #222);
 }
 
 :host([theme="dark"]) {
@@ -15,6 +15,13 @@
 }
 
 #roulette-board-app-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+    gap: var(--app-container-col-gap, clamp(1rem, 3vw, 3rem)) var(--app-container-row-gap, clamp(5rem, 15vw, min(30%, 35rem)));
+    
     padding-block: 2rem;
 }
 
