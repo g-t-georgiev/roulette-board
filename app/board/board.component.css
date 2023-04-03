@@ -243,7 +243,7 @@
 
 /* General hover effects */
 .gameboard roulette-slot {
-    transition: all 0.2s ease-in-out;
+    transition: box-shadow 0.2s ease-in-out;
 }
 
 .gameboard:not([disabled]) roulette-slot:hover {
