@@ -1,0 +1,10 @@
+:host {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: clamp(1.5rem, 2vw, 2rem) clamp(1rem, 2vw, 1.75rem);
+
+    flex-basis: calc(50% - var(--app-container-row-gap));
+}

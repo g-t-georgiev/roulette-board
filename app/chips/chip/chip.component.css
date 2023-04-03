@@ -1,0 +1,44 @@
+@import '/assets/styles/reset.css';
+@import '/assets/styles/main.css';
+
+:host {
+    --txt-color: #222;
+    
+    display: inline-block;
+}
+
+:host([selected]) .chip {
+    opacity: 1;
+    transform: scale(1.25);
+}
+
+.chip {
+    position: relative;
+
+    inline-size: clamp(4rem, 6vw, 6rem);
+    aspect-ratio: 1 / 1;
+
+    opacity: .6;
+    overflow: hidden;
+    cursor: grab;
+
+    transition: all .1s ease-in-out;
+}
+
+.chip-txt {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+
+    font-size: clamp(1.35rem, 2vw, 2rem);
+    font-weight: 600;
+    color: var(--txt-color);
+}
+
+.chip-img {
+    inline-size: 100%;
+    aspect-ratio: 1 / 1;
+
+    object-fit: contain;
+}

@@ -24,7 +24,7 @@ export class ChipComponent extends Component {
     #render() {
         const stylesheetElem = document.createElement('link');
         stylesheetElem.rel = 'stylesheet';
-        stylesheetElem.href = '/app/user-controls/chip/chip.component.css';
+        stylesheetElem.href = '/app/chips/chip/chip.component.css';
 
         const chipContentElem = document.createElement('div');
         chipContentElem.classList.add('chip');
