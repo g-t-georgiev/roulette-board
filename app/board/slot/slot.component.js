@@ -86,7 +86,7 @@ export class SlotComponent extends Component {
 
         const responsiveStylesheetElem = document.createElement('link');
         responsiveStylesheetElem.rel = 'stylesheet';
-        responsiveStylesheetElem.href = '/app/board/slot/responsive.css';
+        responsiveStylesheetElem.href = '/app/board/slot/responsive.part.css';
 
         stylesheets.push(stylesheetElem, responsiveStylesheetElem);
 
