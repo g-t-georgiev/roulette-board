@@ -31,11 +31,22 @@ function createSlotDTO(textContent, classList) {
     };
 }
 
+/**
+ * After passing initial arguments, a comparator function is returned, 
+ * validating if an entry number is in a set range between a value start 
+ * number and treshold of value + step, repeated n times.
+ * @param {number} value Initial or start value. 
+ * @param {number} step Step increase of initial value.
+ * @param {number} n Step rate treshold.
+ * @returns {(entry: number) => boolean}
+ */
 const isInColumnRange = function (value = 3, step = 3, n = 12) {
     return function (entry) {
-        for (let i = 0; i < n; i++) {
-            if (entry === value) return true;
+        let i = 0;
+        while (i < n) {
+            if (value === entry) return true;
 
+            i++;
             value += step;
         }
 
@@ -141,6 +152,27 @@ function formatData(entry) {
     }
 
     const classList = [];
+
+    let isInColumn = isInColumnRange(3)(entry);
+    console.log(`Number ${entry} is in col 3: ` + isInColumn);
+
+    if (isInColumn) {
+        classList.push('col-3');
+    }
+
+    isInColumn = isInColumnRange(2)(entry);
+    console.log(`Number ${entry} is in col 2: ` + isInColumn);
+
+    if (isInColumn) {
+        classList.push('col-2');
+    } 
+
+    isInColumn = isInColumnRange(1)(entry);
+    console.log(`Number ${entry} is in col 1: ` + isInColumn);
+
+    if (isInColumn) {
+        classList.push('col-1');
+    }
 
     if (entry >= 1 && entry <= 18) {
         if (entry <= 12) {
