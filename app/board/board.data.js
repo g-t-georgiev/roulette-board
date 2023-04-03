@@ -31,6 +31,18 @@ function createSlotDTO(textContent, classList) {
     };
 }
 
+const isInColumnRange = function (value = 3, step = 3, n = 12) {
+    return function (entry) {
+        for (let i = 0; i < n; i++) {
+            if (entry === value) return true;
+
+            value += step;
+        }
+
+        return false;
+    };
+};
+
 /**
  * @param {number | string} entry 
  * @returns {Slot}
