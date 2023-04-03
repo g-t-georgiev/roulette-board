@@ -1,0 +1,14 @@
+@media screen and (max-width: 800px) {
+
+    :host {
+        flex-basis: 100%;
+        order: 3;
+    }
+
+    .user-controls {
+        justify-content: flex-start;
+        margin-block-start: 1.5rem;
+        padding-inline: 3rem;
+    }
+
+}
