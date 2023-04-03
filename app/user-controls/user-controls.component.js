@@ -4,15 +4,12 @@ import { EventBus } from '../core/services/index.js';
 import { UndoButtonComponent } from './undo-button/undo-button.component.js';
 import { ClearButtonComponent } from './clear-button/clear-button.component.js';
 import { DoubleButtonComponent } from './double-button/double-button.component.js';
-import { ChipComponent } from './chip/chip.component.js';
 
 import * as data from './user-controls.data.js';
 
 customElements.define('roulette-undo-button', UndoButtonComponent, { extends: 'button' });
 customElements.define('roulette-clear-button', ClearButtonComponent, { extends: 'button' });
 customElements.define('roulette-double-button', DoubleButtonComponent, { extends: 'button' });
-
-customElements.define('roulette-chip', ChipComponent);
 
 
 export class UserControlsComponent extends Component {
@@ -23,7 +20,6 @@ export class UserControlsComponent extends Component {
     constructor() {
         super();
         this.rendered = false;
-        this._chipSelectHandler = this._chipSelectHandler.bind(this);
     }
 
     #render() {
@@ -33,7 +29,11 @@ export class UserControlsComponent extends Component {
         stylesheetElem.setAttribute('rel', 'stylesheet');
         stylesheetElem.setAttribute('href', '/app/user-controls/user-controls.component.css');
 
-        stylesheets.push(stylesheetElem);
+        const responsiveStylesheetElem = document.createElement('link');
+        responsiveStylesheetElem.rel = 'stylesheet';
+        responsiveStylesheetElem.href = '/app/user-controls/responsive.part.css';
+
+        stylesheets.push(stylesheetElem, responsiveStylesheetElem);
 
         const userControlsSectionElem = document.createElement('section');
         userControlsSectionElem.classList.add('user-controls');
@@ -57,43 +57,9 @@ export class UserControlsComponent extends Component {
             return btnElem;
         });
 
-        const chipElemList = data.chips.map(data => {
-            const elem = document.createElement('roulette-chip');
-            elem.selected = data.selected;
-            elem.dataset.id = data.id;
-            elem.dataset.value = data.value;
-            return elem;
-        });
+        userControlsSectionElem.append(...buttonElemList);
 
-        userControlsSectionElem.append(...buttonElemList, ...chipElemList);
-
-        this.addEventListener('roulette:chip', this._chipSelectHandler);
         this.#shadowRoot.append(...stylesheets, userControlsSectionElem);
-    }
-
-    /**
-     * Manage custom events about selected chip.
-     * @param {CustomEvent<{ id: string, value: string, selected: boolean }>} e 
-     */
-    _chipSelectHandler(e) {
-        // console.log(e.detail);
-
-        const chips = this.#shadowRoot.querySelectorAll('roulette-chip[selected]');
-        // console.log(chips);
-
-        /**
-         * Callback looping over chip instances with selected attribute.
-         * Calls #toggleSelectState method if a possible previously selected chip instance
-         * is not the trigger of the current event.
-         * @param {RouletteChip} chip 
-         */
-        const cb = chip => {
-            const isEvntTarget = chip.dataset.id === e.detail.id;
-            const isSelected = isEvntTarget && e.detail.selected;
-            chip.selected = isSelected;
-        };
-
-        chips.forEach(cb);
     }
 
     connectedCallback() {
@@ -130,7 +96,6 @@ export class UserControlsComponent extends Component {
     }
 
     disconnectedCallback() {
-        this.removeEventListener('roulette:chip', this._chipSelectHandler);
         this.#subscriptions.forEach(_=>_?.unsubscribe());
     }
 
