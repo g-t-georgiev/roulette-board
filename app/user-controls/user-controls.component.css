@@ -3,6 +3,7 @@
 
 :host {
     display: block;
+    flex-basis: calc(50% - var(--app-container-row-gap));
 }
 
 .user-controls {
@@ -11,10 +12,6 @@
     align-items: center;
     flex-wrap: wrap;
     gap: .75rem;
-
-    inline-size: 50vw;
-    margin-block: 1rem 3rem;
-    margin-inline: auto;
 }
 
 /* Buttons */
@@ -40,12 +37,4 @@
 
 .btn:not(:is(.disabled, :disabled)):hover {
     transform: scale(1.1);
-}
-
-roulette-chip:first-of-type {
-    margin-inline-start: auto;
-}
-
-roulette-chip:not(:last-of-type) {
-    margin-inline-end: 1.25rem;
 }
