@@ -251,7 +251,7 @@
     cursor: pointer;
 }
 
-/* Zero slot effect on even numbers hover */
+/* Zero slot effects on direct and even number slot hover */
 .gameboard:not([disabled]) roulette-slot.inside-bet.even.zero:hover,
 .gameboard:not([disabled]):has(roulette-slot.outside-bet.even:hover) roulette-slot.inside-bet.even.zero {
     box-shadow: inset 0 0 4rem rgba(255, 255, 255, .7);
