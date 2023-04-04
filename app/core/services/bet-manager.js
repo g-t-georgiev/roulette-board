@@ -1,3 +1,5 @@
+import { walkNestedLists } from '../../../utils/IteratorFlat.js';
+
 /**
  * @typedef chip 
  * @property {string} id 
@@ -76,8 +78,14 @@ function undoLastBet() {
 
     const revokedBet = bets.pop();
     // console.log(revokedBet);
-    revokedBet.chip.ref?.remove();
-    return revokedBet;
+
+    if (Array.isArray(revokedBet)) {
+        revokedBet.forEach(({ chip, slot }) => chip.ref?.remove());
+    } else {
+        revokedBet.chip.ref?.remove();
+    }
+
+    return revokedBet
 }
 
 /**
@@ -89,7 +97,8 @@ function clearBets() {
         return false;
     }
 
-    bets.forEach(
+    walkNestedLists(
+        bets,
         ({ chip, slot }) => {
             // console.log(chip, slot);
             chip.ref?.remove();
@@ -110,45 +119,51 @@ function doubleBets() {
         return false;
     }
 
-    bets.forEach(
+    walkNestedLists(
+        bets,
         ({ chip, slot}) => {
-
+            // console.log(chip, slot);
             latestBets.set(slot, chip);
         }
     );
 
-    latestBets.forEach(
-        (chip, slot) => {
-            // console.log(chip, slot);
+    bets.push(
+        [ ...latestBets ].map(
+            (bet) => {
+                // console.log(bet);
+                const [ slot, chip ] = bet;
+                // console.log(slot, chip);
 
-            let value = 0;
+                let value = 0;
 
-            if (chip.ref.classList.contains('stacked')) {
-                value = Number(chip.ref.textContent);
-            } else {
-                value = Number(chip.value);
-            }
-
-            const newChipElem = slot.createSlotChipElem(
-                { 
-                    id: chip.id, 
-                    value: value * 2 
-                }, 
-                true
-            );
-
-            slot.appendSlotChipElem(newChipElem);
-            bets.push(
-                { 
-                    chip: { 
-                        id: chip.id, 
-                        value: value, 
-                        ref: newChipElem 
-                    }, 
-                    slot 
+                if (chip.ref.classList.contains('stacked')) {
+                    value = Number(chip.ref.textContent);
+                } else {
+                    value = Number(chip.value);
                 }
-            );
-        }
+
+                const newChipElem = slot.createSlotChipElem(
+                    { 
+                        id: chip.id, 
+                        value: value * 2 
+                    }, 
+                    true
+                );
+
+                slot.appendSlotChipElem(newChipElem);
+
+                return (
+                    { 
+                        chip: { 
+                            id: chip.id, 
+                            value: value, 
+                            ref: newChipElem 
+                        }, 
+                        slot 
+                    }
+                );
+            }
+        )
     );
 
     latestBets.clear();
