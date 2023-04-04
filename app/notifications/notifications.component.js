@@ -46,8 +46,22 @@ export class NotificationsComponent extends HTMLHeadingElement {
                 ),
                 EventBus.subscribe(
                     'roulette:undo', 
-                    ({ id, value, slot}) => {
-                        this.textContent = `You've withdrawed a chip with value of ${value} from slot ${slot.getTextContent()}`;
+                    (...revokedBets) => {
+                        // console.log(revokedBets);
+
+                        let formattedData;
+
+                        if (revokedBets.length > 1) {
+                            formattedData = 'all chips from your last double bet.'
+                        } else {
+                            formattedData = revokedBets.map(
+                                ({ id, value, slot }) => `a chip with value of ${value} from slot ${slot.getTextContent()}`
+                            ).join(', ');
+                        }
+
+                        // console.log(formattedDAta);
+
+                        this.textContent = `You've withdrawed ${formattedData}`;
                     },
                     this
                 ),
