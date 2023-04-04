@@ -23,7 +23,21 @@ export class UndoButtonComponent extends ButtonComponent {
         if (!hasPlacedBets) {
             EventBus.publish('roulette:clear');
         } else {
-            EventBus.publish('roulette:undo', { id: result.chip.id, value: result.chip.value, slot: result.slot });
+
+            if (Array.isArray(result)) {
+                let revokedBetsDTO = result.map((bet) => ({ id: bet.chip.id, value: bet.chip.value, slot: bet.slot }));
+
+                EventBus.publish(
+                    'roulette:undo', 
+                    ...revokedBetsDTO
+                );
+            } else {
+                EventBus.publish(
+                    'roulette:undo', 
+                    { id: result.chip.id, value: result.chip.value, slot: result.slot }
+                );
+            }
+
         }
     }
 
