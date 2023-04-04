@@ -288,5 +288,3 @@
 .gameboard:not([disabled]):has(roulette-slot.outside-bet.col-3:hover) roulette-slot.inside-bet.col-3.red {
     box-shadow: inset 0 0 3rem rgba(255, 255, 255, 1);
 }
-
-/* TODO: Add hover effects for the columns */
