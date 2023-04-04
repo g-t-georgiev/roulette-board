@@ -257,7 +257,7 @@
     box-shadow: inset 0 0 4rem rgba(255, 255, 255, .7);
 }
 
-/* Black slots effects on direct hover and when even, odd or black slot is hovered */
+/* Black slots effects on direct hover and when even, odd or black, column, range or dozen slot is hovered */
 .gameboard:not([disabled]) roulette-slot.inside-bet.black:hover,
 .gameboard:not([disabled]):has(roulette-slot.outside-bet.black:hover) roulette-slot.inside-bet.black,
 .gameboard:not([disabled]):has(roulette-slot.outside-bet.even:hover) roulette-slot.inside-bet.even.black,
@@ -273,7 +273,7 @@
     box-shadow: inset 0 0 2rem rgba(255, 255, 255, .7);
 }
 
-/* Red slots effects on direct hover and when even, odd or red slot is hovered */
+/* Red slots effects on direct hover and when even, odd or red, column, range or dozen slot is hovered */
 .gameboard:not([disabled]) roulette-slot.inside-bet.red:hover,
 .gameboard:not([disabled]):has(roulette-slot.outside-bet.red:hover) roulette-slot.inside-bet.red,
 .gameboard:not([disabled]):has(roulette-slot.outside-bet.even:hover) roulette-slot.inside-bet.even.red,
