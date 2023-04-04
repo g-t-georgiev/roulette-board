@@ -148,7 +148,7 @@ function formatData(entry) {
     }
 
     if (entry === 0) {
-        return createSlotDTO(entry.toString(), ['inside-bet', 'zero', 'even', `n-${entry}`]);
+        return createSlotDTO(entry.toString(), ['inside-bet', 'zero', `n-${entry}`]);
     }
 
     const classList = [];
