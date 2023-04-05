@@ -82,7 +82,7 @@
 /*
     Added initial display of none to every roulette-slot-chip instance, but in the parent slot.component styles scope to prevent 
     the effect of initial content flickering when the components are rendered into the DOM and only system styles are applied. 
-    In the local stylesheet of the slot-chip.component this property is being overriden.
+    In the local stylesheet of the roulette-slot-chip instance this property is being overriden.
  */
 roulette-slot-chip {
     display: var(--slot-chip-display, none);
