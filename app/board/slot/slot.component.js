@@ -51,8 +51,8 @@ export class SlotComponent extends Component {
     }
 
     /**
-     * Returns the text content value of a slot which is a 
-     * summed representation of all chip element values.
+     * Returns the text content value 
+     * of a the component which is the slot's label.
      */
     getTextContent() {
         const spanElem = this.#shadowRoot.querySelector('.slot-txt');
