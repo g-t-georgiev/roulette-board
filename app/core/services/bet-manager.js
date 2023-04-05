@@ -61,7 +61,6 @@ function placeBet(bet) {
     const { chip, slot } = bet;
     // console.log(chip, slot);
     const betsCount = bets.push({ chip: { ...chip }, slot });
-    slot.appendSlotChipElem(bets[bets.length - 1].chip.ref);
     // console.log(bets[bets.length - 1]);
     return betsCount;
 }
@@ -136,21 +135,19 @@ function doubleBets() {
 
                 let value = 0;
 
-                if (chip.ref.classList.contains('stacked')) {
+                if (chip.ref.hasAttribute('stacked')) {
                     value = Number(chip.ref.textContent);
                 } else {
                     value = Number(chip.value);
                 }
 
-                const newChipElem = slot.createSlotChipElem(
+                const newChipElem = slot.placeChipInSlot(
                     { 
                         id: chip.id, 
                         value: value * 2 
                     }, 
                     true
                 );
-
-                slot.appendSlotChipElem(newChipElem);
 
                 return (
                     { 
