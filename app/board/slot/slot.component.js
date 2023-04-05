@@ -125,9 +125,6 @@ export class SlotComponent extends Component {
         if (!this.rendered) {
             this.rendered = true;
             this.addEventListener('pointerdown', this.__clickHandler);
-            this.addEventListener('roulette:chip', (e) => {
-                console.log(e.detail.action);
-            });
             this.#render();
         }
 
