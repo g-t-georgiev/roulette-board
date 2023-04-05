@@ -98,8 +98,8 @@ export class SlotComponent extends Component {
 
     /**
      * Handles click events in the slot. Creates a slot chip instance for any selected chip 
-     * placed. If there other instances of a chip element are present, shows a stacked version where 
-     * the text content is the summed value of all chip elements in that slot.
+     * placed. If other instances of a chip element are present, shows a stacked version where 
+     * the text content is the summed value of all chip elements in that slot. But the real value of the chip kept in the bets manager remains (1, 2, 5, etc.).
      */
     #clickHandler() {
         // console.log('Slot toggled.');
