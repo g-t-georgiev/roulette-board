@@ -20,8 +20,8 @@ export class Roulette {
             evntType, 
             {
                 bubbles: config.bubbles ?? true,
-                composed: config.bubbles ?? false,
-                cancelable: config.bubbles ?? false,
+                composed: config.composed ?? false,
+                cancelable: config.cancelable ?? false,
                 detail: config.detail
             }
         );
