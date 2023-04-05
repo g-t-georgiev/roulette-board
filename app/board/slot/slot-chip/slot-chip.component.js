@@ -69,24 +69,6 @@ export class SlotChipComponent extends Component {
         }
     }
 
-    disconnectedCallback() {
-        const event = Roulette.customEvent(
-            'roulette:chip', 
-            {
-                bubbles: true,
-                composed: false,
-                cancelable: true,
-                detail: {
-                    action: 'disconnect',
-                    chip: {
-                        id: this.dataset.id,
-                        value: this.dataset.value
-                    }
-                }
-            }
-        );
-
-        this.dispatchEvent(event);
-    }
+    disconnectedCallback() { }
 
 }
