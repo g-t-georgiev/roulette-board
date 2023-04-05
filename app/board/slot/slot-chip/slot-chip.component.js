@@ -48,9 +48,45 @@ export class SlotChipComponent extends Component {
         if (!this.rendered) {
             this.rendered = true;
             this.#render();
+
+            const event = Roulette.customEvent(
+                'roulette:chip', 
+                {
+                    bubbles: true,
+                    composed: false,
+                    cancelable: true,
+                    detail: {
+                        action: 'connect',
+                        chip: {
+                            id: this.dataset.id,
+                            value: this.dataset.value
+                        }
+                    }
+                }
+            );
+
+            this.dispatchEvent(event);
         }
     }
 
-    disconnectedCallback() {}
+    disconnectedCallback() {
+        const event = Roulette.customEvent(
+            'roulette:chip', 
+            {
+                bubbles: true,
+                composed: false,
+                cancelable: true,
+                detail: {
+                    action: 'disconnect',
+                    chip: {
+                        id: this.dataset.id,
+                        value: this.dataset.value
+                    }
+                }
+            }
+        );
+
+        this.dispatchEvent(event);
+    }
 
 }
