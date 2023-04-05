@@ -1,6 +1,11 @@
 import { Component } from '../../core/interfaces/index.js';
 import { EventBus, BetManager } from '../../core/services/index.js';
 
+import { SlotChipComponent } from './slot-chip/slot-chip.component.js';
+
+customElements.define('roulette-slot-chip', SlotChipComponent);
+
+
 export class SlotComponent extends Component {
 
     #shadowRoot = this.attachShadow({ mode: 'open' });
@@ -11,33 +16,19 @@ export class SlotComponent extends Component {
     }
 
     /**
-     * Creates an instance of a chip element.
+     * Creates an instance of a chip element and adds it to the slot.
      * @param {{ id: string, value: string }} data 
      * @param {boolean} stacked 
      * @returns 
      */
-    createSlotChipElem(data, stacked = false) {
-        const elem = document.createElement('div');
-
-        elem.classList.add('chip');
-        elem.classList.toggle('stacked', stacked);
+    placeChipInSlot(data, stacked = false) {
+        const elem = document.createElement('roulette-slot-chip');
+        elem.toggleAttribute('stacked', stacked);
         elem.dataset.id = data.id;
-        elem.textContent = data.value;
+        elem.dataset.value = data.value;
 
-        const img = document.createElement('img');
-        img.classList.add('chip-icon');
-        img.setAttribute('src', `/assets/images/chip-background-${data.id}.png`);
-        img.setAttribute('alt', 'chip icon');
-        img.setAttribute('width', '30');
-        img.setAttribute('height', '30');
-
-        elem.append(img);
-
+        this.#shadowRoot.append(elem);
         return elem;
-    }
-
-    appendSlotChipElem(chip) {
-        this.#shadowRoot.append(chip);
     }
 
     /**
@@ -113,12 +104,12 @@ export class SlotComponent extends Component {
         // get all chip nodes in the slot
         // get the last chip node value, defaults to 0
         // sum the last chip node value with the currently selected chip value
-        const chipsNodeList = this.#shadowRoot.querySelectorAll('.chip');
+        const chipsNodeList = this.#shadowRoot.querySelectorAll('roulette-slot-chip');
         // console.log(chipsNodeList.length);
         const lastPlacedChipNodeValue = chipsNodeList.item(chipsNodeList.length - 1)?.textContent ?? 0;
         const summedValue = Number(lastPlacedChipNodeValue) + Number(selectedChipDTO.value);
 
-        const slotChip = this.createSlotChipElem({ ...selectedChipDTO, value: summedValue }, chipsNodeList.length + 1 > 1);
+        const slotChip = this.placeChipInSlot({ ...selectedChipDTO, value: summedValue }, chipsNodeList.length + 1 > 1);
         const betsCount = BetManager.placeBet({ chip: { ...selectedChipDTO, ref: slotChip }, slot: this });
         // console.log(betsCount);
 
