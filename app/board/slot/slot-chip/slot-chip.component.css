@@ -5,14 +5,15 @@
     }
     25% {
         top: -25%;
+        opacity: .35;
     }
     50% {
         top: 0;
-        opacity: .35;
+        opacity: .5;
     }
     75% {
         top: 25%;
-        opacity: .5;
+        opacity: .75;
     }
     90% {
         top: 50%;
@@ -35,7 +36,7 @@
     translate: -50% -50%;
 
     display: var(--slot-chip-display);
-    animation: show .15s ease-in-out;
+    animation: show .1s ease-in-out;
 }
 
 .chip {
