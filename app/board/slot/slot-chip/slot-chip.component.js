@@ -1,4 +1,5 @@
 import { Component } from '../../../core/interfaces/index.js';
+import { Roulette } from '../../../../utils/Roulette.js';
 
 export class SlotChipComponent extends Component {
 
