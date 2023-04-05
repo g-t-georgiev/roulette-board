@@ -1,3 +1,27 @@
+@keyframes show {
+    0% {
+        opacity: 0;
+        top: -50%;
+    }
+    25% {
+        top: -25%;
+    }
+    50% {
+        top: 0;
+        opacity: .35;
+    }
+    75% {
+        top: 25%;
+        opacity: .5;
+    }
+    90% {
+        top: 50%;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 :host {
     --chip-size: clamp(2rem, 3.5vw, 3rem);
     --chip-font-size: max(.75rem, calc(var(--chip-size) / 2.5));
@@ -8,6 +32,7 @@
     translate: -50% -50%;
 
     display: inline-block;
+    animation: show .15s ease-in-out;
 }
 
 .chip {
