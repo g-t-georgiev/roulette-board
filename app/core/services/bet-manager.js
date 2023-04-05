@@ -1,4 +1,4 @@
-import { walkNestedLists } from '../../../utils/IteratorFlat.js';
+import { forEachOf } from '../../../utils/nested-list-iterator.js';
 
 /**
  * @typedef chip 
@@ -97,7 +97,7 @@ function clearBets() {
         return false;
     }
 
-    walkNestedLists(
+    forEachOf(
         bets,
         ({ chip, slot }) => {
             // console.log(chip, slot);
@@ -119,7 +119,7 @@ function doubleBets() {
         return false;
     }
 
-    walkNestedLists(
+    forEachOf(
         bets,
         ({ chip, slot}) => {
             // console.log(chip, slot);
