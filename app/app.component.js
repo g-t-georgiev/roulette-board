@@ -43,7 +43,7 @@ export class AppComponent extends Component {
             rouletteUserControlsElem
         );
 
-        this.#shadowRoot.append(...stylesheets, toggleThemeElem, notificationElem, contentWrapperElem);
+        this.#shadowRoot.append(...stylesheets, contentWrapperElem);
     }
 
     connectedCallback() {
