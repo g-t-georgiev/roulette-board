@@ -18,7 +18,7 @@ export class ChipComponent extends Component {
     constructor() {
         super();
         this.rendered = false;
-        this._clickHandler = this._clickHandler.bind(this);
+        this.__clickHandler = this.#clickHandler.bind(this);
     }
 
     #render() {
@@ -41,7 +41,7 @@ export class ChipComponent extends Component {
         chipContentElem.append(chipIconElem, chipTxtElem);
 
         this.#shadowRoot.append(stylesheetElem, chipContentElem);
-        this.addEventListener('pointerdown', this._clickHandler);
+        this.addEventListener('pointerdown', this.__clickHandler);
     }
 
     #notify() {
@@ -78,7 +78,7 @@ export class ChipComponent extends Component {
      * and a boolean select flag reflecting if the same chip instance 
      * was first selected and then deselected.
      */
-    _clickHandler() {
+    #clickHandler() {
         this.selected = !this.selected;
         this.#notify();
     }
@@ -97,7 +97,7 @@ export class ChipComponent extends Component {
     }
 
     disconnectedCallback() {
-        this.removeEventListener('pointerdown', this._clickHandler);
+        this.removeEventListener('pointerdown', this.__clickHandler);
     }
 
 }
