@@ -4,7 +4,7 @@
  */
 function handler(entry, callback) {
     if (Array.isArray(entry)) {
-        walkNestedLists(entry, callback);
+        forEachOf(entry, callback);
     } else {
         callback?.(entry);
     }
@@ -19,7 +19,7 @@ function handler(entry, callback) {
  * @param {(item: any) => void} callback 
  * @param {number} startIndex 
  */
-export function walkNestedLists(target, callback, startIndex = 0) {
+export function forEachOf(target, callback, startIndex = 0) {
     let entry = target?.[startIndex++];
 
     // if array is empty just exit execution
@@ -28,7 +28,7 @@ export function walkNestedLists(target, callback, startIndex = 0) {
     if (startIndex < target.length) {
         handler(entry, callback);
 
-        walkNestedLists(target, callback, startIndex);
+        forEachOf(target, callback, startIndex);
     } else {
         handler(entry, callback);
     }
