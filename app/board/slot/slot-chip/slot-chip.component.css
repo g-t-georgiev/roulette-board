@@ -1,0 +1,36 @@
+:host {
+    --chip-size: clamp(2rem, 3.5vw, 3rem);
+    --chip-font-size: max(.75rem, calc(var(--chip-size) / 2.5));
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+
+    display: inline-block;
+}
+
+.chip {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    inline-size: var(--chip-size);
+    aspect-ratio: 1 / 1;
+
+    font-size: var(--chip-font-size);
+    font-weight: 600;
+    color: #000;
+}
+
+:host([stacked]) .chip {
+    filter: grayscale(1);
+}
+
+.chip-icon {
+    position: absolute;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
