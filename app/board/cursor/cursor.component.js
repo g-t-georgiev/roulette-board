@@ -10,12 +10,17 @@ export class CursorComponent extends Component {
     }
 
     #render() {
+        this.toggle(false);
+
+        const stylesheets = [];
+
         const stylesheetElem = document.createElement('link');
         stylesheetElem.setAttribute('rel', 'stylesheet');
         stylesheetElem.setAttribute('href', '/app/board/cursor/cursor.component.css');
 
-        this.#shadowRoot.append(stylesheetElem);
-        this.toggle(false);
+        stylesheets.push(stylesheetElem);
+
+        this.#shadowRoot.append(...stylesheets);
     }
 
     /**
