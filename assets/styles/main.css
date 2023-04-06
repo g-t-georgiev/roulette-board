@@ -1,14 +1,61 @@
+:root {
+    --box-sizing-reset: border-box;
+    --margin-reset: 0;
+    --padding-reset: 0;
+
+    --fullscreen-height: 100vh;
+
+    --font-weight: 400;
+    --font-size: 18px;
+    --text-decoration: none;
+    --color: #222;
+    --background-color: #f5f1f0;
+
+    --button-display: inline-block;
+    --button-outline-style-focus: solid;
+    --button-outline-width-focus: .1rem;
+    --button-outline-color-focus: transparent;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: var(--box-sizing-reset);
+    margin: var(--margin-reset);
+    padding: var(--padding-reset);
+}
+
 html {
     font-family: 'Poppins', sans-serif;
-    font-weight: 400;
-    font-size: 18px;
+    font-weight: var(--font-weight);
+    font-size: var(--font-size);
 }
 
 body {
-    color: var(--txt-color, #222);
-    background-color: var(--bg-color, #f5f1f0);
+    min-block-size: var(--fullscreen-height);
+    text-rendering: optimizeSpeed;
+    vertical-align: baseline;
+    line-height: 1;
+
+    color: var(--color);
+    background-color: var(--background-color);
 }
 
 h1, h2, h3, h4 {
-    font-weight: 400;
+    font-weight: var(--font-weight);
+}
+
+a {
+    text-decoration: var(--text-decoration);
+}
+
+button {
+    all: unset;
+    display: var(--button-display);
+}
+
+button:focus {
+    outline-style: var(--button-outline-style-focus);
+    outline-width: var(--button-outline-width-focus);
+    outline-color: var(--button-outline-color-focus);
 }
