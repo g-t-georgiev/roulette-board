@@ -1,5 +1,8 @@
 import { Component } from '../../../core/interfaces/index.js';
-import { Roulette } from '../../../../utils/Roulette.js';
+import Roulette from '../../../../utils/Roulette.js';
+
+
+const stylesheets = [];
 
 export class SlotChipComponent extends Component {
 
@@ -19,13 +22,24 @@ export class SlotChipComponent extends Component {
     }
 
     #render() {
-        const stylesheets = [];
 
-        const stylesheetElem = document.createElement('link');
-        stylesheetElem.rel = 'stylesheet';
-        stylesheetElem.href = '/app/board/slot/slot-chip/slot-chip.component.css';
+        if (!stylesheets.length) {
 
-        stylesheets.push(stylesheetElem);
+            Roulette
+                .fetchComponentStyles('/app/board/slot/slot-chip/slot-chip.component.css')
+                .then(cssText => {
+                    // console.log(cssText);
+                    const styleElem = document.createElement('style');
+                    // console.log(styleElem);
+                    styleElem.textContent = cssText;
+
+                    stylesheets.push(styleElem);
+                    this.#shadowRoot.prepend(styleElem);
+                });
+
+        } else {
+            this.#shadowRoot.prepend(...stylesheets.map(styleEl => styleEl.cloneNode(true)));
+        }
 
         const div = document.createElement('div');
 
@@ -41,7 +55,7 @@ export class SlotChipComponent extends Component {
 
         div.append(img);
 
-        this.#shadowRoot.append(...stylesheets, div);
+        this.#shadowRoot.append(div);
     }
 
     connectedCallback() {
