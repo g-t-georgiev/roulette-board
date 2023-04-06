@@ -7,6 +7,9 @@
 }
 
 :host {
+    /* Override display value from parent scope */
+    --roulette-slot-display: flex;
+
     --font-size: clamp(1rem, 1.1vw, 1.7rem);
     --font-weight: 600;
 
@@ -31,7 +34,6 @@
 
     position: relative;
 
-    display: flex;
     justify-content: center;
     align-items: center;
 

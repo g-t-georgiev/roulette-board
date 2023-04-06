@@ -7,6 +7,10 @@
 }
 
 :host {
+    --roulette-board-display: none;
+    --roulette-board-chips-display: none;
+    --user-controls-display: none;
+
     --app-container-row-gap: clamp(5rem, 15vw, min(30%, 35rem));
     --app-container-col-gap: clamp(1rem, 3vw, 3rem);
     
@@ -31,4 +35,21 @@
     gap: var(--app-container-row-gap) var(--app-container-col-gap);
     
     padding-block: 2rem;
+}
+
+/*
+    Added initial display of none to every direct child component instance to prevent initial content flickering. 
+    These styles are overridden in the respective local stylesheet of each component.
+ */
+
+roulette-board {
+    display: var(--roulette-board-display, none);
+}
+
+roulette-chips {
+    display: var(--roulette-board-chips-display, none);
+}
+
+roulette-user-controls {
+    display: var(--user-controls-display, none);
 }

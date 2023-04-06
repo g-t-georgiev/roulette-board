@@ -7,6 +7,11 @@
 }
 
 :host {
+    /* Override initial display rule from parent scope */
+    --roulette-board-display: block;
+
+    --roulette-slot-display: none;
+
     --host-flex-basis: 100%;
     --host-flex-order: 0;
     --host-cursor: default;
@@ -20,7 +25,6 @@
     flex-basis: var(--host-flex-basis);
     order: var(--host-flex-order);
 
-    display: block;
     cursor: var(--host-cursor);
 }
 
@@ -299,4 +303,13 @@
 .gameboard:not([disabled]):has(roulette-slot.outside-bet.col-2:hover) roulette-slot.inside-bet.col-2.red,
 .gameboard:not([disabled]):has(roulette-slot.outside-bet.col-3:hover) roulette-slot.inside-bet.col-3.red {
     box-shadow: inset 0 0 3rem rgba(255, 255, 255, 1);
+}
+
+/*
+    Add initial display value of none to every slot component instance to prevent content flickering.
+    These styles are overridden in the local stylesheet of each slot component.
+*/
+
+roulette-slot {
+    display: var(--roulette-slot-display, none);
 }

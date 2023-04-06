@@ -7,9 +7,10 @@
 }
 
 :host {
-    --color: #222;
+    /* Override display value from parent scope */
+    --roulette-chip-display: inline-block;
     
-    display: inline-block;
+    --color: #222;
 }
 
 :host([selected]) .chip {
