@@ -19,4 +19,9 @@ a {
 
 button {
     all: unset;
+    display: inline-block;
+}
+
+button:focus {
+    outline-color: transparent;
 }
