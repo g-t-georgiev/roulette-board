@@ -1,10 +1,26 @@
-:host {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: clamp(1.5rem, 2vw, 2rem) clamp(1rem, 2vw, 1.75rem);
+*,
+*::after,
+*::before {
+    box-sizing: var(--box-sizing-reset);
+    margin: var(--margin-reset);
+    padding: var(--padding-reset);
+}
 
-    flex-basis: calc(50% - var(--app-container-row-gap));
+:host {
+    --host-flex-basis: calc(50% - var(--app-container-row-gap));
+    --host-flex-direction: row;
+    --host-justify-content: center;
+    --host-align-items: center;
+    --host-flex-wrap: wrap;
+    --host-flex-order: 0;
+    --host-flex-gap: clamp(1.5rem, 2vw, 2rem) clamp(1rem, 2vw, 1.75rem);
+
+    display: flex;
+    flex-direction: var(--host-flex-direction);
+    justify-content: var(--host-justify-content);
+    align-items: var(--host-align-items);
+    flex-wrap: var(--host-flex-wrap);
+    gap: var(--host-flex-gap);
+
+    flex-basis: var(--host-flex-basis);
 }

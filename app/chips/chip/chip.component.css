@@ -1,8 +1,13 @@
-@import '/assets/styles/reset.css';
-@import '/assets/styles/main.css';
+*,
+*::after,
+*::before {
+    box-sizing: var(--box-sizing-reset);
+    margin: var(--margin-reset);
+    padding: var(--padding-reset);
+}
 
 :host {
-    --txt-color: #222;
+    --color: #222;
     
     display: inline-block;
 }
@@ -33,7 +38,7 @@
 
     font-size: clamp(1.35rem, 2vw, 2rem);
     font-weight: 600;
-    color: var(--txt-color);
+    color: var(--color);
 }
 
 .chip-img {

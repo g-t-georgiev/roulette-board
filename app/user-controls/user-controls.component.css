@@ -1,20 +1,47 @@
-@import '/assets/styles/reset.css';
-@import '/assets/styles/main.css';
+*,
+*::after,
+*::before {
+    box-sizing: var(--box-sizing-reset);
+    margin: var(--margin-reset);
+    padding: var(--padding-reset);
+}
 
 :host {
+    --host-flex-basis: calc(50% - var(--app-container-row-gap));
+    --host-flex-order: 0;
+
+    --buttons-justify-content: center;
+    --buttons-align-items: center;
+    --buttons-flex-wrap: wrap;
+    --buttons-flex-gap: .75rem;
+    --buttons-padding-inline: 0;
+    --buttons-margin-block: 0;
+
     display: block;
-    flex-basis: calc(50% - var(--app-container-row-gap));
+    flex-basis: var(--host-flex-basis);
+    order: var(--host-flex-order);
 }
 
 .user-controls {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: .75rem;
+    justify-content: var(--buttons-justify-content);
+    align-items: var(--buttons-align-items);
+    flex-wrap: var(--buttons-flex-wrap);
+    gap: var(--buttons-flex-gap);
 }
 
 /* Buttons */
+
+button {
+    all: unset;
+    display: var(--button-display);
+}
+
+button:focus {
+    outline-style: var(--button-outline-style-focus);
+    outline-width: var(--button-outline-width-focus);
+    outline-color: var(--button-outline-color-focus);
+}
 
 .btn {
     inline-size: clamp(3rem, 5vw, 4rem);

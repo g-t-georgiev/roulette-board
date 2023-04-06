@@ -1,9 +1,5 @@
 @media screen and (max-width: 800px) {
 
-    :host {
-        --chip-size: max(2rem, 3vw);
-    }
-
     :host(.inside-bet.zero) {
         border-top-left-radius: 15rem;
         border-top-right-radius: 15rem;

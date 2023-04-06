@@ -1,17 +1,25 @@
-@import '/assets/styles/reset.css';
-@import '/assets/styles/main.css';
+*,
+*::after,
+*::before {
+    box-sizing: var(--box-sizing-reset);
+    margin: var(--margin-reset);
+    padding: var(--padding-reset);
+}
 
 :host {
+    --app-container-row-gap: clamp(5rem, 15vw, min(30%, 35rem));
+    --app-container-col-gap: clamp(1rem, 3vw, 3rem);
+    
     display: block;
-    min-block-size: 100vh;
+    min-block-size: var(--fullscreen-height);
 
-    background-color: var(--bg-color, #f5f1f0);
-    color: var(--txt-color, #222);
+    background-color: var(--background-color);
+    color: var(--color, #222);
 }
 
 :host([theme="dark"]) {
-    --bg-color: #0e0646;
-    --txt-color: #f5f1f0;
+    --background-color: #0e0646;
+    --color: #f5f1f0;
 }
 
 #roulette-board-app-container {
@@ -20,7 +28,7 @@
     flex-direction: row-reverse;
     justify-content: center;
     align-items: center;
-    gap: var(--app-container-col-gap, clamp(1rem, 3vw, 3rem)) var(--app-container-row-gap, clamp(5rem, 15vw, min(30%, 35rem)));
+    gap: var(--app-container-row-gap) var(--app-container-col-gap);
     
     padding-block: 2rem;
 }

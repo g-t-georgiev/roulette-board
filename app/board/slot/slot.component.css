@@ -1,4 +1,15 @@
+*,
+*::after,
+*::before {
+    box-sizing: var(--box-sizing-reset);
+    margin: var(--margin-reset);
+    padding: var(--padding-reset);
+}
+
 :host {
+    --font-size: clamp(1rem, 1.1vw, 1.7rem);
+    --font-weight: 600;
+
     /* Inside bets vars */
     --inside-bet-bg-color-red-contrast: 50%;
     --inside-bet-bg-color-red: hsl(0, 100%, var(--inside-bet-bg-color-red-contrast, 50%));
@@ -15,16 +26,19 @@
     --outside-bet-txt-color-contrast: 0%;
     --outside-bet-txt-color: hsl(0, 0%, var(--outside-bet-txt-color-contrast, 0%));
 
+    /* Slot chips */
+    --slot-chip-display: none;
+
     position: relative;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    font-size: clamp(1rem, 1.1vw, 1.7rem);
-    font-weight: 600;
+    font-size: var(--font-size);
+    font-weight: var(--font-weight);
 
-    border: 1px solid black;
+    border: 1px solid #000;
 }
 
 :host-context([theme="dark"]) {

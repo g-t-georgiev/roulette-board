@@ -1,14 +1,27 @@
-@import '/assets/styles/reset.css';
-@import '/assets/styles/main.css';
+*,
+*::after,
+*::before {
+    box-sizing: var(--box-sizing-reset);
+    margin: var(--margin-reset);
+    padding: var(--padding-reset);
+}
 
 :host {
+    --host-flex-basis: 100%;
+    --host-flex-order: 0;
+    --host-cursor: default;
+
     --gameboard-inline-size: clamp(730px, 55vw, 1100px);
     --gameboard-block-size: calc(var(--gameboard-inline-size) * 0.3);
+    --gameboard-margin-inline: auto;
+    --gameboard-grid-template-columns: 3fr repeat(13, 2fr);
+    --gameboard-grid-template-rows: repeat(5, 1fr);
 
-    flex-basis: 100%;
-    
+    flex-basis: var(--host-flex-basis);
+    order: var(--host-flex-order);
+
     display: block;
-    cursor: default;
+    cursor: var(--host-cursor);
 }
 
 /* Base gameboard container styles */
@@ -17,15 +30,15 @@
     position: relative;
     inline-size: var(--gameboard-inline-size);
     block-size: var(--gameboard-block-size);
-    margin-inline: auto;
+    margin-inline: var(--gameboard-margin-inline);
 }
 
 /* Gameboard component styles */
 
 .gameboard {
     display: grid;
-    grid-template-columns: 3fr repeat(13, 2fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: var(--gameboard-grid-template-columns);
+    grid-template-rows: var(--gameboard-grid-template-rows);
 
     grid-template-areas: 
         'n-0 n-3 n-6 n-9 n-12 n-15 n-18 n-21 n-24 n-27 n-30 n-33 n-36 col-3'

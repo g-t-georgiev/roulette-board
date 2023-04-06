@@ -1,3 +1,11 @@
+*,
+*::after,
+*::before {
+    box-sizing: var(--box-sizing-reset);
+    margin: var(--margin-reset);
+    padding: var(--padding-reset);
+}
+
 @keyframes show {
     0% {
         opacity: 0;
@@ -35,7 +43,6 @@
     left: 50%;
     translate: -50% -50%;
 
-    /* display: var(--slot-chip-display); */
     animation: show .1s ease-in-out;
 }
 

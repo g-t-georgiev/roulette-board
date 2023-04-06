@@ -1,7 +1,7 @@
 @media screen and (max-width: 800px) {
     
     :host {
-        flex-direction: column;
+        --host-flex-direction: column;
     }
 
 }

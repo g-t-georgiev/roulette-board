@@ -1,21 +1,28 @@
-@import '/assets/styles/reset.css';
-@import '/assets/styles/main.css';
+*,
+*::after,
+*::before {
+    box-sizing: var(--box-sizing-reset);
+    margin: var(--margin-reset);
+    padding: var(--padding-reset);
+}
 
 :host {
-    --size: 35px;
-    --cursor-txt-color: #222;
+    --inline-size: 35px;
+    --font-weight: 700;
+    --text-align: center;
+    --color: #222;
 
     display: inline-block;
     position: absolute;
 
-    inline-size: var(--size);
+    inline-size: var(--inline-size, 35px);
     aspect-ratio: 1 / 1;
 
-    font-size: calc(var(--size) / 2.5);
-    font-weight: 700;
-    line-height: var(--size);
-    text-align: center;
-    color: var(--cursor-txt-color);
+    font-size: calc(var(--inline-size) / 2.5);
+    font-weight: var(--font-weight);
+    line-height: var(--inline-size);
+    text-align: var(--text-align);
+    color: var(--color);
 
     background-repeat: no-repeat;
     background-size: contain;
