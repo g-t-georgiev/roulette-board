@@ -48,7 +48,7 @@ export class ChipComponent extends Component {
         // console.log('Notifying...');
         const config = { 
             bubbles: true, 
-            composed: false, 
+            composed: true, 
             cancelable: true,
             detail: { 
                 id: this.dataset.id, 
