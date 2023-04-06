@@ -16,18 +16,22 @@ export class BoardComponent extends Component {
     #subscriptions = [];
 
     /**
-     * @type HTMLElement | null
+     * @type HTMLElement
      */
-    #gameboard = null;
+    #gameboard = document.createElement('section');
 
     /**
-     * @type CursorComponent | null
+     * @type CursorComponent
      */
-    #cursor = null;
+    #cursor = document.createElement('roulette-cursor');
 
     constructor() {
         super();
         this.rendered = false;
+
+        this.#gameboard.classList.add('gameboard');
+        this.#gameboard.id = 'roulette-board-area';
+
         this.__cursorEnterHandler = this.#cursorEnterHandler.bind(this);
         this.__cursorLeaveHandler = this.#cursorLeaveHandler.bind(this);
         this.__cursorMoveHandler = this.#cursorMoveHandler.bind(this);
@@ -46,10 +50,6 @@ export class BoardComponent extends Component {
 
         stylesheetLinks.push(stylesheetElem, responsiveStylesheetElem);
 
-        this.#gameboard = document.createElement('section');
-        this.#gameboard.classList.add('gameboard');
-        this.#gameboard.id = 'roulette-board-area';
-
         const slotElemList = getData().map(value => {
             // console.log(value);
 
@@ -63,9 +63,10 @@ export class BoardComponent extends Component {
         // console.log(slotElemList);
 
         this.#gameboard.append(...slotElemList);
-        this.#gameboard?.addEventListener('pointerenter', this.__cursorEnterHandler);
-        this.#gameboard?.addEventListener('pointerleave', this.__cursorLeaveHandler);
-        this.#gameboard?.addEventListener('pointermove', this.__cursorMoveHandler);
+        
+        this.#gameboard.addEventListener('pointerenter', this.__cursorEnterHandler);
+        this.#gameboard.addEventListener('pointerleave', this.__cursorLeaveHandler);
+        this.#gameboard.addEventListener('pointermove', this.__cursorMoveHandler);
 
         this.#shadowRoot.append(...stylesheetLinks, this.#gameboard);
     }
@@ -76,7 +77,7 @@ export class BoardComponent extends Component {
      * of mouse cursor inside the boundaries of the gameboard component.
      */
     #cursorEnterHandler() {
-        if (!this.#cursor) return;
+        if (!this.#cursor.isConnected) return;
 
         this.#cursor.toggle(true);
     }
@@ -87,7 +88,7 @@ export class BoardComponent extends Component {
      * cursor beyond the boundaries of the gameboard component.
      */
     #cursorLeaveHandler() {
-        if (!this.#cursor) return;
+        if (!this.#cursor.isConnected) return;
 
         this.#cursor.toggle(false);
     }
@@ -98,10 +99,15 @@ export class BoardComponent extends Component {
      * @param {MouseEvent} e 
      */
     #cursorMoveHandler(e) {
-        if (!this.#cursor || !this.#gameboard) return;
+        if (
+            !this.#cursor || 
+            !this.#gameboard || 
+            !this.#cursor.isConnected || 
+            !this.#gameboard.isConnected
+        ) return;
 
-        let y = (e.clientY - this.#gameboard?.offsetTop) * 100 / this.#gameboard?.offsetHeight;
-        let x = (e.clientX - this.#gameboard?.offsetLeft) * 100 / this.#gameboard?.offsetWidth;
+        let y = (e.clientY - this.#gameboard.offsetTop) * 100 / this.#gameboard.offsetHeight;
+        let x = (e.clientX - this.#gameboard.offsetLeft) * 100 / this.#gameboard.offsetWidth;
 
         // console.log(x, y);
         this.#cursor.move(x, y);
@@ -121,9 +127,8 @@ export class BoardComponent extends Component {
                         // Toggle chip cursor
                         if (chip.selected) {
 
-                            if (!this.#cursor) {
-                                this.#cursor = document.createElement('roulette-cursor');
-                                this.#gameboard?.append(this.#cursor);
+                            if (!this.#cursor.isConnected) {
+                                this.#gameboard.append(this.#cursor);
                             }
 
                             this.#cursor.set(chip.id, chip.value);
@@ -131,15 +136,14 @@ export class BoardComponent extends Component {
                             // Notify BetManager about the currently selected chip
                             BetManager.setPendingBet({ id: chip.id, value: chip.value });
                         } else {
-                            this.#cursor?.remove();
-                            this.#cursor = null;
+                            this.#cursor.remove();
 
                             // Notify BetManager about the currently unselected chip
                             BetManager.setPendingBet(null);
                         }
                         
                         // Toggle gameboard interaction effects
-                        this.#gameboard?.toggleAttribute('disabled', !chip.selected);
+                        this.#gameboard.toggleAttribute('disabled', !chip.selected);
                     }, 
                     this
                 )
@@ -149,9 +153,9 @@ export class BoardComponent extends Component {
     }
 
     disconnectedCallback() {
-        this.#gameboard?.removeEventListener('pointerenter', this.__cursorEnterHandler);
-        this.#gameboard?.removeEventListener('pointerleave', this.__cursorLeaveHandler);
-        this.#gameboard?.removeEventListener('pointermove', this.__cursorMoveHandler);
+        this.#gameboard.removeEventListener('pointerenter', this.__cursorEnterHandler);
+        this.#gameboard.removeEventListener('pointerleave', this.__cursorLeaveHandler);
+        this.#gameboard.removeEventListener('pointermove', this.__cursorMoveHandler);
         this.#subscriptions.forEach(_ => _?.unsubscribe());
     }
 
