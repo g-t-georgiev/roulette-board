@@ -102,12 +102,14 @@ function clearBets() {
         bets,
         ({ chip, slot }) => {
             // console.log(chip, slot);
-            totalValue += chip.ref.hasAttribute('stacked') ? Number(chip.ref.textContent) : Number(chip.value);
+            // console.log(chip.value);
+            totalValue += Number(chip.value);
             chip.ref?.remove();
         }
     );
 
     bets.length = 0;
+    // console.log(totalValue);
     return totalValue;
 }
 
