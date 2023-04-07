@@ -106,9 +106,24 @@ export class SlotComponent extends Component {
      * @param {CustomEvent<{ id: string, value: string }>} e 
      */
     #chipPlacedHandler(e) {
-        console.log(e.detail);
+        // console.log(e.detail);
+        const { id, value } = e.detail;
 
+        const notificationElem = document.createElement('div');
+        notificationElem.classList.add('notification');
 
+        const notificationTxtElem = document.createElement('span');
+        notificationTxtElem.classList.add('notification-text');
+        notificationTxtElem.textContent = Number(value).toFixed(2);
+
+        notificationElem.append(notificationTxtElem);
+        
+        this.#shadowRoot.append(notificationElem);
+
+        const timerId = setTimeout(() => {
+            notificationElem?.remove();
+            clearTimeout(timerId);
+        }, 1e3);
     }
 
     /**
