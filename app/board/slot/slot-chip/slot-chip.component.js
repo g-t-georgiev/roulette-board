@@ -71,7 +71,7 @@ export class SlotChipComponent extends Component {
                 }
             )
         );
-        
+
     }
 
     connectedCallback() {
