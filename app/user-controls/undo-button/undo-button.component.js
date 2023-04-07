@@ -21,7 +21,9 @@ export class UndoButtonComponent extends ButtonComponent {
         // console.log(hasPlacedBets);
 
         if (!hasPlacedBets) {
-            EventBus.publish('roulette:clear');
+           // TODO: Pass action results as payload to the clear event publish method.
+
+ EventBus.publish('roulette:clear');
         } else {
 
             if (Array.isArray(result)) {
