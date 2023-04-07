@@ -18,7 +18,7 @@ export class DoubleButtonComponent extends ButtonComponent {
         if (!success) return;
 
         // TODO: Publish payload with the 
-           added chips summed value.
+        // added chips summed value.
 
         EventBus.publish('roulette:double');
     }
