@@ -160,7 +160,8 @@ function doubleBets() {
                 const newChipElem = slot.placeChipInSlot(
                     { 
                         id: chip.id, 
-                        value: value * 2 
+                        value,
+                        computedValue: value * 2 
                     }, 
                     true
                 );
@@ -169,7 +170,7 @@ function doubleBets() {
                     { 
                         chip: { 
                             id: chip.id, 
-                            value: value, 
+                            value, 
                             ref: newChipElem 
                         }, 
                         slot 
