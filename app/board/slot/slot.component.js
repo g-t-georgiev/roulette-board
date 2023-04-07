@@ -17,7 +17,7 @@ export class SlotComponent extends Component {
 
     /**
      * Creates an instance of a chip element and adds it to the slot.
-     * @param {{ id: string, value: string }} data 
+     * @param {{ id: string, value: string, computedValue: number }} data 
      * @param {boolean} stacked 
      * @returns 
      */
@@ -26,6 +26,7 @@ export class SlotComponent extends Component {
         elem.toggleAttribute('stacked', stacked);
         elem.dataset.id = data.id;
         elem.dataset.value = data.value;
+        elem.dataset.computedValue = data.computedValue
 
         this.#shadowRoot.append(elem);
         return elem;
@@ -132,7 +133,7 @@ export class SlotComponent extends Component {
         const lastPlacedChipNodeValue = chipsNodeList.item(chipsNodeList.length - 1)?.textContent ?? 0;
         const summedValue = Number(lastPlacedChipNodeValue) + Number(selectedChipDTO.value);
 
-        const slotChip = this.placeChipInSlot({ ...selectedChipDTO, value: summedValue }, chipsNodeList.length + 1 > 1);
+        const slotChip = this.placeChipInSlot({ ...selectedChipDTO, value: selectedChipDTO.value, computedValue: summedValue }, chipsNodeList.length + 1 > 1);
         const betsCount = BetManager.placeBet({ chip: { ...selectedChipDTO, ref: slotChip }, slot: this });
         // console.log(betsCount);
 
