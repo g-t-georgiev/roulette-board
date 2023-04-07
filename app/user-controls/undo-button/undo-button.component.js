@@ -6,10 +6,10 @@ export class UndoButtonComponent extends ButtonComponent {
     constructor() {
         super();
         this.rendered = false;
-        this._clickHandler = this._clickHandler.bind(this);
+        this.__clickHandler = this.#clickHandler.bind(this);
     }
 
-    _clickHandler() {
+    #clickHandler() {
         if (this.disabled) return;
         
         const result = BetManager.undoLastBet();
@@ -45,14 +45,14 @@ export class UndoButtonComponent extends ButtonComponent {
 
         if (!this.rendered) {
             this.rendered = true;
-            this.addEventListener('pointerdown', this._clickHandler);
+            this.addEventListener('pointerdown', this.__clickHandler);
 
         }
     
     }
 
     disconnectedCallback() {
-        this.removeEventListener('pointerdown', this._clickHandler);
+        this.removeEventListener('pointerdown', this.__clickHandler);
     }
 
 }
