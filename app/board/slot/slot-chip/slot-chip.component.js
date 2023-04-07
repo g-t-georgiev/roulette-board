@@ -56,6 +56,22 @@ export class SlotChipComponent extends Component {
         div.append(img);
 
         this.#shadowRoot.append(div);
+
+        this.dispatchEvent(
+            Roulette.customEvent(
+                'roulette:chipplaced',
+                {
+                    bubbles: true,
+                    composed: true,
+                    cancelable: true,
+                    detail: {
+                        id: this.dataset.id,
+                        value: this.dataset.value
+                    }
+                }
+            )
+        );
+        
     }
 
     connectedCallback() {
