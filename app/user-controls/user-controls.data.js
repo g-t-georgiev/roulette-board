@@ -18,6 +18,6 @@ export const buttons = [
         classList: [ 'btn-double' ],
         imageUrl: 'btn-x2.png',
         alt: 'Double all bets button',
-        title: 'Double all bets button'
+        title: 'Double all bets'
     }
 ];
