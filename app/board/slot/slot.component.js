@@ -85,6 +85,7 @@ export class SlotComponent extends Component {
         spanElem.classList.add('slot-txt');
 
         this.#shadowRoot.append(...stylesheets, spanElem);
+        this.addEventListener('pointerdown', this.__clickHandler);
     }
 
     /**
@@ -124,7 +125,6 @@ export class SlotComponent extends Component {
 
         if (!this.rendered) {
             this.rendered = true;
-            this.addEventListener('pointerdown', this.__clickHandler);
             this.#render();
         }
 
