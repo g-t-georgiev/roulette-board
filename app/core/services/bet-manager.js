@@ -66,8 +66,8 @@ function placeBet(bet) {
 }
 
 /**
- * Undo last bet made. Return the revoked bet or 
- * false if operation was unsucccessful.
+ * Undo last bet made. Returns the value of the revoked chip (or group of chips if 
+ * they are doubled bets) and false if action was unsucccessful.
  * @param {HTMLElement} slot 
  */
 function undoLastBet() {
@@ -75,16 +75,27 @@ function undoLastBet() {
         return false;
     }
 
+    let value = 0;
+
     const revokedBet = bets.pop();
     // console.log(revokedBet);
 
     if (Array.isArray(revokedBet)) {
-        revokedBet.forEach(({ chip, slot }) => chip.ref?.remove());
+
+        value = revokedBet.reduce((total, { chip, slot }) => {
+            // console.log(chip, slot);
+            chip.ref?.remove();
+            total += Number(chip.value);
+            return total;
+        }, 0);
+
     } else {
+        value = Number(revokedBet.chip.value);
         revokedBet.chip.ref?.remove();
     }
 
-    return revokedBet
+    // console.log(value);
+    return value;
 }
 
 /**
