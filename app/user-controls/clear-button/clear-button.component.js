@@ -11,9 +11,13 @@ export class ClearButtonComponent extends ButtonComponent {
 
     #clickHandler() {
         if (this.disabled) return;
+
+        // TODO: Get action result
         const success = BetManager.clearBets();
         
         if (!success) return;
+
+        // TODO: Pass action result regarding cleared chips total value as event payload.
         EventBus.publish('roulette:clear');
     }
 
