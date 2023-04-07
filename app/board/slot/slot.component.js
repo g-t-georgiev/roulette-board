@@ -32,6 +32,16 @@ export class SlotComponent extends Component {
     }
 
     /**
+     * Protected wrapper method forwarding the calls its 
+     * private counterpart with the 'this' context binded 
+     * to the component instance.
+     * @param  {...any} args 
+     */
+    __chipPlacedHandler(...args) {
+        this.#chipPlacedHandler.call(this, ...args);
+    }
+
+    /**
      * Protected wrapper method forwarding the calls to 
      * its private counterpart with the 'this' context 
      * binded to the component instance.
@@ -85,7 +95,19 @@ export class SlotComponent extends Component {
         spanElem.classList.add('slot-txt');
 
         this.#shadowRoot.append(...stylesheets, spanElem);
+        this.addEventListener('roulette:chipplaced', this.__chipPlacedHandler);
         this.addEventListener('pointerdown', this.__clickHandler);
+    }
+
+    /**
+     * Handles chip placed custom events with details about the 
+     * created chip instance, such as the id and the value.
+     * @param {CustomEvent<{ id: string, value: string }>} e 
+     */
+    #chipPlacedHandler(e) {
+        console.log(e.detail);
+
+
     }
 
     /**
