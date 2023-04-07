@@ -44,7 +44,7 @@ export class SlotChipComponent extends Component {
         const div = document.createElement('div');
 
         div.classList.add('chip');
-        div.textContent = this.dataset.value;
+        div.textContent = this.dataset.computedValue;
 
         const img = document.createElement('img');
         img.classList.add('chip-icon');
