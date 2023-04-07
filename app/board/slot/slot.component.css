@@ -1,3 +1,18 @@
+@keyframes ascend {
+    0% {
+        top: 50%;
+    }
+    25% {
+        top: 25%;
+    }
+    50% {
+        top: 0;
+    }
+    100% {
+        top: -25%;
+    }
+}
+
 *,
 *::after,
 *::before {
@@ -93,6 +108,39 @@
 
 :host(.outside-bet:is(.black, .red, .even, .odd)) {
     font-size: clamp(.85rem, 1.5vw, 1.15rem);
+}
+
+/* Notification element containing information about created and appended slot chip element */
+
+.notification {
+    display: inline-block;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    z-index: 5;
+
+    animation: ascend 1s cubic-bezier(.29,.06,.21,1);
+    animation-fill-mode: forwards;
+}
+
+.notification-text {
+    display: inline-block;
+
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #008000;
+
+    text-shadow: 
+        -3px 3px 0 #ffffff,
+        3px 3px 0 #ffffff,
+        -3px -3px 0 #ffffff,
+        3px -3px 0 #ffffff;
+}
+
+.notification-text::before {
+    content: '+';
 }
 
 /*
