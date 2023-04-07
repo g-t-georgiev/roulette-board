@@ -21,24 +21,18 @@ export class UndoButtonComponent extends ButtonComponent {
         // console.log(hasPlacedBets);
 
         if (!hasPlacedBets) {
-           // TODO: Pass action results as payload to the clear event publish method.
 
- EventBus.publish('roulette:clear');
+            EventBus.publish(
+                'roulette:clear',
+                result
+            );
+
         } else {
 
-            if (Array.isArray(result)) {
-                let revokedBetsDTO = result.map((bet) => ({ id: bet.chip.id, value: bet.chip.value, slot: bet.slot }));
-
-                EventBus.publish(
-                    'roulette:undo', 
-                    ...revokedBetsDTO
-                );
-            } else {
-                EventBus.publish(
-                    'roulette:undo', 
-                    { id: result.chip.id, value: result.chip.value, slot: result.slot }
-                );
-            }
+            EventBus.publish(
+                'roulette:undo', 
+                result
+            );
 
         }
     }
