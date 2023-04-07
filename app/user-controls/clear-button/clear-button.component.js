@@ -16,8 +16,10 @@ export class ClearButtonComponent extends ButtonComponent {
         
         if (!result) return;
 
-        // TODO: Pass action result regarding cleared chips total value as event payload.
-        EventBus.publish('roulette:clear');
+        EventBus.publish(
+            'roulette:clear', 
+            result
+        );
     }
 
     connectedCallback() {
