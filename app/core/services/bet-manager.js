@@ -88,24 +88,27 @@ function undoLastBet() {
 }
 
 /**
- * Clears all the bets from the board. Returns true if 
- * all bets were cleared successfully and false otherwise.
+ * Clears all the bets from the board. Returns the summed value of the 
+ * chips if action was successful and false otherwise.
  */
 function clearBets() {
     if (!bets.length) {
         return false;
     }
 
+    let totalValue = 0;
+
     forEachOf(
         bets,
         ({ chip, slot }) => {
             // console.log(chip, slot);
+            totalValue += chip.ref.hasAttribute('stacked') ? Number(chip.ref.textContent) : Number(chip.value);
             chip.ref?.remove();
         }
     );
 
     bets.length = 0;
-    return true;
+    return totalValue;
 }
 
 /**
