@@ -91,13 +91,8 @@ export class UserControlsComponent extends Component {
 
                         // console.log(totalValueOfClearedChips);
                         const notificationElem = document.createElement('roulette-popup');
-                        const timerId = setTimeout(
-                            () => {
-                                notificationElem?.initialize({ value: totalValueOfClearedChips, state: 'removed' });
-                                clearTimeout(timerId);
-                            }
-                        );
-                        
+                        notificationElem?.initialize({ value: totalValueOfClearedChips, state: 'removed' });
+
                         this.#shadowRoot.querySelector('.user-controls').append(notificationElem);
                     }, 
                     this
@@ -107,12 +102,7 @@ export class UserControlsComponent extends Component {
                     (revokedChipValue) => {
                         // console.log(revokedChipValue);
                         const notificationElem = document.createElement('roulette-popup');
-                        const timerId = setTimeout(
-                            () => {
-                                notificationElem?.initialize({ value: revokedChipValue, state: 'removed' });
-                                clearTimeout(timerId);
-                            }
-                        );
+                        notificationElem?.initialize({ value: revokedChipValue, state: 'removed' });
                         
                         this.#shadowRoot.querySelector('.user-controls').append(notificationElem);
                     },
@@ -123,12 +113,7 @@ export class UserControlsComponent extends Component {
                     (totalValueOfDoubledChips) => {
                         // console.log(totalValueOfDoubledChips);
                         const notificationElem = document.createElement('roulette-popup');
-                        const timerId = setTimeout(
-                            () => {
-                                notificationElem?.initialize({ value: totalValueOfDoubledChips, state: 'appended' });
-                                clearTimeout(timerId);
-                            }
-                        );
+                        notificationElem?.initialize({ value: totalValueOfDoubledChips, state: 'appended' });
                         
                         this.#shadowRoot.querySelector('.user-controls').append(notificationElem);
                     },
