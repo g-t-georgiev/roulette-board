@@ -121,7 +121,7 @@ export class BoardComponent extends Component {
 
             this.#subscriptions.push(
                 EventBus.subscribe(
-                    'roulette:chip', 
+                    'roulette:chipselected', 
                     (chip) => {
 
                         // Toggle chip cursor
