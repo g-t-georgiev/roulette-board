@@ -10,6 +10,7 @@
     --roulette-board-display: none;
     --roulette-board-chips-display: none;
     --user-controls-display: none;
+    --roulette-popup-display: none;
 
     --app-container-row-gap: clamp(5rem, 15vw, min(30%, 35rem));
     --app-container-col-gap: clamp(1rem, 3vw, 3rem);
@@ -52,4 +53,8 @@ roulette-chips {
 
 roulette-user-controls {
     display: var(--user-controls-display, none);
+}
+
+roulette-popup {
+    display: var(--roulette-popup-display, none);
 }
