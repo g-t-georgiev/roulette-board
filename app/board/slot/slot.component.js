@@ -1,14 +1,33 @@
 import { Component } from '../../core/interfaces/index.js';
 import { EventBus, BetManager } from '../../core/services/index.js';
+import Roulette from '../../../utils/Roulette.js';
 
 import { SlotChipComponent } from './slot-chip/slot-chip.component.js';
 
 customElements.define('roulette-slot-chip', SlotChipComponent);
 
 
+Roulette.fetchComponentStyles(
+    '/app/board/slot/slot.component.css',
+    '/app/board/slot/responsive.part.css'
+).then((cssTextStyles) => {
+    // console.log(cssTextStyles);
+    const styleElems = cssTextStyles.map(cssText => {
+        const styleElem = document.createElement('style');
+        styleElem.textContent = cssText;
+        return styleElem;
+    });
+
+    EventBus.publish('SLOTSTYLESLOAD', styleElems);
+}).catch(error => {
+    console.error(error);
+});
+
 export class SlotComponent extends Component {
 
     #shadowRoot = this.attachShadow({ mode: 'open' });
+    #subscriptions = [];
+    #onRenderCallback = () => {};
 
     constructor() {
         super();
@@ -43,12 +62,7 @@ export class SlotComponent extends Component {
         const { id, value } = chip;
 
         const notificationElem = document.createElement('roulette-popup');
-        const timerId = setTimeout(
-            () => {
-                notificationElem?.initialize({ value, state });
-                clearTimeout(timerId);
-            }
-        );
+        notificationElem?.initialize({ value, state });
         
         this.#shadowRoot.append(notificationElem);
     }
@@ -80,33 +94,21 @@ export class SlotComponent extends Component {
      * @param {string} textContent 
      */
     setTextContent(textContent) {
-        // Delay DOM queries to avoid null pointer exceptions.
-        const timerId = setTimeout(() => {
-            const spanElem = this.#shadowRoot.querySelector('.slot-txt');
-            // console.log(spanElem);
-            spanElem.textContent = textContent;
+        // console.log(textContent);
 
-            clearTimeout(timerId);
-        });
+        this.#onRenderCallback = (spanElem) => {
+            // console.log(spanElem);
+            if (!spanElem) return;
+
+            spanElem.textContent = textContent;
+        };
     }
 
     #render() {
-        const stylesheets = [];
-
-        const stylesheetElem = document.createElement('link');
-        stylesheetElem.rel = 'stylesheet';
-        stylesheetElem.href = '/app/board/slot/slot.component.css';
-
-        const responsiveStylesheetElem = document.createElement('link');
-        responsiveStylesheetElem.rel = 'stylesheet';
-        responsiveStylesheetElem.href = '/app/board/slot/responsive.part.css';
-
-        stylesheets.push(stylesheetElem, responsiveStylesheetElem);
-
         const spanElem = document.createElement('span');
         spanElem.classList.add('slot-txt');
-
-        this.#shadowRoot.append(...stylesheets, spanElem);
+        this.#onRenderCallback?.(spanElem);
+        this.#shadowRoot.append(spanElem);
         this.addEventListener('pointerdown', this.__clickHandler);
     }
 
@@ -149,12 +151,23 @@ export class SlotComponent extends Component {
         if (!this.rendered) {
             this.rendered = true;
             this.#render();
+
+            this.#subscriptions.push(
+                EventBus.subscribe(
+                    'SLOTSTYLESLOAD',
+                    (stylesheets) => {
+                        // console.log(stylesheets);
+                        this.#shadowRoot.prepend(...stylesheets.map(styleEl => styleEl.cloneNode(true)));
+                    }
+                )
+            );
         }
 
     }
 
     disconnectedCallback() {
         this.removeEventListener('pointerdown', this.__clickHandler);
+        this.#subscriptions.forEach(_=>_.unsubscribe());
     }
 
 }
