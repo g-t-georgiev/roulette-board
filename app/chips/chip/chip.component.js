@@ -45,7 +45,6 @@ export class ChipComponent extends Component {
     }
 
     #notify() {
-        // console.log('Notifying...');
         const config = { 
             bubbles: true, 
             composed: true, 
@@ -57,12 +56,12 @@ export class ChipComponent extends Component {
             } 
         };
 
-        const event = Roulette.customEvent('roulette:chip', config);
+        const event = Roulette.customEvent('roulette:chipselected', config);
 
         Promise.all([
             this.dispatchEvent(event),
             EventBus.publish(
-                'roulette:chip', 
+                'roulette:chipselected', 
                 { 
                     id: this.dataset.id, 
                     value: this.dataset.value, 
