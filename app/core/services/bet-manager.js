@@ -109,7 +109,7 @@ function undoLastBet() {
     } else {
         value = Number(revokedBet.chip.value);
         revokedBet.chip.ref?.remove();
-        revokedBet.slot.toggleChipNotification({ id: revokedBet.chip.id, value }, 'removed');
+        revokedBet.slot.toggleChipNotification({ id: revokedBet.chip.id, value: revokedBet.chip.value }, 'removed');
     }
 
     // console.log(value);
