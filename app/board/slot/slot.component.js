@@ -33,13 +33,37 @@ export class SlotComponent extends Component {
     }
 
     /**
-     * Protected wrapper method forwarding the calls its 
-     * private counterpart with the 'this' context binded 
-     * to the component instance.
-     * @param  {...any} args 
+     * Creates and appends to the shadow DOM a notification with 
+     * the recently placed chip's value.
+     * @param {{ id: string, value: string | number }} chip 
+     * @param {"appended" | "removed"} state 
      */
-    __chipPlacedHandler(...args) {
-        this.#chipPlacedHandler.call(this, ...args);
+    toggleChipNotification(chip, state = 'appended') {
+        // console.log(chip);
+        const { id, value } = chip;
+
+        const notificationElem = document.createElement('div');
+        notificationElem.classList.add('notification');
+
+        const notificationTxtElem = document.createElement('span');
+        notificationTxtElem.classList.add('notification-text');
+
+        notificationTxtElem.classList.toggle('chip-added', state === 'appended');
+        notificationTxtElem.classList.toggle('chip-removed', state === 'removed');
+        // console.log(notificationTxtElem.classList);
+
+        const sign = state === 'appended' ? '+' : '-';
+        
+        notificationTxtElem.textContent = sign + (typeof value === 'number' ? value : Number(value)).toFixed(2);
+
+        notificationElem.append(notificationTxtElem);
+        
+        this.#shadowRoot.append(notificationElem);
+
+        const timerId = setTimeout(() => {
+            notificationElem?.remove();
+            clearTimeout(timerId);
+        }, 1e3);
     }
 
     /**
@@ -96,34 +120,7 @@ export class SlotComponent extends Component {
         spanElem.classList.add('slot-txt');
 
         this.#shadowRoot.append(...stylesheets, spanElem);
-        this.addEventListener('roulette:chipplaced', this.__chipPlacedHandler);
         this.addEventListener('pointerdown', this.__clickHandler);
-    }
-
-    /**
-     * Handles chip placed custom events with details about the 
-     * created chip instance, such as the id and the value.
-     * @param {CustomEvent<{ id: string, value: string }>} e 
-     */
-    #chipPlacedHandler(e) {
-        // console.log(e.detail);
-        const { id, value } = e.detail;
-
-        const notificationElem = document.createElement('div');
-        notificationElem.classList.add('notification');
-
-        const notificationTxtElem = document.createElement('span');
-        notificationTxtElem.classList.add('notification-text');
-        notificationTxtElem.textContent = Number(value).toFixed(2);
-
-        notificationElem.append(notificationTxtElem);
-        
-        this.#shadowRoot.append(notificationElem);
-
-        const timerId = setTimeout(() => {
-            notificationElem?.remove();
-            clearTimeout(timerId);
-        }, 1e3);
     }
 
     /**
@@ -153,10 +150,11 @@ export class SlotComponent extends Component {
         // console.log(betsCount);
 
         if (betsCount === 1) {
-            EventBus.publish('roulette:notempty');
+            EventBus.publish('roulette:boardnotempty');
         }
-        
-        EventBus.publish('roulette:bet', this, selectedChipDTO);
+
+        this.toggleChipNotification(selectedChipDTO);
+        // EventBus.publish('roulette:chipplaced', this, selectedChipDTO);
     }
 
     connectedCallback() {
