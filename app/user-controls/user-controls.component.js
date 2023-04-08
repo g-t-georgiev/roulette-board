@@ -70,24 +70,40 @@ export class UserControlsComponent extends Component {
 
             this.#subscriptions.push(
                 EventBus.subscribe(
-                    'roulette:clear', 
-                    () => {
-                        this.#shadowRoot.querySelectorAll('.btn').forEach(
-                            btn => {
-                                btn.toggleDisabledState(true);
-                            }
-                        );
-                    }, 
-                    this
-                ),
-                EventBus.subscribe(
-                    'roulette:notempty',
+                    'roulette:boardnotempty',
                     () => {
                         this.#shadowRoot.querySelectorAll('.btn').forEach(
                             btn => {
                                 btn.toggleDisabledState(false);
                             }
                         );
+                    },
+                    this
+                ),
+                EventBus.subscribe(
+                    'roulette:chipscleared', 
+                    (totalValueOfClearedChips) => {
+                        this.#shadowRoot.querySelectorAll('.btn').forEach(
+                            btn => {
+                                btn.toggleDisabledState(true);
+                            }
+                        );
+
+                        console.log(totalValueOfClearedChips);
+                    }, 
+                    this
+                ),
+                EventBus.subscribe(
+                    'roulette:betundone',
+                    (revokedChipValue) => {
+                        console.log(revokedChipValue);
+                    },
+                    this
+                ),
+                EventBus.subscribe(
+                    'roulette:chipsdoubled',
+                    (totalValueOfDoubledChips) => {
+                        console.log(totalValueOfDoubledChips);
                     },
                     this
                 )
