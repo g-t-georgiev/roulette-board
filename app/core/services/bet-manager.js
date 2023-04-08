@@ -1,24 +1,30 @@
 import { forEachOf } from '../../../utils/nested-list-iterator.js';
 
 /**
- * @typedef chip 
+ * @typedef {object} chip 
  * @property {string} id 
  * @property {string} value 
  * @property {HTMLElement} ref 
  */
 
 /**
+ * @typedef {object} slot 
+ * @property {({ id: string, value: string, computedValue: string }) => HTMLElement } placeChipInSlot 
+ * @property {(chip: { id?: string, value?: string | number }, state: 'appended' | 'removed') => void} toggleChipNotification 
+ */
+
+/**
  * Contains reference to all gameboard slots, as map keys,
  * and a list of corresponding chip objects, with their 
  * respective id and value properties, as map values.
- * @type {Array<{ chip: chip, slot: HTMLElement }>}
+ * @type {Array<{ chip: chip, slot: slot }>}
  */
 let bets = [];
 
 /**
  * Holds a slice of the latest bets 
  * for presented slots from the board.
- * @type {Map<HTMLElement, chip>}
+ * @type {Map<slot, chip>}
  */
 const latestBets = new Map();
 
@@ -82,16 +88,28 @@ function undoLastBet() {
 
     if (Array.isArray(revokedBet)) {
 
-        value = revokedBet.reduce((total, { chip, slot }) => {
-            // console.log(chip, slot);
-            chip.ref?.remove();
-            total += Number(chip.value);
-            return total;
-        }, 0);
+        value = revokedBet.reduce(
+            /**
+             * @param {number} total 
+             * @param {{ chip: chip, slot: slot }} bet 
+             * @callback
+             * @returns {number}
+             */
+            (total, bet) => {
+                // console.log(bet);
+                const { chip, slot } = bet;
+                chip.ref?.remove();
+                slot.toggleChipNotification({ id: chip.id, value: chip.value }, 'removed');
+                total += Number(chip.value);
+                return total;
+            }, 
+            0
+        );
 
     } else {
         value = Number(revokedBet.chip.value);
         revokedBet.chip.ref?.remove();
+        revokedBet.slot.toggleChipNotification({ id: revokedBet.chip.id, value }, 'removed');
     }
 
     // console.log(value);
@@ -111,6 +129,11 @@ function clearBets() {
 
     forEachOf(
         bets,
+        /**
+         * @param {{ chip: chip, slot: slot }} bet 
+         * @callback
+         * @returns
+         */
         ({ chip, slot }) => {
             // console.log(chip, slot);
             // console.log(chip.value);
@@ -125,9 +148,8 @@ function clearBets() {
 }
 
 /**
- * Doubles all bets on the board. Returns 
- * true if operation was successful and false otherwise.
- * @param {HTMLElement} slot 
+ * Doubles all bets on the board. Returns doubled chips' summed values 
+ * if operation was successful and false otherwise.
  */
 function doubleBets() {
     if (!bets.length) {
@@ -136,11 +158,18 @@ function doubleBets() {
 
     forEachOf(
         bets,
+        /**
+         * @param {{ chip: chip, slot: slot }} bet 
+         * @callback
+         * @returns
+         */
         ({ chip, slot}) => {
             // console.log(chip, slot);
             latestBets.set(slot, chip);
         }
     );
+
+    let totalValue = 0;
 
     bets.push(
         [ ...latestBets ].map(
@@ -152,19 +181,22 @@ function doubleBets() {
                 let value = 0;
 
                 if (chip.ref.hasAttribute('stacked')) {
-                    value = Number(chip.ref.textContent);
+                    value = chip.ref.textContent;
                 } else {
-                    value = Number(chip.value);
+                    value = chip.value;
                 }
 
                 const newChipElem = slot.placeChipInSlot(
                     { 
                         id: chip.id, 
                         value,
-                        computedValue: value * 2 
+                        computedValue: value * 2
                     }, 
                     true
                 );
+
+                totalValue += Number(value); 
+                slot.toggleChipNotification({ id: chip.id, value });
 
                 return (
                     { 
@@ -181,7 +213,7 @@ function doubleBets() {
     );
 
     latestBets.clear();
-    return true;
+    return totalValue;
 }
 
 export {
