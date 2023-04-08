@@ -17,7 +17,7 @@ export class ClearButtonComponent extends ButtonComponent {
         if (!result) return;
 
         EventBus.publish(
-            'roulette:clear', 
+            'roulette:chipscleared', 
             result
         );
     }
