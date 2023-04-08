@@ -13,27 +13,27 @@ export class CursorComponent extends Component {
         this.rendered = false;
     }
 
-    #render() {
-        this.toggle(false);
+    async #render() {
+        try {
+            this.toggle(false);
 
-        if (!stylesheets.length) {
+            if (!stylesheets.length) {
+    
+                const cssText = await Roulette.fetchComponentStyles('/app/board/cursor/cursor.component.css');
+                // console.log(cssText);
+                const styleElem = document.createElement('style');
+                // console.log(styleElem);
+                styleElem.textContent = cssText;
 
-            Roulette
-                .fetchComponentStyles('/app/board/cursor/cursor.component.css')
-                .then(cssText => {
-                    // console.log(cssText);
-                    const styleElem = document.createElement('style');
-                    // console.log(styleElem);
-                    styleElem.textContent = cssText;
-
-                    stylesheets.push(styleElem);
-                    this.#shadowRoot.prepend(styleElem);
-                });
-
-        } else {
-            this.#shadowRoot.prepend(...stylesheets.map(styleEl => styleEl.cloneNode(true)));
+                stylesheets.push(styleElem);
+                this.#shadowRoot.prepend(styleElem);
+    
+            } else {
+                this.#shadowRoot.prepend(...stylesheets.map(styleEl => styleEl.cloneNode(true)));
+            }
+        } catch (error) {
+            console.error(error);
         }
-
     }
 
     /**
