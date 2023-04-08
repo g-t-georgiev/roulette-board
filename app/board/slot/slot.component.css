@@ -1,18 +1,3 @@
-@keyframes ascend {
-    0% {
-        top: 50%;
-    }
-    25% {
-        top: 25%;
-    }
-    50% {
-        top: 0;
-    }
-    100% {
-        top: -25%;
-    }
-}
-
 *,
 *::after,
 *::before {
@@ -46,9 +31,6 @@
 
     /* Slot chips */
     --slot-chip-display: none;
-
-    /* Slot popups */
-    --popup-display: none;
 
     position: relative;
 
@@ -120,8 +102,4 @@
  */
 roulette-slot-chip {
     display: var(--slot-chip-display, none);
-}
-
-roulette-popup {
-    display: var(--popup-display, none);
 }
