@@ -23,14 +23,14 @@ export class UndoButtonComponent extends ButtonComponent {
         if (!hasPlacedBets) {
 
             EventBus.publish(
-                'roulette:clear',
+                'roulette:chipscleared',
                 result
             );
 
         } else {
 
             EventBus.publish(
-                'roulette:undo', 
+                'roulette:betundone', 
                 result
             );
 
