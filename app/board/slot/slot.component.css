@@ -126,21 +126,15 @@
 }
 
 .notification-text {
-    display: inline-block;
-
-    font-size: 1.15rem;
+    font-size: .85rem;
     font-weight: 700;
     color: #008000;
 
-    /*
-        TODO: Think of some other more reliable way of 
-        creating the outline around the text.
-    */
     text-shadow: 
-        -3px 3px 0 #ffffff,
-        3px 3px 0 #ffffff,
-        -3px -3px 0 #ffffff,
-        3px -3px 0 #ffffff;
+        -1px -1px 0 #ffffff,
+        1px -1px 0 #ffffff,
+        -1px 1px 0 #ffffff,
+        1px 1px 0 #ffffff;
 }
 
 .notification-text::before {
