@@ -1,0 +1,35 @@
+:host {
+    /* Override parent scope set display value */
+    --popup-display: inline-block;
+
+    display: var(--popup-display);
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    z-index: 5;
+
+    animation: ascend 1s cubic-bezier(.29,.06,.21,1);
+    animation-fill-mode: forwards;
+}
+
+.notification-text {
+    font-size: .85rem;
+    font-weight: 700;
+    color: #008000;
+
+    text-shadow: 
+        -1px -1px 0 #ffffff,
+        1px -1px 0 #ffffff,
+        -1px 1px 0 #ffffff,
+        1px 1px 0 #ffffff;
+}
+
+.notification-text.chip-added {
+    color: #008000;
+}
+
+.notification-text.chip-removed {
+    color: red;
+}
