@@ -47,6 +47,9 @@
     /* Slot chips */
     --slot-chip-display: none;
 
+    /* Slot popups */
+    --popup-display: none;
+
     position: relative;
 
     justify-content: center;
@@ -110,46 +113,15 @@
     font-size: clamp(.85rem, 1.5vw, 1.15rem);
 }
 
-/* Notification element containing information about created and appended slot chip element */
-
-.notification {
-    display: inline-block;
-
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    translate: -50% -50%;
-    z-index: 5;
-
-    animation: ascend 1s cubic-bezier(.29,.06,.21,1);
-    animation-fill-mode: forwards;
-}
-
-.notification-text {
-    font-size: .85rem;
-    font-weight: 700;
-    color: #008000;
-
-    text-shadow: 
-        -1px -1px 0 #ffffff,
-        1px -1px 0 #ffffff,
-        -1px 1px 0 #ffffff,
-        1px 1px 0 #ffffff;
-}
-
-.notification-text.chip-added {
-    color: #008000;
-}
-
-.notification-text.chip-removed {
-    color: red;
-}
-
 /*
-    Added initial display of none to every roulette-slot-chip instance, but in the parent slot.component styles scope to prevent 
-    the effect of initial content flickering when the components are rendered into the DOM and only system styles are applied. 
-    In the local stylesheet of the roulette-slot-chip instance this property is being overriden.
+    Added initial display of none to every child component instance, to prevent initial content flickering 
+    when the components are rendered into the DOM and only system styles are applied. 
+    In the local stylesheet of every concerned child component instance this property is being overriden.
  */
 roulette-slot-chip {
     display: var(--slot-chip-display, none);
+}
+
+roulette-popup {
+    display: var(--popup-display, none);
 }
