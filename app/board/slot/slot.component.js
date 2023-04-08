@@ -42,28 +42,15 @@ export class SlotComponent extends Component {
         // console.log(chip);
         const { id, value } = chip;
 
-        const notificationElem = document.createElement('div');
-        notificationElem.classList.add('notification');
-
-        const notificationTxtElem = document.createElement('span');
-        notificationTxtElem.classList.add('notification-text');
-
-        notificationTxtElem.classList.toggle('chip-added', state === 'appended');
-        notificationTxtElem.classList.toggle('chip-removed', state === 'removed');
-        // console.log(notificationTxtElem.classList);
-
-        const sign = state === 'appended' ? '+' : '-';
-        
-        notificationTxtElem.textContent = sign + (typeof value === 'number' ? value : Number(value)).toFixed(2);
-
-        notificationElem.append(notificationTxtElem);
+        const notificationElem = document.createElement('roulette-popup');
+        const timerId = setTimeout(
+            () => {
+                notificationElem?.initialize({ value, state });
+                clearTimeout(timerId);
+            }
+        );
         
         this.#shadowRoot.append(notificationElem);
-
-        const timerId = setTimeout(() => {
-            notificationElem?.remove();
-            clearTimeout(timerId);
-        }, 1e3);
     }
 
     /**
