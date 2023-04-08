@@ -16,6 +16,7 @@
 :host([selected]) .chip {
     opacity: 1;
     transform: scale(1.25);
+    cursor: grabbing;
 }
 
 .chip {
