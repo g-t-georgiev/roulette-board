@@ -25,6 +25,8 @@
 }
 
 .user-controls {
+    position: relative;
+    
     display: flex;
     justify-content: var(--buttons-justify-content);
     align-items: var(--buttons-align-items);
