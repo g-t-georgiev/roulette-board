@@ -137,8 +137,12 @@
         1px 1px 0 #ffffff;
 }
 
-.notification-text::before {
-    content: '+';
+.notification-text.chip-added {
+    color: #008000;
+}
+
+.notification-text.chip-removed {
+    color: red;
 }
 
 /*
