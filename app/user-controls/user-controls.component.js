@@ -89,21 +89,48 @@ export class UserControlsComponent extends Component {
                             }
                         );
 
-                        console.log(totalValueOfClearedChips);
+                        // console.log(totalValueOfClearedChips);
+                        const notificationElem = document.createElement('roulette-popup');
+                        const timerId = setTimeout(
+                            () => {
+                                notificationElem?.initialize({ value: totalValueOfClearedChips, state: 'removed' });
+                                clearTimeout(timerId);
+                            }
+                        );
+                        
+                        this.#shadowRoot.querySelector('.user-controls').append(notificationElem);
                     }, 
                     this
                 ),
                 EventBus.subscribe(
                     'roulette:betundone',
                     (revokedChipValue) => {
-                        console.log(revokedChipValue);
+                        // console.log(revokedChipValue);
+                        const notificationElem = document.createElement('roulette-popup');
+                        const timerId = setTimeout(
+                            () => {
+                                notificationElem?.initialize({ value: revokedChipValue, state: 'removed' });
+                                clearTimeout(timerId);
+                            }
+                        );
+                        
+                        this.#shadowRoot.querySelector('.user-controls').append(notificationElem);
                     },
                     this
                 ),
                 EventBus.subscribe(
                     'roulette:chipsdoubled',
                     (totalValueOfDoubledChips) => {
-                        console.log(totalValueOfDoubledChips);
+                        // console.log(totalValueOfDoubledChips);
+                        const notificationElem = document.createElement('roulette-popup');
+                        const timerId = setTimeout(
+                            () => {
+                                notificationElem?.initialize({ value: totalValueOfDoubledChips, state: 'appended' });
+                                clearTimeout(timerId);
+                            }
+                        );
+                        
+                        this.#shadowRoot.querySelector('.user-controls').append(notificationElem);
                     },
                     this
                 )
