@@ -21,9 +21,7 @@ export class SlotChipComponent extends Component {
     }
 
     set textContent(v) {
-        const chip = this.#shadowRoot.querySelector('.chip');
-        // console.log(chip);
-        if (!chip) return null;
+        // console.log(v);
 
         this.#onRenderCallback = (chip) => {
             chip.textContent = v;
