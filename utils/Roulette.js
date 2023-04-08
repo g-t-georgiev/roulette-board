@@ -32,19 +32,13 @@ export class Roulette {
      * @returns {Promise<string|string[]|undefined>}
      */
     static async fetchComponentStyles(...URLs) {
-        try {
-
-            const responses = URLs.length > 1 
-                ? await Promise.all(URLs.map(url => fetch(url))) 
-                : await fetch(...URLs);
-            
-            return Array.isArray(responses)
-                ? Promise.all(responses.map(r => r.text())) 
-                : responses.text();
-
-        } catch (error) {
-            console.error(error);
-        }
+        const responses = URLs.length > 1 
+            ? await Promise.all(URLs.map(url => fetch(url))) 
+            : await fetch(...URLs);
+    
+        return Array.isArray(responses)
+            ? Promise.all(responses.map(r => r.text())) 
+            : responses.text();
     }
 
 }
