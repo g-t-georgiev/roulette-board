@@ -1,6 +1,21 @@
+@keyframes ascend {
+    0% {
+        top: 50%;
+    }
+    25% {
+        top: 25%;
+    }
+    50% {
+        top: 0;
+    }
+    100% {
+        top: -25%;
+    }
+}
+
 :host {
     /* Override parent scope set display value */
-    --popup-display: inline-block;
+    --roulette-popup-display: inline-block;
 
     display: var(--popup-display);
 
