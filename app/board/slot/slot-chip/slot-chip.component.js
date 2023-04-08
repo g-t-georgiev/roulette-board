@@ -7,6 +7,7 @@ const stylesheets = [];
 export class SlotChipComponent extends Component {
 
     #shadowRoot = this.attachShadow({ mode: 'open' });
+    #onRenderCallback = () => {};
 
     constructor() {
         super();
@@ -14,48 +15,57 @@ export class SlotChipComponent extends Component {
     }
 
     get textContent() {
-        return this.#shadowRoot.querySelector('.chip').textContent;
+        const chip = this.#shadowRoot.querySelector('.chip');
+        // console.log(chip);
+        return chip?.textContent;
     }
 
     set textContent(v) {
-        this.#shadowRoot.querySelector('.chip').textContent = v;
+        const chip = this.#shadowRoot.querySelector('.chip');
+        // console.log(chip);
+        if (!chip) return null;
+
+        this.#onRenderCallback = (chip) => {
+            chip.textContent = v;
+        };
     }
 
-    #render() {
+    async #render() {
+        try {
+            if (!stylesheets.length) {
 
-        if (!stylesheets.length) {
+                const cssText = await Roulette.fetchComponentStyles('/app/board/slot/slot-chip/slot-chip.component.css');
+                // console.log(cssText);
+                const styleElem = document.createElement('style');
+                // console.log(styleElem);
+                styleElem.textContent = cssText;
 
-            Roulette
-                .fetchComponentStyles('/app/board/slot/slot-chip/slot-chip.component.css')
-                .then(cssText => {
-                    // console.log(cssText);
-                    const styleElem = document.createElement('style');
-                    // console.log(styleElem);
-                    styleElem.textContent = cssText;
-
-                    stylesheets.push(styleElem);
-                    this.#shadowRoot.prepend(styleElem);
-                });
-
-        } else {
-            this.#shadowRoot.prepend(...stylesheets.map(styleEl => styleEl.cloneNode(true)));
+                stylesheets.push(styleElem);
+                this.#shadowRoot.prepend(styleElem);
+    
+            } else {
+                this.#shadowRoot.prepend(...stylesheets.map(styleEl => styleEl.cloneNode(true)));
+            }
+    
+            const div = document.createElement('div');
+    
+            div.classList.add('chip');
+            div.textContent = this.dataset.computedValue;
+    
+            const img = document.createElement('img');
+            img.classList.add('chip-icon');
+            img.setAttribute('src', `/assets/images/chip-background-${this.dataset.id}.png`);
+            img.setAttribute('alt', 'chip icon');
+            img.setAttribute('width', '30');
+            img.setAttribute('height', '30');
+    
+            div.append(img);
+            
+            this.#onRenderCallback?.(div);
+            this.#shadowRoot.append(div);
+        } catch (error) {
+            console.error(error);
         }
-
-        const div = document.createElement('div');
-
-        div.classList.add('chip');
-        div.textContent = this.dataset.computedValue;
-
-        const img = document.createElement('img');
-        img.classList.add('chip-icon');
-        img.setAttribute('src', `/assets/images/chip-background-${this.dataset.id}.png`);
-        img.setAttribute('alt', 'chip icon');
-        img.setAttribute('width', '30');
-        img.setAttribute('height', '30');
-
-        div.append(img);
-
-        this.#shadowRoot.append(div);
     }
 
     connectedCallback() {
