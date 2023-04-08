@@ -34,7 +34,7 @@ export class ChipsContainerComponent extends Component {
             return elem;
         });
 
-        this.addEventListener('roulette:chip', this.__selectHandler);
+        this.addEventListener('roulette:chipselected', this.__selectHandler);
         this.#shadowRoot.append(...stylesheets, ...chipElemList);
     }
 
@@ -81,7 +81,7 @@ export class ChipsContainerComponent extends Component {
     }
 
     disconnectedCallback() {
-        this.removeEventListener('roulette:chip', this.__selectHandler);
+        this.removeEventListener('roulette:chipselected', this.__selectHandler);
     }
 
 }
