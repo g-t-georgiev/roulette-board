@@ -3,10 +3,12 @@ import { Component } from '../app/core/interfaces/index.js';
 import { BoardComponent } from './board/board.component.js';
 import { ChipsContainerComponent } from './chips/chips.component.js';
 import { UserControlsComponent } from './user-controls/user-controls.component.js';
+import { PopUpComponent } from './pop-up/pop-up.component.js';
 
 customElements.define('roulette-board', BoardComponent);
 customElements.define('roulette-chips', ChipsContainerComponent);
 customElements.define('roulette-user-controls', UserControlsComponent);
+customElements.define('roulette-popup', PopUpComponent);
 
 export class AppComponent extends Component {
 
