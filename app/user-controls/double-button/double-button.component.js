@@ -6,21 +6,20 @@ export class DoubleButtonComponent extends ButtonComponent {
     constructor() {
         super();
         this.rendered = false;
-        this.__clickHandler = this.#clickHandler.bind(this);
+    }
+
+    __clickHandler(...args) {
+        this.#clickHandler.call(this, ...args);
     }
 
     #clickHandler() {
         if (this.disabled) return;
 
-        // TODO: Get action result
-        const success = BetManager.doubleBets();
+        const result = BetManager.doubleBets();
 
-        if (!success) return;
+        if (!result) return;
 
-        // TODO: Publish payload with the 
-        // added chips summed value.
-
-        EventBus.publish('roulette:double');
+        EventBus.publish('roulette:chipsdoubled', result);
     }
 
     connectedCallback() {
