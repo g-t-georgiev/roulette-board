@@ -37,6 +37,7 @@ export class PopUpComponent extends Component {
 
     async #render() {
         try {
+            // console.log('Rendering notification');
             if (!stylesheets.length) {
                 const cssText = await Roulette.fetchComponentStyles('/app/pop-up/pop-up.component.css');
                 // console.log(cssText);

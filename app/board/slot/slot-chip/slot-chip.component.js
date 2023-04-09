@@ -30,6 +30,7 @@ export class SlotChipComponent extends Component {
 
     async #render() {
         try {
+            // console.log('Rendering slot chip');
             if (!stylesheets.length) {
 
                 const cssText = await Roulette.fetchComponentStyles('/app/board/slot/slot-chip/slot-chip.component.css');

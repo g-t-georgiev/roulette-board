@@ -15,6 +15,7 @@ export class CursorComponent extends Component {
 
     async #render() {
         try {
+            // console.log('Rendering cursor');
             this.toggle(false);
 
             if (!stylesheets.length) {
