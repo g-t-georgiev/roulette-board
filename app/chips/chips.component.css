@@ -27,6 +27,8 @@
     gap: var(--host-flex-gap);
 
     flex-basis: var(--host-flex-basis);
+
+    user-select: none;
 }
 
 /*

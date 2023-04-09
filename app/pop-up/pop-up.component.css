@@ -25,6 +25,8 @@
     translate: -50% -50%;
     z-index: 5;
 
+    user-select: none;
+
     animation: ascend 1s cubic-bezier(.29,.06,.21,1);
     animation-fill-mode: forwards;
 }

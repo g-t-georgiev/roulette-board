@@ -25,6 +25,7 @@
     flex-basis: var(--host-flex-basis);
     order: var(--host-flex-order);
 
+    user-select: none;
     cursor: var(--host-cursor);
 }
 

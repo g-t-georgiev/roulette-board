@@ -20,6 +20,8 @@
 
     background-color: var(--background-color);
     color: var(--color, #222);
+
+    user-select: none;
 }
 
 :host([theme="dark"]) {

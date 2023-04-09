@@ -43,6 +43,8 @@
     left: 50%;
     translate: -50% -50%;
 
+    user-select: none;
+
     animation: show .1s ease-in-out;
 }
 
