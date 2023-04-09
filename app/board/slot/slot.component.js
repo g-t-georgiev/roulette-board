@@ -39,9 +39,71 @@ export class SlotComponent extends Component {
         }
     );
 
+    #insertedChips = this.#slotContainer.getElementsByTagName('roulette-slot-chip');
+
     #observer = new MutationObserver(
-        (data) => {
-            console.log(data);
+        (mutationsList) => {
+            // console.log(mutationsList);
+            if (!mutationsList.length > 0) {
+                return;
+            }
+
+            const slotChipsMutationsList = [ ...mutationsList ].filter(
+                mutationEntry => {
+                    // console.log(mutationEntry);
+                    const triggerElem = 
+                        mutationEntry.addedNodes.length > 0 
+                            ? mutationEntry.addedNodes.item(mutationEntry.addedNodes.length - 1) 
+                            : mutationEntry.removedNodes.length > 0 
+                                ? mutationEntry.removedNodes.item(mutationEntry.removedNodes.length - 1) 
+                                : null;
+                    
+                    
+                    // console.log(triggerElem);
+                    const PopUpComponentClass = customElements.get('roulette-popup');
+                    
+                    if (triggerElem == null) return false;
+
+                    return !(triggerElem instanceof PopUpComponentClass);
+                }
+            );
+
+            // console.log(slotChipsMutationsList);
+
+            if (slotChipsMutationsList.length > 0) {
+
+                const stateObject = {
+                    value: 0,
+                    state: undefined
+                };
+
+                slotChipsMutationsList.forEach(
+                    mutationEntry => {
+                        const isAdded = mutationEntry.addedNodes.length > 0;
+                        const isRemoved = mutationEntry.removedNodes.length > 0;
+
+                        const triggerElem = 
+                             isAdded
+                                ? mutationEntry.addedNodes.item(mutationEntry.addedNodes.length - 1)
+                                : isRemoved
+                                    ? mutationEntry.removedNodes.item(mutationEntry.removedNodes.length - 1) 
+                                    : null;
+                        
+                        if (slotChipsMutationsList.length === 1) {
+                            stateObject.id = triggerElem.dataset.id;
+                            stateObject.value = triggerElem.dataset.value;
+                        } else {
+                            stateObject.value += triggerElem ? Number(triggerElem.dataset.value) : 0;
+                        }
+
+                        stateObject.state = isAdded ? 'appended' : isRemoved ? 'removed' : undefined;
+                    }
+                );
+
+                // console.log(stateObject);
+                this.#toggleNotification(stateObject);
+            }
+
         }
     );
 
@@ -56,7 +118,7 @@ export class SlotComponent extends Component {
      * @param {boolean} stacked 
      * @returns 
      */
-    placeChipInSlot(data, stacked = false) {
+    #placeChipInSlot(data, stacked = false) {
 
         const elem = Roulette.createElement(
             { 
@@ -77,14 +139,13 @@ export class SlotComponent extends Component {
     }
 
     /**
-     * Creates and appends to the shadow DOM a notification with 
-     * the recently placed chip's value.
-     * @param {{ id: string, value: string | number }} chip 
-     * @param {"appended" | "removed"} state 
+     * Creates and appends to the shadow DOM a notification 
+     * with the recently placed chip's value.
+     * @param {{ id?: string, value?: string | number, state?: "appended" | "removed" }} data 
      */
-    toggleChipNotification(chip, state = 'appended') {
-        // console.log(chip);
-        const { id, value } = chip;
+    #toggleNotification(data) {
+        // console.log(data);
+        const { value, state } = data;
 
         const notificationElem = document.createElement('roulette-popup');
         notificationElem?.initialize({ value, state });
@@ -142,7 +203,7 @@ export class SlotComponent extends Component {
 
         this.#onRenderCallback?.(spanElem);
         this.addEventListener('pointerdown', this.__clickHandler);
-        // this.#observer.observe(this.#slotContainer, { childList: true });
+        this.#observer.observe(this.#slotContainer, { childList: true });
     }
 
     /**
@@ -159,23 +220,25 @@ export class SlotComponent extends Component {
 
         if (!selectedChipDTO) return;
 
-        // get all chip nodes in the slot
-        // get the last chip node value, defaults to 0
-        // sum the last chip node value with the currently selected chip value
-        const chipsNodeList = this.#shadowRoot.querySelectorAll('roulette-slot-chip');
-        // console.log(chipsNodeList.length);
-        const lastPlacedChipNodeValue = chipsNodeList.item(chipsNodeList.length - 1)?.textContent ?? 0;
+        const lastPlacedChipNodeValue = this.#insertedChips.item(this.#insertedChips.length - 1)?.textContent ?? 0;
         const summedValue = Number(lastPlacedChipNodeValue) + Number(selectedChipDTO.value);
 
-        const slotChip = this.placeChipInSlot({ ...selectedChipDTO, value: selectedChipDTO.value, computedValue: summedValue }, chipsNodeList.length + 1 > 1);
-        const betsCount = BetManager.placeBet({ chip: { ...selectedChipDTO, ref: slotChip }, slot: this });
+        const slotChip = this.#placeChipInSlot(
+            { 
+                ...selectedChipDTO, 
+                value: selectedChipDTO.value, 
+                computedValue: summedValue 
+            }, 
+            this.#insertedChips.length + 1 > 1
+        );
+
+        BetManager.placeBet({ chip: { ...selectedChipDTO, ref: slotChip } });
         // console.log(betsCount);
 
-        if (betsCount === 1) {
+        if (this.#insertedChips.length === 1) {
             EventBus.publish('roulette:boardnotempty');
         }
 
-        this.toggleChipNotification(selectedChipDTO);
         // EventBus.publish('roulette:chipplaced', this, selectedChipDTO);
     }
 
