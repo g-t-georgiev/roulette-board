@@ -35,6 +35,29 @@ let bets = [];
 const latestBets = new Map();
 
 /**
+ * Loops through the bets list and 
+ * on each iteration updates the current 
+ * state for the latest bets and returns a 
+ * reference for it. 
+ */
+function updateLatestBets() {
+    forEachOf(
+        bets,
+        /**
+         * @param {{ chip: chip, slot: slot }} bet 
+         * @callback
+         * @returns
+         */
+        ({ chip, slot}) => {
+            // console.log(chip, slot);
+            latestBets.set(slot, chip);
+        }
+    );
+
+    return latestBets;
+}
+
+/**
  * Stores the currently selected chip.
  * Null if not chip has been selected.
  * @type {Pick<chip, 'id' | 'value'> | null}
@@ -162,18 +185,7 @@ function doubleBets() {
         return false;
     }
 
-    forEachOf(
-        bets,
-        /**
-         * @param {{ chip: chip, slot: slot }} bet 
-         * @callback
-         * @returns
-         */
-        ({ chip, slot}) => {
-            // console.log(chip, slot);
-            latestBets.set(slot, chip);
-        }
-    );
+    let latestBets = updateLatestBets();
 
     let totalValue = 0;
 
