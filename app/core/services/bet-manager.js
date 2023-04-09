@@ -1,4 +1,5 @@
 import { forEachOf } from '../../../utils/nested-list-iterator.js';
+import Roulette from '../../../utils/Roulette.js'
 
 /**
  * Data object representing a betted chip containing information 
@@ -10,27 +11,18 @@ import { forEachOf } from '../../../utils/nested-list-iterator.js';
  */
 
 /**
- * Reduced slot component instance object representation exposing 
- * infomation about only the necessary interface methods required 
- * from the BetManager as a mediator.
- * @typedef {object} slot 
- * @property {({ id: string, value: string, computedValue: string }) => HTMLElement } placeChipInSlot 
- * @property {(chip: { id?: string, value?: string | number }, state: 'appended' | 'removed') => void} toggleChipNotification 
- */
-
-/**
  * Associative list of all the session bets. 
  * Each entry represents a pair of a chip 
  * data object and the associated slot instance 
  * reference it was placed in.
- * @type {Array<{ chip: chip, slot: slot }>}
+ * @type {Array<{ chip: chip }>}
  */
 let bets = [];
 
 /**
  * Holds a slice of the latest bets 
  * for presented slots from the board.
- * @type {Map<slot, chip>}
+ * @type {Map<HTMLElement, chip>}
  */
 const latestBets = new Map();
 
@@ -44,13 +36,14 @@ function updateLatestBets() {
     forEachOf(
         bets,
         /**
-         * @param {{ chip: chip, slot: slot }} bet 
+         * @param {{ chip: chip }} bet 
          * @callback
          * @returns
          */
-        ({ chip, slot}) => {
-            // console.log(chip, slot);
-            latestBets.set(slot, chip);
+        ({ chip }) => {
+            // console.log(chip);
+            // console.log(chip.ref.parentElement);
+            latestBets.set(chip.ref.parentElement, chip);
         }
     );
 
@@ -90,12 +83,12 @@ function hasPlacedBets() {
 /**
  * Places a new bet on the board. 
  * Returns the updated bets count.
- * @param {{ chip: chip, slot: HTMLElement }} bet 
+ * @param {{ chip: chip }} bet 
  */
 function placeBet(bet) {
-    const { chip, slot } = bet;
-    // console.log(chip, slot);
-    const betsCount = bets.push({ chip: { ...chip }, slot });
+    const { chip } = bet;
+    // console.log(chip);
+    const betsCount = bets.push({ chip: { ...chip } });
     // console.log(bets[bets.length - 1]);
     return betsCount;
 }
@@ -103,7 +96,6 @@ function placeBet(bet) {
 /**
  * Undo last bet made. Returns the value of the revoked chip (or group of chips if 
  * they are doubled bets) and false if action was unsucccessful.
- * @param {HTMLElement} slot 
  */
 function undoLastBet() {
     if (!bets.length) {
@@ -120,15 +112,14 @@ function undoLastBet() {
         value = revokedBet.reduce(
             /**
              * @param {number} total 
-             * @param {{ chip: chip, slot: slot }} bet 
+             * @param {{ chip: chip }} bet 
              * @callback
              * @returns {number}
              */
             (total, bet) => {
                 // console.log(bet);
-                const { chip, slot } = bet;
+                const { chip } = bet;
                 chip.ref?.remove();
-                slot.toggleChipNotification({ id: chip.id, value: chip.value }, 'removed');
                 total += Number(chip.value);
                 return total;
             }, 
@@ -138,7 +129,6 @@ function undoLastBet() {
     } else {
         value = Number(revokedBet.chip.value);
         revokedBet.chip.ref?.remove();
-        revokedBet.slot.toggleChipNotification({ id: revokedBet.chip.id, value: revokedBet.chip.value }, 'removed');
     }
 
     // console.log(value);
@@ -159,12 +149,11 @@ function clearBets() {
     forEachOf(
         bets,
         /**
-         * @param {{ chip: chip, slot: slot }} bet 
+         * @param {{ chip: chip }} bet 
          * @callback
          * @returns
          */
-        ({ chip, slot }) => {
-            // console.log(chip, slot);
+        ({ chip }) => {
             // console.log(chip.value);
             totalValue += Number(chip.value);
             chip.ref?.remove();
@@ -185,50 +174,55 @@ function doubleBets() {
         return false;
     }
 
-    let latestBets = updateLatestBets();
-
     let totalValue = 0;
+    const latestBets = updateLatestBets();
 
-    bets.push(
-        [ ...latestBets ].map(
-            (bet) => {
-                // console.log(bet);
-                const [ slot, chip ] = bet;
-                // console.log(slot, chip);
+    const latestBetsFormatted = [ ...latestBets ].map(
+        (bet) => {
+            // console.log(bet);
+            const [ slot, chip ] = bet;
+            // console.log(slot, chip);
 
-                let value = 0;
+            let value = 0;
 
-                if (chip.ref.hasAttribute('stacked')) {
-                    value = chip.ref.textContent;
-                } else {
-                    value = chip.value;
-                }
-
-                const newChipElem = slot.placeChipInSlot(
-                    { 
-                        id: chip.id, 
-                        value,
-                        computedValue: value * 2
-                    }, 
-                    true
-                );
-
-                totalValue += Number(value); 
-                slot.toggleChipNotification({ id: chip.id, value });
-
-                return (
-                    { 
-                        chip: { 
-                            id: chip.id, 
-                            value, 
-                            ref: newChipElem 
-                        }, 
-                        slot 
-                    }
-                );
+            if (chip.ref.hasAttribute('stacked')) {
+                value = chip.ref.textContent;
+            } else {
+                value = chip.value;
             }
-        )
+
+            const newChipElem = Roulette.createElement(
+                { 
+                    name: 'roulette-slot-chip', 
+                    attributes: {
+                        dataset: {
+                            id: String(chip.id),
+                            value: String(value),
+                            computedValue: String(value * 2),
+                        },
+                        stacked: ''
+                    }
+                }
+            )
+
+            chip.ref.after(newChipElem);
+
+            totalValue += Number(value); 
+
+            return (
+                { 
+                    chip: { 
+                        id: chip.id, 
+                        value, 
+                        ref: newChipElem 
+                    }, 
+                    slot 
+                }
+            );
+        }
     );
+
+    bets.push(latestBetsFormatted);
 
     latestBets.clear();
     return totalValue;
