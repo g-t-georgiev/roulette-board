@@ -259,6 +259,10 @@
 
 /* Hover effects */
 
+/*
+    TODO: Fix hover styles after changing roulette-slot element inner structure
+*/
+
 /* General hover effects */
 .gameboard roulette-slot {
     transition: box-shadow 0.2s ease-in-out;
