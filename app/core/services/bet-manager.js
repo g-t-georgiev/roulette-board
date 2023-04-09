@@ -1,6 +1,8 @@
 import { forEachOf } from '../../../utils/nested-list-iterator.js';
 
 /**
+ * Data object representing a betted chip containing information 
+ * about the id, value and DOM object reference onthe board.
  * @typedef {object} chip 
  * @property {string} id 
  * @property {string} value 
@@ -8,15 +10,19 @@ import { forEachOf } from '../../../utils/nested-list-iterator.js';
  */
 
 /**
+ * Reduced slot component instance object representation exposing 
+ * infomation about only the necessary interface methods required 
+ * from the BetManager as a mediator.
  * @typedef {object} slot 
  * @property {({ id: string, value: string, computedValue: string }) => HTMLElement } placeChipInSlot 
  * @property {(chip: { id?: string, value?: string | number }, state: 'appended' | 'removed') => void} toggleChipNotification 
  */
 
 /**
- * Contains reference to all gameboard slots, as map keys,
- * and a list of corresponding chip objects, with their 
- * respective id and value properties, as map values.
+ * Associative list of all the session bets. 
+ * Each entry represents a pair of a chip 
+ * data object and the associated slot instance 
+ * reference it was placed in.
  * @type {Array<{ chip: chip, slot: slot }>}
  */
 let bets = [];
