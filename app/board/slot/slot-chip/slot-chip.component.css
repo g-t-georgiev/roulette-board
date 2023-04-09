@@ -31,6 +31,15 @@
     }
 }
 
+@keyframes stack {
+    0% {
+        filter: grayscale(0);
+    }
+    100% {
+        filter: grayscale(1);
+    }
+}
+
 :host {
     /* Override external value of none */
     --slot-chip-display: inline-block;
@@ -62,7 +71,8 @@
 }
 
 :host([stacked]) .chip {
-    filter: grayscale(1);
+    /* filter: grayscale(1); */
+    animation: stack .55s linear forwards;
 }
 
 .chip-icon {
