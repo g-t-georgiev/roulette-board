@@ -1,12 +1,12 @@
 @media screen and (max-width: 800px) {
 
-    :host(.inside-bet.zero) {
+    :host(.inside-bet.zero) .slot-container {
         border-top-left-radius: 15rem;
         border-top-right-radius: 15rem;
         border-bottom-left-radius: 0;
     }
 
-    :host(.outside-bet:is(.black, .red, .even, .odd, .range, .dozen)) .slot-txt {
+    :host(.outside-bet:is(.black, .red, .even, .odd, .range, .dozen)) .slot-container .slot-txt {
         rotate: z 90deg;
     }
 
