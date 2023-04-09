@@ -8,7 +8,7 @@
 
 :host {
     /* Override display value from parent scope */
-    --roulette-slot-display: flex;
+    --roulette-slot-display: block;
 
     --font-size: clamp(1rem, 1.1vw, 1.7rem);
     --font-weight: 600;
@@ -31,17 +31,6 @@
 
     /* Slot chips */
     --slot-chip-display: none;
-
-    position: relative;
-
-    justify-content: center;
-    align-items: center;
-
-    font-size: var(--font-size);
-    font-weight: var(--font-weight);
-    user-select: none;
-
-    border: 1px solid #000;
 }
 
 :host-context([theme="dark"]) {
@@ -52,11 +41,28 @@
     --outside-bet-bg-color-contrast: 85%;
 }
 
-:host(.inside-bet) {
+.slot-container {
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    inline-size: 100%;
+    block-size: 100%;
+
+    font-size: var(--font-size);
+    font-weight: var(--font-weight);
+    user-select: none;
+
+    border: 1px solid #000;
+}
+
+:host(.inside-bet) .slot-container {
     color: var(--inside-bet-txt-color);
 }
 
-:host(.inside-bet.zero) {
+:host(.inside-bet.zero) .slot-container {
     border-top-left-radius: 15rem;
     border-bottom-left-radius: 15rem;
 
@@ -64,15 +70,15 @@
     font-size: clamp(1.25rem, 1.5vw, 2rem);
 }
 
-:host(.inside-bet.red) {
+:host(.inside-bet.red) .slot-container {
     background-color: var(--inside-bet-bg-color-red);
 }
 
-:host(.inside-bet.black) {
+:host(.inside-bet.black) .slot-container {
     background-color: var(--inside-bet-bg-color-black);
 }
 
-:host(.outside-bet) {
+:host(.outside-bet) .slot-container {
     color: var(--outside-bet-txt-color);
     background-color: var(--outside-bet-bg-color);
 
@@ -80,19 +86,19 @@
     font-weight: 500;
 }
 
-:host(.outside-bet.dozen) {
+:host(.outside-bet.dozen) .slot-container {
     font-size: clamp(.95rem, 1.5vw, 1.2rem);
 }
 
-:host(.outside-bet.column) {
+:host(.outside-bet.column) .slot-container {
     font-size: clamp(.85rem, 1.5vw, 1.15rem);
 }
 
-:host(.outside-bet.range) {
+:host(.outside-bet.range) .slot-container {
     font-size: clamp(.85rem, 1.5vw, 1.15rem);
 }
 
-:host(.outside-bet:is(.black, .red, .even, .odd)) {
+:host(.outside-bet:is(.black, .red, .even, .odd)) .slot-container {
     font-size: clamp(.85rem, 1.5vw, 1.15rem);
 }
 
