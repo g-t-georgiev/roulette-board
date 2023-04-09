@@ -234,7 +234,6 @@ export class SlotComponent extends Component {
         );
 
         BetManager.placeBet({ chip: { ...selectedChipDTO, ref: slotChip } });
-        // console.log(betsCount);
 
         if (this.#insertedChips.length === 1) {
             EventBus.publish('roulette:boardnotempty');
