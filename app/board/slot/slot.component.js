@@ -33,7 +33,8 @@ export class SlotComponent extends Component {
         { 
             name: 'div', 
             attributes: { 
-                classList: 'slot-container' 
+                classList: 'slot-container',
+                part: 'slot-container', 
             }, 
             parent: this.#shadowRoot 
         }
