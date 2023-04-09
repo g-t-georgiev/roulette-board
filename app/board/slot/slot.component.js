@@ -29,6 +29,22 @@ export class SlotComponent extends Component {
     #subscriptions = [];
     #onRenderCallback = () => {};
 
+    #slotContainer = Roulette.createElement(
+        { 
+            name: 'div', 
+            attributes: { 
+                classList: 'slot-container' 
+            }, 
+            parent: this.#shadowRoot 
+        }
+    );
+
+    #observer = new MutationObserver(
+        (data) => {
+            console.log(data);
+        }
+    );
+
     constructor() {
         super();
         this.rendered = false;
@@ -41,13 +57,22 @@ export class SlotComponent extends Component {
      * @returns 
      */
     placeChipInSlot(data, stacked = false) {
-        const elem = document.createElement('roulette-slot-chip');
-        elem.toggleAttribute('stacked', stacked);
-        elem.dataset.id = data.id;
-        elem.dataset.value = data.value;
-        elem.dataset.computedValue = data.computedValue
 
-        this.#shadowRoot.append(elem);
+        const elem = Roulette.createElement(
+            { 
+                name: 'roulette-slot-chip', 
+                attributes: {
+                    dataset: {
+                        id: String(data.id),
+                        value: String(data.value),
+                        computedValue: String(data.computedValue),
+                    },
+                    ...(stacked ? { stacked: '' } : {})
+                },
+                parent: this.#slotContainer
+            }
+        );
+
         return elem;
     }
 
@@ -64,7 +89,7 @@ export class SlotComponent extends Component {
         const notificationElem = document.createElement('roulette-popup');
         notificationElem?.initialize({ value, state });
         
-        this.#shadowRoot.append(notificationElem);
+        this.#slotContainer.append(notificationElem);
     }
 
     /**
@@ -105,11 +130,19 @@ export class SlotComponent extends Component {
     }
 
     #render() {
-        const spanElem = document.createElement('span');
-        spanElem.classList.add('slot-txt');
+        const spanElem = Roulette.createElement(
+            {
+                name: 'span',
+                attributes: {
+                    classList: 'slot-txt'
+                },
+                parent: this.#slotContainer
+            }
+        );
+
         this.#onRenderCallback?.(spanElem);
-        this.#shadowRoot.append(spanElem);
         this.addEventListener('pointerdown', this.__clickHandler);
+        // this.#observer.observe(this.#slotContainer, { childList: true });
     }
 
     /**
@@ -168,6 +201,7 @@ export class SlotComponent extends Component {
     disconnectedCallback() {
         this.removeEventListener('pointerdown', this.__clickHandler);
         this.#subscriptions.forEach(_=>_.unsubscribe());
+        this.#observer.disconnect();
     }
 
 }
