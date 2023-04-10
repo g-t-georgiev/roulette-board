@@ -1,15 +1,9 @@
 @keyframes ascend {
     0% {
-        top: 50%;
+        top: var(--top-offset-start, 50%);
     }
-    25% {
-        top: 25%;
-    }
-    50% {
-        top: 0;
-    }
-    100% {
-        top: -25%;
+    100% { 
+        top: var(--top-offset-end, -25%);
     }
 }
 
@@ -18,7 +12,7 @@
     --roulette-popup-display: inline-block;
 
     position: absolute;
-    top: 50%;
+    top: var(--top-offset-start, 50%);
     left: var(--left-offset, 50%);
     z-index: 5;
 
@@ -47,9 +41,8 @@
 }
 
 .notification-text {
-    font-size: .85rem;
+    font-size: var(--font-size, clamp(.85rem, 1.5vw, 1rem));
     font-weight: 700;
-    color: #008000;
 
     text-shadow: 
         -1px -1px 0 #ffffff,
