@@ -53,6 +53,8 @@
 
     font-size: var(--font-size);
     font-weight: var(--font-weight);
+
+    -webkit-user-select: none;
     user-select: none;
 
     border: 1px solid #000;

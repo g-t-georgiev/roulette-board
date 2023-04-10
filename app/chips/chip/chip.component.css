@@ -11,6 +11,9 @@
     --roulette-chip-display: inline-block;
     
     --color: #222;
+
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 :host([selected]) .chip {
@@ -36,11 +39,26 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    translate: -50% -50%;
 
     font-size: clamp(1.35rem, 2vw, 2rem);
     font-weight: 600;
     color: var(--color);
+}
+
+@supports (not(translate: -50% -50%)) {
+
+    .chip-txt {
+        transform: translate(-50%, -50%);
+    }
+
+}
+
+@supports (translate: -50% -50%) {
+
+    .chip-txt {
+        transform: none;
+        translate: -50% -50%;
+    }
 }
 
 .chip-img {

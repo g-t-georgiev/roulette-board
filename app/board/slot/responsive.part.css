@@ -6,8 +6,22 @@
         border-bottom-left-radius: 0;
     }
 
-    :host(.outside-bet:is(.black, .red, .even, .odd, .range, .dozen)) .slot-container .slot-txt {
-        rotate: z 90deg;
+    @supports (not(rotate: z 90deg)) {
+
+        :host(.outside-bet:is(.black, .red, .even, .odd, .range, .dozen)) .slot-container .slot-txt {
+            transform: rotateZ(90deg);
+        }
+
+    }
+
+
+    @supports (rotate: z 90deg) {
+
+        :host(.outside-bet:is(.black, .red, .even, .odd, .range, .dozen)) .slot-container .slot-txt {
+            transform: none;
+            rotate: z 90deg;
+        }
+
     }
 
 }

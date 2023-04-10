@@ -21,6 +21,7 @@
     background-color: var(--background-color);
     color: var(--color, #222);
 
+    -webkit-user-select: none;
     user-select: none;
 }
 

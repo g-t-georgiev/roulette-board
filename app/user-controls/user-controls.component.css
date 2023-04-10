@@ -23,6 +23,7 @@
     flex-basis: var(--host-flex-basis);
     order: var(--host-flex-order);
 
+    -webkit-user-select: none;
     user-select: none;
 }
 

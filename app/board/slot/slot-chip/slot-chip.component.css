@@ -50,11 +50,28 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    translate: -50% -50%;
 
+    -webkit-user-select: none;
     user-select: none;
 
     animation: show .1s ease-in-out;
+}
+
+@supports (not(translate: -50% -50%)) {
+
+    :host {
+        transform: translate(-50%, -50%);
+    }
+
+}
+
+@supports (translate: -50% -50%) {
+
+    :host {
+        transform: none;
+        translate: -50% -50%;
+    }
+
 }
 
 .chip {

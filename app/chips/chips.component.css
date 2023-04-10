@@ -28,6 +28,7 @@
 
     flex-basis: var(--host-flex-basis);
 
+    -webkit-user-select: none;
     user-select: none;
 }
 
