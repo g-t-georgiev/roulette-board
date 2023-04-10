@@ -12,9 +12,6 @@
     --background-color: #f5f1f0;
 
     --button-display: inline-block;
-    --button-outline-style-focus: solid;
-    --button-outline-width-focus: .1rem;
-    --button-outline-color-focus: transparent;
 }
 
 *,
@@ -52,10 +49,4 @@ a {
 button {
     all: unset;
     display: var(--button-display);
-}
-
-button:focus {
-    outline-style: var(--button-outline-style-focus);
-    outline-width: var(--button-outline-width-focus);
-    outline-color: var(--button-outline-color-focus);
 }
