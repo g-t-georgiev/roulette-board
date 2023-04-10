@@ -15,8 +15,10 @@
         padding-inline: var(--buttons-padding-inline);
     }
 
+    /* Control popup text animation */
+
     roulette-popup {
-        --left-offset: 25%;
+        --left-offset: calc(25% - (var(--buttons-padding-inline) / 2.5));
     }
 
 }
