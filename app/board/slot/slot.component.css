@@ -112,3 +112,15 @@
 roulette-slot-chip {
     display: var(--slot-chip-display, none);
 }
+
+/* Control popup text animation */
+
+roulette-popup {
+    --top-offset-start: 50%;
+    --top-offset-end: -25%;
+    --font-size: clamp(.85rem, 1.5vw, 1rem);
+}
+
+:host(.inside-bet.zero) roulette-popup {
+    --top-offset-end: 10%;
+}
