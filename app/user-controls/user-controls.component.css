@@ -72,3 +72,11 @@ button:focus {
 .btn:not(:is(.disabled, :disabled)):hover {
     transform: scale(1.1);
 }
+
+/* Control popup text animation */
+
+roulette-popup {
+    --top-offset-start: -25%;
+    --top-offset-end: -75%;
+    --font-size: clamp(1rem, 1.5vw, 1.35rem);
+}
