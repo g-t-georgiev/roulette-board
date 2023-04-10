@@ -15,4 +15,8 @@
         padding-inline: var(--buttons-padding-inline);
     }
 
+    roulette-popup {
+        --left-offset: 25%;
+    }
+
 }
