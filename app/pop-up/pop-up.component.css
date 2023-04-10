@@ -19,7 +19,7 @@
 
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: var(--left-offset, 50%);
     z-index: 5;
 
     -webkit-user-select: none;
