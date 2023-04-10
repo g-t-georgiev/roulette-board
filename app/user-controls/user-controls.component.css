@@ -44,12 +44,6 @@ button {
     display: var(--button-display);
 }
 
-button:focus {
-    outline-style: var(--button-outline-style-focus);
-    outline-width: var(--button-outline-width-focus);
-    outline-color: var(--button-outline-color-focus);
-}
-
 .btn {
     inline-size: clamp(3rem, 5vw, 4rem);
     aspect-ratio: 1 / 1;
