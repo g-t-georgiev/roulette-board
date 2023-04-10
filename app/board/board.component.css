@@ -261,7 +261,11 @@
 /* Hover effects */
 
 /*
-    TODO: Fix hover styles after changing roulette-slot element inner structure
+    Fixed hover styles using ::part.
+
+    TODO: Provide alternative solution to the 
+    use of ::part pseudo-class for better 
+    support, maybe using custom properties.
 */
 
 /* General hover effects */
