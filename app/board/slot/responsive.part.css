@@ -24,4 +24,18 @@
 
     }
 
+    /* Control popup text animation */
+
+    :host(.inside-bet.zero) roulette-popup {
+        --top-offset-end: 0;
+    }
+
+    :host(.outside-bet.dozen) roulette-popup {
+        --top-offset-end: 10%;
+    }
+
+    :host(.outside-bet:is(.black, .red, .even, .odd, .range)) roulette-popup {
+        --top-offset-end: 0;
+    }
+
 }
