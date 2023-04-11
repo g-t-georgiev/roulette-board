@@ -37,7 +37,7 @@ export class ButtonComponent extends HTMLButtonElement {
 
     /**
      * This is a static getter property that should 
-     * return an array of name of the attributes you 
+     * return an array of the names of attributes you 
      * wish to observe for changes.
      * @returns {Array<string>}
      */
