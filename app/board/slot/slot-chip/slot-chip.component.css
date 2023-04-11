@@ -44,8 +44,8 @@
     /* Override external value of none */
     --slot-chip-display: inline-block;
 
-    --chip-size: clamp(2rem, 3.5vw, 3rem);
-    --chip-font-size: max(.75rem, calc(var(--chip-size) / 2.5));
+    --slot-chip-inline-size: clamp(2rem, 3vw, 3rem);
+    --slot-chip-font-size: max(.65rem, calc(var(--slot-chip-inline-size) / 3));
 
     position: absolute;
     top: 50%;
@@ -79,23 +79,27 @@
     justify-content: center;
     align-items: center;
 
-    inline-size: var(--chip-size);
+    inline-size: var(--slot-chip-inline-size);
     aspect-ratio: 1 / 1;
 
-    font-size: var(--chip-font-size);
+    line-height: var(--slot-chip-inline-size);
+    text-align: center;
+
+    font-size: var(--slot-chip-font-size);
     font-weight: 600;
     color: #000;
 }
 
 :host([stacked]) .chip {
-    /* filter: grayscale(1); */
     animation: stack .55s linear forwards;
 }
 
 .chip-icon {
-    position: absolute;
     inline-size: 100%;
     block-size: 100%;
-    object-fit: cover;
+
+    position: absolute;
+    left: 0;
+    top: 0;
     z-index: -1;
 }
