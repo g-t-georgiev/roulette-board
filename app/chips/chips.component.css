@@ -8,9 +8,9 @@
 
 :host {
     /* Override initial display rule from parent scope */
-    --roulette-board-chips-display: flex;
+    --roulette-chips-display: flex;
 
-    --roulette-chip-display: none;
+    --chip-display: none;
 
     --host-flex-basis: calc(50% - var(--app-container-row-gap));
     --host-flex-direction: row;
@@ -38,5 +38,5 @@
 */
 
 roulette-chip {
-    display: var(--roulette-chip-display, none);
+    display: var(--chip-display, none);
 }
