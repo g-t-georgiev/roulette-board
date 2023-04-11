@@ -7,22 +7,26 @@
 }
 
 :host {
-    --inline-size: 35px;
-    --font-weight: 700;
-    --text-align: center;
-    --color: #222;
+    --chip-cursor-inline-size: clamp(2rem, 3vw, 3rem);
+    --chip-cursor-font-size: max(.65rem, calc(var(--chip-cursor-inline-size) / 3));
+    --chip-cursor-font-weight: 700;
+    --chip-cursor-text-align: center;
+    --chip-cursor-text-color: #222;
 
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     position: absolute;
 
-    inline-size: var(--inline-size, 35px);
+    inline-size: var(--chip-cursor-inline-size);
     aspect-ratio: 1 / 1;
 
-    font-size: calc(var(--inline-size) / 2.5);
-    font-weight: var(--font-weight);
-    line-height: var(--inline-size);
-    text-align: var(--text-align);
-    color: var(--color);
+    font-size: var(--chip-cursor-font-size);
+    font-weight: var(--chip-cursor-font-weight);
+    line-height: var(--chip-cursor-inline-size);
+    text-align: var(--chip-cursor-text-align);
+    color: var(--chip-cursor-text-color);
 
     background-repeat: no-repeat;
     background-size: contain;
