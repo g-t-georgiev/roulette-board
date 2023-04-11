@@ -45,7 +45,7 @@ button {
 }
 
 .btn {
-    inline-size: clamp(3rem, 5vw, 4rem);
+    inline-size: clamp(2.75rem, 3vw, 3.75rem);
     aspect-ratio: 1 / 1;
 
     cursor: pointer;
