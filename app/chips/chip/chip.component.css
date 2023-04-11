@@ -8,9 +8,13 @@
 
 :host {
     /* Override display value from parent scope */
-    --roulette-chip-display: inline-block;
+    --chip-display: inline-block;
     
-    --color: #222;
+    --chip-inline-size: clamp(4.5rem, 6vw, 6rem);
+    --chip-font-size: clamp(1.35rem, 1.75vw, 2rem);
+    --chip-font-weight: 600;
+    --chip-text-align: center;
+    --chip-text-color: #222;
 
     -webkit-user-select: none;
     user-select: none;
@@ -25,7 +29,7 @@
 .chip {
     position: relative;
 
-    inline-size: clamp(4rem, 6vw, 6rem);
+    inline-size: var(--chip-inline-size);
     aspect-ratio: 1 / 1;
 
     opacity: .6;
@@ -40,9 +44,11 @@
     top: 50%;
     left: 50%;
 
-    font-size: clamp(1.35rem, 2vw, 2rem);
-    font-weight: 600;
-    color: var(--color);
+    font-size: var(--chip-font-size);
+    font-weight: var(--chip-font-weight);
+    line-height: var(--chip-inline-size);
+    text-align: var(--chip-text-align);
+    color: var(--chip-text-color);
 }
 
 @supports (not(translate: -50% -50%)) {
@@ -64,6 +70,4 @@
 .chip-img {
     inline-size: 100%;
     aspect-ratio: 1 / 1;
-
-    object-fit: contain;
 }
