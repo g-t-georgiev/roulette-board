@@ -8,7 +8,7 @@
 
 :host {
     --roulette-board-display: none;
-    --roulette-board-chips-display: none;
+    --roulette-chips-display: none;
     --user-controls-display: none;
     --roulette-popup-display: none;
 
@@ -51,7 +51,7 @@ roulette-board {
 }
 
 roulette-chips {
-    display: var(--roulette-board-chips-display, none);
+    display: var(--roulette-chips-display, none);
 }
 
 roulette-user-controls {
