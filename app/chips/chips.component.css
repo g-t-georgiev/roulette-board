@@ -8,7 +8,7 @@
 
 :host {
     /* Override initial display rule from parent scope */
-    --roulette-chips-display: flex;
+    --chips-display: flex;
 
     --chip-display: none;
 
