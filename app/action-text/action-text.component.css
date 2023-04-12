@@ -1,25 +1,29 @@
 @keyframes ascend {
     0% {
-        top: var(--top-offset-start, 50%);
+        top: var(--action-text-top-offset-start, 50%);
+    }
+    90% {
+        opacity: .75;
     }
     100% { 
-        top: var(--top-offset-end, -25%);
+        top: var(--action-text-top-offset-end, -25%);
+        opacity: 0;
     }
 }
 
 :host {
     /* Override parent scope set display value */
-    --roulette-popup-display: inline-block;
+    --action-text-display: inline-block;
 
     position: absolute;
-    top: var(--top-offset-start, 50%);
-    left: var(--left-offset, 50%);
+    top: var(--action-text-top-offset-start, 50%);
+    left: var(--action-text-left-offset, 50%);
     z-index: 5;
 
     -webkit-user-select: none;
     user-select: none;
 
-    animation: ascend 1s cubic-bezier(.29,.06,.21,1);
+    animation: ascend var(--action-text-animation-duration, 1s) cubic-bezier(.29,.06,.21,1);
     animation-fill-mode: forwards;
 }
 
@@ -40,8 +44,8 @@
 
 }
 
-.notification-text {
-    font-size: var(--font-size, clamp(.85rem, 1.5vw, 1rem));
+.text-content {
+    font-size: var(--action-text-font-size, clamp(.85rem, 1.5vw, 1rem));
     font-weight: 700;
 
     text-shadow: 
@@ -51,10 +55,10 @@
         1px 1px 0 #ffffff;
 }
 
-.notification-text.chip-added {
+.text-content.chip-added {
     color: #008000;
 }
 
-.notification-text.chip-removed {
+.text-content.chip-removed {
     color: red;
 }

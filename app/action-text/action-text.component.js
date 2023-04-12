@@ -3,7 +3,7 @@ import Roulette from '../../utils/Roulette.js';
 
 const stylesheets = [];
 
-export class PopUpComponent extends Component {
+export class ActionTextComponent extends Component {
 
     #shadowRoot = this.attachShadow({ mode: 'open' });
     #textElem;
@@ -29,17 +29,21 @@ export class PopUpComponent extends Component {
             
             textElem.textContent = sign + (typeof data.value === 'number' ? data.value : Number(data.value)).toFixed(2);
 
-            this.#timerId = setTimeout(() => {
-                this?.remove();
-            }, 1e3);
+            this.#discard(1.5e3);
         }
+    }
+
+    #discard(timeout = 1e3) {
+        this.#timerId = setTimeout(() => {
+            this?.remove();
+        }, timeout);
     }
 
     async #render() {
         try {
             // console.log('Rendering notification');
             if (!stylesheets.length) {
-                const cssText = await Roulette.fetchComponentStyles('/app/pop-up/pop-up.component.css');
+                const cssText = await Roulette.fetchComponentStyles('/app/action-text/action-text.component.css');
                 // console.log(cssText);
                 const styleElem = document.createElement('style');
                 styleElem.textContent = cssText;
@@ -50,15 +54,13 @@ export class PopUpComponent extends Component {
                 this.#shadowRoot.prepend(...stylesheets.map(styleEl => styleEl.cloneNode(true)));
             }
     
-            const notificationElem = document.createElement('div');
-            notificationElem.classList.add('notification');
+            const textBoxElem = Roulette.createElement({ name: 'div', attributes: { classList: 'text-box' }});
     
-            this.#textElem = document.createElement('span');
-            this.#textElem.classList.add('notification-text');
+            this.#textElem = Roulette.createElement({ name: 'span', attributes: { classList: 'text-content' }});
             this.#onRenderCallback?.(this.#textElem);
-            
-            notificationElem.append(this.#textElem);
-            this.#shadowRoot.append(notificationElem);
+            textBoxElem.append(this.#textElem);
+
+            this.#shadowRoot.append(textBoxElem);
         } catch (error) {
             console.error(error);
         }
@@ -72,7 +74,7 @@ export class PopUpComponent extends Component {
     }
 
     disconnectedCallback() {
-        // console.log('Popup component removed.');
+        // console.log('ActionText component removed.');
         // console.log(this.#timerId);
         clearTimeout(this.#timerId);
     }
