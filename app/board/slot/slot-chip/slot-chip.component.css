@@ -46,6 +46,8 @@
 
     --slot-chip-inline-size: clamp(2rem, 3vw, 3rem);
     --slot-chip-font-size: max(.65rem, calc(var(--slot-chip-inline-size) / 3));
+    --slot-chip-font-weight: 700;
+    --slot-chip-text-color: #000000;
 
     position: absolute;
     top: 50%;
@@ -86,8 +88,8 @@
     text-align: center;
 
     font-size: var(--slot-chip-font-size);
-    font-weight: 600;
-    color: #000;
+    font-weight: var(--slot-chip-font-weight);
+    color: var(--slot-chip-text-color);
 }
 
 :host([stacked]) .chip {
