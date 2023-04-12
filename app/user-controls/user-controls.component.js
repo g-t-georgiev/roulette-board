@@ -1,5 +1,6 @@
 import { Component } from '../core/interfaces/index.js';
 import { EventBus } from '../core/services/index.js';
+import Roulette from '../../utils/Roulette.js';
 
 import { UndoButtonComponent } from './undo-button/undo-button.component.js';
 import { ClearButtonComponent } from './clear-button/clear-button.component.js';
@@ -90,10 +91,9 @@ export class UserControlsComponent extends Component {
                         );
 
                         // console.log(totalValueOfClearedChips);
-                        const notificationElem = document.createElement('roulette-popup');
-                        notificationElem?.initialize({ value: totalValueOfClearedChips, state: 'removed' });
-
-                        this.#shadowRoot.querySelector('.user-controls').append(notificationElem);
+                        const actionTextElem = Roulette.createElement({ name: 'roulette-action-text' });
+                        actionTextElem?.initialize({ value: totalValueOfClearedChips, state: 'removed' });
+                        this.#shadowRoot.querySelector('.user-controls').append(actionTextElem);
                     }, 
                     this
                 ),
@@ -101,10 +101,10 @@ export class UserControlsComponent extends Component {
                     'roulette:betundone',
                     (revokedChipValue) => {
                         // console.log(revokedChipValue);
-                        const notificationElem = document.createElement('roulette-popup');
-                        notificationElem?.initialize({ value: revokedChipValue, state: 'removed' });
+                        const actionTextElem = Roulette.createElement({ name: 'roulette-action-text' });
+                        actionTextElem?.initialize({ value: revokedChipValue, state: 'removed' });
                         
-                        this.#shadowRoot.querySelector('.user-controls').append(notificationElem);
+                        this.#shadowRoot.querySelector('.user-controls').append(actionTextElem);
                     },
                     this
                 ),
@@ -112,10 +112,10 @@ export class UserControlsComponent extends Component {
                     'roulette:chipsdoubled',
                     (totalValueOfDoubledChips) => {
                         // console.log(totalValueOfDoubledChips);
-                        const notificationElem = document.createElement('roulette-popup');
-                        notificationElem?.initialize({ value: totalValueOfDoubledChips, state: 'appended' });
+                        const actionTextElem = Roulette.createElement({ name: 'roulette-action-text' });
+                        actionTextElem?.initialize({ value: totalValueOfDoubledChips, state: 'appended' });
                         
-                        this.#shadowRoot.querySelector('.user-controls').append(notificationElem);
+                        this.#shadowRoot.querySelector('.user-controls').append(actionTextElem);
                     },
                     this
                 )
