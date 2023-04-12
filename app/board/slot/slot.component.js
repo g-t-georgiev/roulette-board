@@ -61,11 +61,11 @@ export class SlotComponent extends Component {
                     
                     
                     // console.log(triggerElem);
-                    const PopUpComponentClass = customElements.get('roulette-popup');
+                    const ActionTextComponent = customElements.get('roulette-action-text');
                     
                     if (triggerElem == null) return false;
 
-                    return !(triggerElem instanceof PopUpComponentClass);
+                    return !(triggerElem instanceof ActionTextComponent);
                 }
             );
 
@@ -102,7 +102,7 @@ export class SlotComponent extends Component {
                 );
 
                 // console.log(stateObject);
-                this.#toggleNotification(stateObject);
+                this.#toggleActionText(stateObject);
             }
 
         }
@@ -144,13 +144,11 @@ export class SlotComponent extends Component {
      * with the recently placed chip's value.
      * @param {{ id?: string, value?: string | number, state?: "appended" | "removed" }} data 
      */
-    #toggleNotification(data) {
+    #toggleActionText(data) {
         // console.log(data);
         const { value, state } = data;
-
-        const notificationElem = document.createElement('roulette-popup');
-        notificationElem?.initialize({ value, state });
-        
+        const notificationElem = Roulette.createElement({ name: 'roulette-action-text' });
+        notificationElem?.initialize({ value, state });        
         this.#slotContainer.append(notificationElem);
     }
 
