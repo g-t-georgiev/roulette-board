@@ -17,8 +17,8 @@
 
     /* Control popup text animation */
 
-    roulette-popup {
-        --left-offset: calc(25% - (var(--buttons-padding-inline) / 2.5));
+    roulette-action-text {
+        --action-text-left-offset: calc(var(--buttons-padding-inline) * 2.75);
     }
 
 }
