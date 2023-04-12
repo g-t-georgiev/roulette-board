@@ -8,10 +8,10 @@
 
 :host {
     /* Override display value from parent scope */
-    --roulette-slot-display: block;
+    --slot-display: block;
 
-    --font-size: clamp(1rem, 1.1vw, 1.7rem);
-    --font-weight: 400;
+    --slot-font-size: clamp(1rem, 1.1vw, 1.7rem);
+    --slot-font-weight: 400;
 
     /* Inside bets vars */
     --inside-bet-bg-color-red-contrast: 50%;
@@ -51,8 +51,8 @@
     inline-size: 100%;
     block-size: 100%;
 
-    font-size: var(--font-size);
-    font-weight: var(--font-weight);
+    font-size: var(--slot-font-size);
+    font-weight: var(--slot-font-weight);
 
     -webkit-user-select: none;
     user-select: none;
@@ -115,12 +115,13 @@ roulette-slot-chip {
 
 /* Control popup text animation */
 
-roulette-popup {
-    --top-offset-start: 50%;
-    --top-offset-end: -25%;
-    --font-size: clamp(.85rem, 1.5vw, 1rem);
+roulette-action-text {
+    --action-text-top-offset-start: 50%;
+    --action-text-top-offset-end: -25%;
+    --action-text-font-size: clamp(.85rem, 1.5vw, 1rem);
+    --action-text-animation-duration: .85s;
 }
 
-:host(.inside-bet.zero) roulette-popup {
-    --top-offset-end: 10%;
+:host(.inside-bet.zero) roulette-action-text {
+    --action-text-top-offset-end: 10%;
 }
