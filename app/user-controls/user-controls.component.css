@@ -69,8 +69,9 @@ button {
 
 /* Control popup text animation */
 
-roulette-popup {
-    --top-offset-start: -25%;
-    --top-offset-end: -75%;
-    --font-size: clamp(1rem, 1.5vw, 1.35rem);
+roulette-action-text {
+    --action-text-top-offset-start: -25%;
+    --action-text-top-offset-end: -75%;
+    --action-text-font-size: clamp(1rem, 1.5vw, 1.35rem);
+    --action-text-animation-duration: .85s;
 }
