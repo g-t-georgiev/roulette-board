@@ -8,9 +8,9 @@
 
 :host {
     /* Override initial display rule from parent scope */
-    --roulette-board-display: block;
+    --board-display: block;
 
-    --roulette-slot-display: none;
+    --slot-display: none;
 
     --host-flex-basis: 100%;
     --host-flex-order: 0;
@@ -321,5 +321,5 @@
 */
 
 roulette-slot {
-    display: var(--roulette-slot-display, none);
+    display: var(--slot-display, none);
 }
