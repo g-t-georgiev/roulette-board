@@ -11,7 +11,7 @@
     --roulette-slot-display: block;
 
     --font-size: clamp(1rem, 1.1vw, 1.7rem);
-    --font-weight: 600;
+    --font-weight: 400;
 
     /* Inside bets vars */
     --inside-bet-bg-color-red-contrast: 50%;
