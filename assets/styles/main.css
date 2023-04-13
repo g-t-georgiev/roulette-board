@@ -12,6 +12,7 @@
     --background-color: #f5f1f0;
 
     --button-display: inline-block;
+    --button-all: unset;
 }
 
 *,
@@ -47,6 +48,6 @@ a {
 }
 
 button {
-    all: unset;
+    all: var(--button-all);
     display: var(--button-display);
 }
