@@ -39,11 +39,6 @@
 
 /* Buttons */
 
-button {
-    all: unset;
-    display: var(--button-display);
-}
-
 .btn {
     inline-size: clamp(2.75rem, 3vw, 3.75rem);
     aspect-ratio: 1 / 1;
@@ -58,12 +53,12 @@ button {
     object-fit: cover;
 }
 
-.btn:is(.disabled, :disabled) {
+.btn:is([disabled], .disabled) {
     opacity: .7;
     cursor: default;
 }
 
-.btn:not(:is(.disabled, :disabled)):hover {
+.btn:not([disabled], .disabled):hover {
     transform: scale(1.1);
 }
 
