@@ -8,9 +8,9 @@ import { DoubleButtonComponent } from './double-button/double-button.component.j
 
 import * as data from './user-controls.data.js';
 
-customElements.define('roulette-undo-button', UndoButtonComponent, { extends: 'button' });
-customElements.define('roulette-clear-button', ClearButtonComponent, { extends: 'button' });
-customElements.define('roulette-double-button', DoubleButtonComponent, { extends: 'button' });
+customElements.define('roulette-undo-button', UndoButtonComponent);
+customElements.define('roulette-clear-button', ClearButtonComponent);
+customElements.define('roulette-double-button', DoubleButtonComponent);
 
 
 export class UserControlsComponent extends Component {
@@ -40,23 +40,32 @@ export class UserControlsComponent extends Component {
         userControlsSectionElem.classList.add('user-controls');
 
         const buttonElemList = data.buttons.map(data => {
-            const btnElem = document.createElement('button', { is: data.is });
-            btnElem.type = 'button';
-            btnElem.role = 'button';
-            btnElem.disabled = true;
-            btnElem.classList.add('btn', ...data.classList);
-            btnElem.title = data.title;
-
-            const iconElem = document.createElement('img');
-            iconElem.src = `/assets/images/${data.imageUrl}`;
-            iconElem.width = 55;
-            iconElem.height = 55;
-            iconElem.alt = data.alt;
-            iconElem.classList.add('btn-icon');
-
-            btnElem.append(iconElem);
-            return btnElem;
+            return Roulette.createElement(
+                {
+                    name: data.is,
+                    attributes: {
+                        role: 'button',
+                        disabled: '',
+                        classList: [ 'btn', ...data.classList ],
+                        title: data.title
+                    }
+                },
+                Roulette.createElement(
+                    {
+                        name: 'img',
+                        attributes: {
+                            src: `/assets/images/${data.imageUrl}`,
+                            width: '55',
+                            height: '55',
+                            alt: data.alt,
+                            classList: 'btn-icon'
+                        }
+                    }
+                )
+            );
         });
+
+        // console.log(buttonElemList);
 
         userControlsSectionElem.append(...buttonElemList);
 
@@ -74,6 +83,11 @@ export class UserControlsComponent extends Component {
                     'roulette:boardnotempty',
                     () => {
                         this.#shadowRoot.querySelectorAll('.btn').forEach(
+                            /**
+                             * Toggle disabled state false of every button instance 
+                             * when the game board is not empty.
+                             * @param {import('../core/interfaces/button/button.component.js').ButtonComponent} btn 
+                             */
                             btn => {
                                 btn.toggleDisabledState(false);
                             }
@@ -85,6 +99,11 @@ export class UserControlsComponent extends Component {
                     'roulette:chipscleared', 
                     (totalValueOfClearedChips) => {
                         this.#shadowRoot.querySelectorAll('.btn').forEach(
+                            /**
+                             * Toggle disabled state true of every button instance 
+                             * when the game board is being cleared.
+                             * @param {import('../core/interfaces/button/button.component.js').ButtonComponent} btn 
+                             */
                             btn => {
                                 btn.toggleDisabledState(true);
                             }
