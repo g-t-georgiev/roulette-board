@@ -6,11 +6,18 @@
     padding: var(--padding-reset);
 }
 
+/*
+    Added initial display of none to every chip component instance to prevent initial content flickering. 
+    These styles are overridden in the local stylesheet of each chip component.
+*/
+
+roulette-chip {
+    display: var(--chip-display, none);
+}
+
 :host {
     /* Override initial display rule from parent scope */
     --chips-display: flex;
-
-    --chip-display: none;
 
     --host-flex-basis: calc(50% - var(--app-container-row-gap));
     --host-flex-direction: row;
@@ -30,13 +37,4 @@
 
     -webkit-user-select: none;
     user-select: none;
-}
-
-/*
-    Added initial display of none to every chip component instance to prevent initial content flickering. 
-    These styles are overridden in the local stylesheet of each chip component.
-*/
-
-roulette-chip {
-    display: var(--chip-display, none);
 }

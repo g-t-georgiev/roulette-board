@@ -6,6 +6,16 @@
     padding: var(--padding-reset);
 }
 
+/*
+    Added initial display of none to every child component instance, to prevent initial content flickering 
+    when the components are rendered into the DOM and only system styles are applied. 
+    In the local stylesheet of every concerned child component instance this property is being overriden.
+*/
+
+roulette-slot-chip {
+    display: var(--slot-chip-display, none);
+}
+
 :host {
     /* Override display value from parent scope */
     --slot-display: block;
@@ -102,15 +112,6 @@
 
 :host(.outside-bet:is(.black, .red, .even, .odd)) .slot-container {
     font-size: clamp(.85rem, 1.5vw, 1.15rem);
-}
-
-/*
-    Added initial display of none to every child component instance, to prevent initial content flickering 
-    when the components are rendered into the DOM and only system styles are applied. 
-    In the local stylesheet of every concerned child component instance this property is being overriden.
- */
-roulette-slot-chip {
-    display: var(--slot-chip-display, none);
 }
 
 /* Control popup text animation */
