@@ -29,6 +29,9 @@
 
 .user-controls {
     position: relative;
+
+    margin-block: var(--buttons-margin-block);
+    padding-inline: var(--buttons-padding-inline);
     
     display: flex;
     justify-content: var(--buttons-justify-content);
