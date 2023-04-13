@@ -1,11 +1,9 @@
 @media screen and (max-width: 800px) {
 
-    #roulette-board-app-container {
+    :host {
+        --app-container-justify-content: space-around;
         --app-container-col-gap: 0;
         --app-container-row-gap: 3rem;
-
-        justify-content: space-around;
-        gap: var(--app-container-row-gap) var(--app-container-col-gap);
     }
 
 }
