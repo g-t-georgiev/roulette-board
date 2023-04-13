@@ -37,8 +37,16 @@ export class UndoButtonComponent extends ButtonComponent {
         }
     }
 
-    connectedCallback() {
+    /**
+     * @param {boolean} value 
+     */
+    toggleDisabledState(value) {
+        super.toggleDisabledState(value);
+    }
 
+    connectedCallback() {
+        super.connectedCallback();
+        
         if (!this.rendered) {
             this.rendered = true;
             this.addEventListener('pointerdown', this.__clickHandler);
