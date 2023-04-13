@@ -1,0 +1,4 @@
+:host {
+    all: var(--button-all);
+    display: var(--button-display);
+}
