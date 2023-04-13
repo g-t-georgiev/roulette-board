@@ -9,9 +9,9 @@
 /*
     Added initial display of none to every direct child component instance to prevent initial content flickering. 
     These styles are overridden in the respective local stylesheet of each component.
- */
+*/
 
- roulette-board {
+roulette-board {
     display: var(--board-display, none);
 }
 
@@ -28,8 +28,14 @@ roulette-action-text {
 }
 
 :host {
+    --app-container-display: flex;
+    --app-container-flex-wrap: wrap;
+    --app-container-flex-direction: row-reverse;
+    --app-container-justify-content: center;
+    --app-container-align-items: center;
     --app-container-row-gap: clamp(5rem, 15vw, min(30%, 35rem));
     --app-container-col-gap: clamp(1rem, 3vw, 3rem);
+    --app-container-padding-block: 2rem;
     
     display: block;
     min-block-size: var(--fullscreen-height);
@@ -47,12 +53,12 @@ roulette-action-text {
 }
 
 #roulette-board-app-container {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row-reverse;
-    justify-content: center;
-    align-items: center;
+    display: var(--app-container-display);
+    flex-wrap: var(--app-container-flex-wrap);
+    flex-direction: var(--app-container-flex-direction);
+    justify-content: var(--app-container-justify-content);
+    align-items: var(--app-container-align-items);
     gap: var(--app-container-row-gap) var(--app-container-col-gap);
     
-    padding-block: 2rem;
+    padding-block: var(--app-container-padding-block);
 }
