@@ -23,8 +23,11 @@ roulette-slot {
     --host-flex-order: 0;
     --host-cursor: default;
 
-    --gameboard-inline-size: clamp(730px, 55vw, 1100px);
-    --gameboard-block-size: calc(var(--gameboard-inline-size) * 0.3);
+    --gameboard-min-inline-size: min(760px, 90vw);
+    --gameboard-max-inline-size: 980px;
+    --gameboard-prefered-inline-size: 55vw;
+    --gameboard-inline-size: clamp(var(--gameboard-min-inline-size), var(--gameboard-prefered-inline-size), var(--gameboard-max-inline-size));
+    --gameboard-aspect-ratio: 3 / 1;
     --gameboard-margin-inline: auto;
     --gameboard-grid-template-columns: 3fr repeat(13, 2fr);
     --gameboard-grid-template-rows: repeat(5, 1fr);
@@ -42,7 +45,9 @@ roulette-slot {
 #roulette-board-area {
     position: relative;
     inline-size: var(--gameboard-inline-size);
-    block-size: var(--gameboard-block-size);
+    /* min-inline-size: var(--gameboard-min-inline-size);
+    max-inline-size: var(--gameboard-max-inline-size); */
+    aspect-ratio: var(--gameboard-aspect-ratio);
     margin-inline: var(--gameboard-margin-inline);
 }
 
