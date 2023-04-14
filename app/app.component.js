@@ -40,9 +40,9 @@ export class AppComponent extends Component {
         const rouletteUserControlsElem = document.createElement('roulette-user-controls');
 
         contentWrapperElem.append( 
-            rouletteBoardElem, 
-            rouletteChipsContainerElem, 
-            rouletteUserControlsElem
+            rouletteBoardElem,  
+            rouletteUserControlsElem,
+            rouletteChipsContainerElem
         );
 
         this.#shadowRoot.append(...stylesheets, contentWrapperElem);
