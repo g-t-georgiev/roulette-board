@@ -44,14 +44,19 @@
     /* Override external value of none */
     --slot-chip-display: inline-block;
 
-    --slot-chip-inline-size: clamp(2rem, 3vw, 3rem);
-    --slot-chip-font-size: max(.65rem, calc(var(--slot-chip-inline-size) / 3));
+    --host-inline-size: clamp(2.45rem, 3.5vw, 3.5rem);
+
+    --slot-chip-inline-size: 100%;
+    --slot-chip-font-size: calc(var(--host-inline-size) / 3);
     --slot-chip-font-weight: 700;
     --slot-chip-text-color: #000000;
 
     position: absolute;
     top: 50%;
     left: 50%;
+
+    inline-size: var(--host-inline-size);
+    aspect-ratio: 1 / 1;
 
     -webkit-user-select: none;
     user-select: none;
@@ -82,7 +87,7 @@
     align-items: center;
 
     inline-size: var(--slot-chip-inline-size);
-    aspect-ratio: 1 / 1;
+    block-size: var(--slot-chip-inline-size);
 
     line-height: var(--slot-chip-inline-size);
     text-align: center;
