@@ -20,7 +20,7 @@ roulette-slot-chip {
     /* Override display value from parent scope */
     --slot-display: block;
 
-    --slot-font-size: clamp(1rem, 1.1vw, 1.7rem);
+    --slot-font-size: clamp(.75rem, 1.5vw, 1.15rem);
     --slot-font-weight: 400;
 
     /* Inside bets vars */
@@ -79,7 +79,7 @@ roulette-slot-chip {
     border-bottom-left-radius: 15rem;
 
     background-color: var(--inside-bet-bg-color-zero);
-    font-size: clamp(1.25rem, 1.5vw, 2rem);
+    font-size: clamp(.85rem, 1.5vw, 1.7rem);
 }
 
 :host(.inside-bet.red) .slot-container {
@@ -94,24 +94,8 @@ roulette-slot-chip {
     color: var(--outside-bet-txt-color);
     background-color: var(--outside-bet-bg-color);
 
-    font-size: clamp(1rem, 1vw, 1.35rem);
+    font-size: clamp(.85rem, 1.5vw, 1.15rem);
     font-weight: 500;
-}
-
-:host(.outside-bet.dozen) .slot-container {
-    font-size: clamp(.95rem, 1.5vw, 1.2rem);
-}
-
-:host(.outside-bet.column) .slot-container {
-    font-size: clamp(.85rem, 1.5vw, 1.15rem);
-}
-
-:host(.outside-bet.range) .slot-container {
-    font-size: clamp(.85rem, 1.5vw, 1.15rem);
-}
-
-:host(.outside-bet:is(.black, .red, .even, .odd)) .slot-container {
-    font-size: clamp(.85rem, 1.5vw, 1.15rem);
 }
 
 /* Control popup text animation */
