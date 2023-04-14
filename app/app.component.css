@@ -30,7 +30,7 @@ roulette-action-text {
 :host {
     --app-container-display: flex;
     --app-container-flex-wrap: wrap;
-    --app-container-flex-direction: row-reverse;
+    --app-container-flex-direction: row;
     --app-container-justify-content: center;
     --app-container-align-items: center;
     --app-container-row-gap: clamp(5rem, 15vw, min(30%, 35rem));
