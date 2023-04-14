@@ -1,4 +1,4 @@
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 600px) {
 
     :host(.inside-bet.zero) .slot-container {
         border-top-left-radius: 15rem;
