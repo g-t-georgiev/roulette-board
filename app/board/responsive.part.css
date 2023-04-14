@@ -1,12 +1,11 @@
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 600px) {
 
     :host {
-        --host-flex-basis: calc(50% - var(--app-container-row-gap));
-        --host-flex-order: 1;
+        --host-flex-basis: calc(65% - var(--app-container-row-gap));
 
-        --gameboard-block-size: clamp(630px, 60vh, 1300px);
-        --gameboard-inline-size: calc(var(--gameboard-block-size) * 0.45);
-
+        --gameboard-min-inline-size: 0;
+        --gameboard-prefered-inline-size: 100%;
+        --gameboard-aspect-ratio: 1 / 2;
         --gameboard-grid-template-columns: repeat(5, 1fr);
         --gameboard-grid-template-rows: 4.5fr repeat(13, 2fr);
     }
