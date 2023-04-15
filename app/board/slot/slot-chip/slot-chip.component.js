@@ -33,35 +33,48 @@ export class SlotChipComponent extends Component {
             // console.log('Rendering slot chip');
             if (!stylesheets.length) {
 
-                const cssText = await Roulette.fetchComponentStyles('/app/board/slot/slot-chip/slot-chip.component.css');
-                // console.log(cssText);
-                const styleElem = document.createElement('style');
-                // console.log(styleElem);
-                styleElem.textContent = cssText;
+                const cssTextStyles = await Roulette.fetchComponentStyles(
+                    '/app/board/slot/slot-chip/slot-chip.component.css',
+                    '/app/board/slot/slot-chip/responsive.part.css'
+                );
+
+                const styleElem = Roulette.createElement(
+                    {
+                        name: 'style',
+                        parent: this.#shadowRoot
+                    },
+                    ...(Array.isArray(cssTextStyles) ? cssTextStyles : [ cssTextStyles ])
+                );
 
                 stylesheets.push(styleElem);
-                this.#shadowRoot.prepend(styleElem);
-    
             } else {
                 this.#shadowRoot.prepend(...stylesheets.map(styleEl => styleEl.cloneNode(true)));
             }
     
-            const div = document.createElement('div');
-    
-            div.classList.add('chip');
-            div.textContent = this.dataset.computedValue;
-    
-            const img = document.createElement('img');
-            img.classList.add('chip-icon');
-            img.setAttribute('src', `/assets/images/chip-background-${this.dataset.id}.png`);
-            img.setAttribute('alt', 'chip icon');
-            img.setAttribute('width', '30');
-            img.setAttribute('height', '30');
-    
-            div.append(img);
+            const contentElem = Roulette.createElement(
+                {
+                    name: 'div',
+                    attributes: {
+                        classList: 'chip'
+                    }
+                },
+                this.dataset.computedValue,
+                Roulette.createElement(
+                    {
+                        name: 'img',
+                        attributes: {
+                            classList: 'chip-icon',
+                            src: `/assets/images/chip-background-${this.dataset.id}.png`,
+                            alt: 'chip icon',
+                            width: '30',
+                            height: '30'
+                        }
+                    }
+                )
+            );
             
-            this.#onRenderCallback?.(div);
-            this.#shadowRoot.append(div);
+            this.#onRenderCallback?.(contentElem);
+            this.#shadowRoot.append(contentElem);
         } catch (error) {
             console.error(error);
         }
