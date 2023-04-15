@@ -1,9 +1,21 @@
 @media screen and (max-width: 600px) {
 
-    :host(.inside-bet.zero) .slot-container {
-        border-top-left-radius: 15rem;
-        border-top-right-radius: 15rem;
-        border-bottom-left-radius: 0;
+    :host(.inside-bet) {
+        --slot-prefered-font-size: 3vw;
+    }
+
+    :host(.inside-bet.zero) {
+        --slot-border-top-left-radius: 15rem;
+        --slot-border-top-right-radius: 15rem;
+        --slot-border-bottom-left-radius: 0;
+    }
+
+    :host(.outside-bet) {
+        --slot-prefered-font-size: 3vw;
+    }
+
+    :host(.outside-bet.range) {
+        --slot-min-font-size: .35rem;
     }
 
     @supports (not(rotate: z 90deg)) {
@@ -13,7 +25,6 @@
         }
 
     }
-
 
     @supports (rotate: z 90deg) {
 
