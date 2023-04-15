@@ -3,9 +3,28 @@ import { Roulette } from '../../../utils/Roulette.js';
 import { EventBus } from '../../core/services/index.js';
 
 
+Roulette.fetchComponentStyles(
+    '/app/chips/chip/chip.component.css',
+    '/app/chips/chip/responsive.part.css'
+)
+    .then(cssTextStyles => {
+        const styleElem = Roulette.createElement(
+            {
+                name: 'style'
+            },
+            ...(Array.isArray(cssTextStyles) ? cssTextStyles : [ cssTextStyles ])
+        );
+
+        EventBus.publish('CHIPSTYLESLOAD', styleElem);
+    })
+    .catch(error => {
+        console.error(`Styles load error: ${error}`);
+    });
+
 export class ChipComponent extends Component {
 
     #shadowRoot = this.attachShadow({ mode: 'open' });
+    #subscriptions = [];
 
     get selected() {
         return this.hasAttribute('selected');
@@ -21,27 +40,41 @@ export class ChipComponent extends Component {
         this.__clickHandler = this.#clickHandler.bind(this);
     }
 
-    #render() {
-        const stylesheetElem = document.createElement('link');
-        stylesheetElem.rel = 'stylesheet';
-        stylesheetElem.href = '/app/chips/chip/chip.component.css';
-
-        const chipContentElem = document.createElement('div');
-        chipContentElem.classList.add('chip');
-        
-        const chipIconElem = document.createElement('img');
-        chipIconElem.classList.add('chip-img');
-        chipIconElem.src = `/assets/images/chip-background-${this.dataset.id}.png`;
-        chipIconElem.alt = `chip-background-${this.dataset.id}`;
-
-        const chipTxtElem = document.createElement('span');
-        chipTxtElem.classList.add('chip-txt');
-        chipTxtElem.textContent = this.dataset.value;
-
-        chipContentElem.append(chipIconElem, chipTxtElem);
-
-        this.#shadowRoot.append(stylesheetElem, chipContentElem);
-        this.addEventListener('pointerdown', this.__clickHandler);
+    async #render() {
+        try {
+            Roulette.createElement(
+                {
+                    name: 'div', 
+                    attributes: {
+                        classList: 'chip'
+                    },
+                    parent: this.#shadowRoot
+                },
+                Roulette.createElement(
+                    {
+                        name: 'img',
+                        attributes: {
+                            classList: 'chip-img',
+                            src: `/assets/images/chip-background-${this.dataset.id}.png`,
+                            alt: `chip-background-${this.dataset.id}`
+                        }
+                    }
+                ),
+                Roulette.createElement(
+                    {
+                        name: 'span',
+                        attributes: {
+                            classList: 'chip-txt'
+                        }
+                    },
+                    this.dataset.value
+                )
+            );
+    
+            this.addEventListener('pointerdown', this.__clickHandler);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     #notify() {
@@ -88,6 +121,15 @@ export class ChipComponent extends Component {
             this.rendered = true;
             this.#render();
             
+            this.#subscriptions.push(
+                EventBus.subscribe(
+                    'CHIPSTYLESLOAD',
+                    (styleEl) => {
+                        // console.log(styleEl);
+                        this.#shadowRoot.prepend(styleEl?.cloneNode(true));
+                    }
+                )
+            );
 
             if (this.selected) {
                 this.#notify();
@@ -97,6 +139,7 @@ export class ChipComponent extends Component {
 
     disconnectedCallback() {
         this.removeEventListener('pointerdown', this.__clickHandler);
+        this.#subscriptions.forEach(_=>_?.unsubscribe());
     }
 
 }
