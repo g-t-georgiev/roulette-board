@@ -20,8 +20,28 @@ roulette-slot-chip {
     /* Override display value from parent scope */
     --slot-display: block;
 
-    --slot-font-size: clamp(.75rem, 1.5vw, 1.15rem);
+    --slot-min-font-size: .65rem;
+    --slot-max-font-size: 1rem;
+    --slot-prefered-font-size: 2vw;
+
+    --slot-font-size: clamp(
+        var(--slot-min-font-size), 
+        var(--slot-prefered-font-size), 
+        var(--slot-max-font-size)
+    );
+
     --slot-font-weight: 400;
+
+    --slot-border-top-left-radius: 0;
+    --slot-border-top-right-radius: 0;
+    --slot-border-bottom-left-radius: 0;
+    --slot-border-bottom-right-radius: 0;
+
+    --slot-border-radius: 
+        var(--slot-border-top-left-radius) 
+        var(--slot-border-top-right-radius)  
+        var(--slot-border-bottom-right-radius) 
+        var(--slot-border-bottom-left-radius);
 
     /* Inside bets vars */
     --inside-bet-bg-color-red-contrast: 50%;
@@ -38,9 +58,6 @@ roulette-slot-chip {
     --outside-bet-bg-color: hsl(12, 20%, var(--outside-bet-bg-color-contrast, 95%));
     --outside-bet-txt-color-contrast: 0%;
     --outside-bet-txt-color: hsl(0, 0%, var(--outside-bet-txt-color-contrast, 0%));
-
-    /* Slot chips */
-    --slot-chip-display: none;
 }
 
 :host-context([theme="dark"]) {
@@ -49,6 +66,40 @@ roulette-slot-chip {
     --inside-bet-bg-color-green-contrast: 15%;
 
     --outside-bet-bg-color-contrast: 85%;
+}
+
+:host(.inside-bet) {
+    --slot-text-color: var(--inside-bet-txt-color);
+}
+
+:host(.inside-bet.zero) {
+    --slot-min-font-size: .7rem;
+    --slot-prefered-font-size: 2vw;
+    --slot-max-font-size: 1.15;
+
+    --slot-background-color: var(--inside-bet-bg-color-zero);
+
+    --slot-border-top-left-radius: 15rem;
+    --slot-border-bottom-left-radius: 15rem;
+}
+
+:host(.inside-bet.red) {
+    --slot-background-color: var(--inside-bet-bg-color-red);
+}
+
+:host(.inside-bet.black) {
+    --slot-background-color: var(--inside-bet-bg-color-black);
+}
+
+:host(.outside-bet) {
+    --slot-min-font-size: .5rem;
+    --slot-max-font-size: 1rem;
+    --slot-prefered-font-size: 2vw;
+
+    --slot-font-weight: 500;
+
+    --slot-text-color: var(--outside-bet-txt-color);
+    --slot-background-color: var(--outside-bet-bg-color);
 }
 
 .slot-container {
@@ -63,39 +114,14 @@ roulette-slot-chip {
 
     font-size: var(--slot-font-size);
     font-weight: var(--slot-font-weight);
+    color: var(--slot-text-color);
+    background-color: var(--slot-background-color);
+    border-radius: var(--slot-border-radius);
 
     -webkit-user-select: none;
     user-select: none;
 
     border: 1px solid #000;
-}
-
-:host(.inside-bet) .slot-container {
-    color: var(--inside-bet-txt-color);
-}
-
-:host(.inside-bet.zero) .slot-container {
-    border-top-left-radius: 15rem;
-    border-bottom-left-radius: 15rem;
-
-    background-color: var(--inside-bet-bg-color-zero);
-    font-size: clamp(.85rem, 1.5vw, 1.7rem);
-}
-
-:host(.inside-bet.red) .slot-container {
-    background-color: var(--inside-bet-bg-color-red);
-}
-
-:host(.inside-bet.black) .slot-container {
-    background-color: var(--inside-bet-bg-color-black);
-}
-
-:host(.outside-bet) .slot-container {
-    color: var(--outside-bet-txt-color);
-    background-color: var(--outside-bet-bg-color);
-
-    font-size: clamp(.85rem, 1.5vw, 1.15rem);
-    font-weight: 500;
 }
 
 /* Control popup text animation */
