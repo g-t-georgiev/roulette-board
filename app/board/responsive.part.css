@@ -8,10 +8,7 @@
         --gameboard-aspect-ratio: 1 / 2;
         --gameboard-grid-template-columns: repeat(5, 1fr);
         --gameboard-grid-template-rows: 4.5fr repeat(13, 2fr);
-    }
-
-    .gameboard {
-        grid-template-areas: 
+        --gameboard-grid-template-areas: 
             '. . n-0 n-0 n-0'
             'rn-1 doz-1 n-1 n-2 n-3'
             'rn-1 doz-1 n-4 n-5 n-6'
