@@ -26,11 +26,24 @@ roulette-slot {
     --gameboard-min-inline-size: min(760px, 90vw);
     --gameboard-max-inline-size: 980px;
     --gameboard-prefered-inline-size: 55vw;
-    --gameboard-inline-size: clamp(var(--gameboard-min-inline-size), var(--gameboard-prefered-inline-size), var(--gameboard-max-inline-size));
+    --gameboard-inline-size: clamp(
+        var(--gameboard-min-inline-size), 
+        var(--gameboard-prefered-inline-size), 
+        var(--gameboard-max-inline-size)
+    );
+
     --gameboard-aspect-ratio: 3 / 1;
     --gameboard-margin-inline: auto;
+
+    --gameboard-display: grid;
     --gameboard-grid-template-columns: 3fr repeat(13, 2fr);
     --gameboard-grid-template-rows: repeat(5, 1fr);
+    --gameboard-grid-template-areas:
+        'n-0 n-3 n-6 n-9 n-12 n-15 n-18 n-21 n-24 n-27 n-30 n-33 n-36 col-3'
+        'n-0 n-2 n-5 n-8 n-11 n-14 n-17 n-20 n-23 n-26 n-29 n-32 n-35 col-2'
+        'n-0 n-1 n-4 n-7 n-10 n-13 n-16 n-19 n-22 n-25 n-28 n-31 n-34 col-1'
+        '. doz-1 doz-1 doz-1 doz-1 doz-2 doz-2 doz-2 doz-2 doz-3 doz-3 doz-3 doz-3 .'
+        '. rn-1 rn-1 even even rd rd blck blck odd odd rn-2 rn-2 .';
 
     flex-basis: var(--host-flex-basis);
     order: var(--host-flex-order);
@@ -40,30 +53,22 @@ roulette-slot {
     cursor: var(--host-cursor);
 }
 
-/* Base gameboard container styles */
+/* Container styles */
 
 #roulette-board-area {
     position: relative;
     inline-size: var(--gameboard-inline-size);
-    /* min-inline-size: var(--gameboard-min-inline-size);
-    max-inline-size: var(--gameboard-max-inline-size); */
     aspect-ratio: var(--gameboard-aspect-ratio);
     margin-inline: var(--gameboard-margin-inline);
 }
 
-/* Gameboard component styles */
+/* Gameboard specific styles */
 
 .gameboard {
-    display: grid;
+    display: var(--gameboard-display);
     grid-template-columns: var(--gameboard-grid-template-columns);
     grid-template-rows: var(--gameboard-grid-template-rows);
-
-    grid-template-areas: 
-        'n-0 n-3 n-6 n-9 n-12 n-15 n-18 n-21 n-24 n-27 n-30 n-33 n-36 col-3'
-        'n-0 n-2 n-5 n-8 n-11 n-14 n-17 n-20 n-23 n-26 n-29 n-32 n-35 col-2'
-        'n-0 n-1 n-4 n-7 n-10 n-13 n-16 n-19 n-22 n-25 n-28 n-31 n-34 col-1'
-        '. doz-1 doz-1 doz-1 doz-1 doz-2 doz-2 doz-2 doz-2 doz-3 doz-3 doz-3 doz-3 .'
-        '. rn-1 rn-1 even even rd rd blck blck odd odd rn-2 rn-2 .';
+    grid-template-areas: var(--gameboard-grid-template-areas);
 }
 
 .inside-bet.n-0 {
@@ -270,17 +275,8 @@ roulette-slot {
     grid-area: rn-2;
 }
 
-/* Hover effects */
+/* Slot hover styles */
 
-/*
-    Fixed hover styles using ::part.
-
-    TODO: Provide alternative solution to the 
-    use of ::part pseudo-class for better 
-    support, maybe using custom properties.
-*/
-
-/* General hover effects */
 .gameboard roulette-slot::part(slot-container) {
     transition: box-shadow 0.2s ease-in-out;
 }
