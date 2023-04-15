@@ -25,7 +25,9 @@ roulette-chip {
     --host-align-items: center;
     --host-flex-wrap: nowrap;
     --host-flex-order: 0;
-    --host-flex-gap: clamp(1.5rem, 2vw, 2rem) clamp(1rem, 2vw, 1.75rem);
+    --host-flex-row-gap: clamp(1.5rem, 2vw, 2rem);
+    --host-flex-col-gap: clamp(1rem, 2vw, 1.75rem);
+    --host-flex-gap: var(--host-flex-row-gap) var(--host-flex-col-gap);
 
     flex-direction: var(--host-flex-direction);
     justify-content: var(--host-justify-content);
