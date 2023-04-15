@@ -73,9 +73,9 @@ roulette-slot-chip {
 }
 
 :host(.inside-bet.zero) {
-    --slot-min-font-size: .7rem;
-    --slot-prefered-font-size: 2vw;
-    --slot-max-font-size: 1.15;
+    --slot-min-font-size: .85rem;
+    --slot-prefered-font-size: 3vw;
+    --slot-max-font-size: 1.3rem;
 
     --slot-background-color: var(--inside-bet-bg-color-zero);
 
