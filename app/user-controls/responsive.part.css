@@ -5,6 +5,7 @@
         --host-flex-order: 3;
 
         --buttons-justify-content: flex-start;
+        --buttons-inline-size: clamp(2rem, 8vw, 6rem);
         --buttons-margin-block: 1.5rem 0;
         --buttons-padding-inline: 3rem;
     }
