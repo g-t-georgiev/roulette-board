@@ -1,0 +1,7 @@
+@media screen and (max-width: 600px) {
+
+    :host {
+        --chip-font-size: clamp(.35rem, 4vw, 3rem);
+    }
+
+}
