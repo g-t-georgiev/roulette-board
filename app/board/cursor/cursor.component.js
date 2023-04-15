@@ -2,8 +2,6 @@ import { Component } from "../../core/interfaces/index.js";
 import Roulette from '../../../utils/Roulette.js';
 
 
-const stylesheets = [];
-
 export class CursorComponent extends Component {
 
     #shadowRoot = this.attachShadow({ mode: 'open' });
@@ -18,20 +16,21 @@ export class CursorComponent extends Component {
             // console.log('Rendering cursor');
             this.toggle(false);
 
-            if (!stylesheets.length) {
-    
-                const cssText = await Roulette.fetchComponentStyles('/app/board/cursor/cursor.component.css');
-                // console.log(cssText);
-                const styleElem = document.createElement('style');
-                // console.log(styleElem);
-                styleElem.textContent = cssText;
-
-                stylesheets.push(styleElem);
-                this.#shadowRoot.prepend(styleElem);
-    
-            } else {
-                this.#shadowRoot.prepend(...stylesheets.map(styleEl => styleEl.cloneNode(true)));
-            }
+            const cssText = await Roulette
+                .fetchComponentStyles(
+                    '/app/board/cursor/cursor.component.css',
+                    '/app/board/cursor/responsive.part.css'
+                );
+            // console.log(cssText);
+            
+            Roulette
+                .createElement(
+                    {
+                        name: 'style',
+                        parent: this.#shadowRoot
+                    },
+                    ...(Array.isArray(cssText) ? cssText : [ cssText ])
+                );
         } catch (error) {
             console.error(error);
         }
