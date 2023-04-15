@@ -1,8 +1,42 @@
 @media screen and (max-width: 600px) {
-    
     :host {
         --host-flex-basis: calc(25% - var(--app-container-row-gap));
         --host-flex-direction: column;
     }
+}
 
+@media screen and (max-width: 550px) {
+    :host {
+        --host-flex-basis: calc(25% - var(--app-container-row-gap));
+    }
+}
+
+@media screen and (max-width: 500px) {
+    :host {
+        --host-flex-basis: calc(25% - var(--app-container-row-gap));
+    }
+}
+
+@media screen and (max-width: 450px) {
+    :host {
+        --host-flex-basis: calc(27% - var(--app-container-row-gap));
+    }
+}
+
+@media screen and (max-width: 400px) {
+    :host {
+        --host-flex-basis: calc(27% - var(--app-container-row-gap));
+    }
+}
+
+@media screen and (max-width: 350px) {
+    :host {
+        --host-flex-basis: calc(30% - var(--app-container-row-gap));
+    }
+}
+
+@media screen and (max-width: 300px) {
+    :host {
+        --host-flex-basis: calc(30% - var(--app-container-row-gap));
+    }
 }
