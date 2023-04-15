@@ -1,7 +1,7 @@
 @media screen and (max-width: 600px) {
     
     :host {
-        --host-flex-basis: calc(30% - var(--app-container-row-gap));
+        --host-flex-basis: calc(25% - var(--app-container-row-gap));
         --host-flex-direction: column;
     }
 
