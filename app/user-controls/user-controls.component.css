@@ -17,6 +17,7 @@
     --buttons-align-items: center;
     --buttons-flex-wrap: wrap;
     --buttons-flex-gap: .75rem;
+    --buttons-inline-size: clamp(2.75rem, 3vw, 3.75rem);
     --buttons-padding-inline: 0;
     --buttons-margin-block: 0;
 
@@ -43,7 +44,7 @@
 /* Buttons */
 
 .btn {
-    inline-size: clamp(2.75rem, 3vw, 3.75rem);
+    inline-size: var(--buttons-inline-size);
     aspect-ratio: 1 / 1;
 
     cursor: pointer;
