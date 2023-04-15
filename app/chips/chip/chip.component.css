@@ -8,66 +8,66 @@
 
 :host {
     /* Override display value from parent scope */
-    --chip-display: inline-block;
+    --chip-display: block;
     
-    --chip-inline-size: clamp(4.5rem, 6vw, 6rem);
-    --chip-font-size: clamp(1.35rem, 1.75vw, 2rem);
+    --chip-inline-size: min(5.5rem, 100%);
+    --chip-font-size: clamp(1rem, 3vw, 1.55rem);
     --chip-font-weight: 600;
-    --chip-text-align: center;
     --chip-text-color: #222;
-
-    -webkit-user-select: none;
-    user-select: none;
-}
-
-:host([selected]) .chip {
-    opacity: 1;
-    transform: scale(1.25);
-    cursor: grabbing;
-}
-
-.chip {
-    position: relative;
+    --chip-hover-cursor: grab;
+    --chip-opacity: .6;
+    --chip-scale: 1.25;
 
     inline-size: var(--chip-inline-size);
     aspect-ratio: 1 / 1;
 
-    opacity: .6;
-    overflow: hidden;
-    cursor: grab;
-
+    -webkit-user-select: none;
+    user-select: none;
+    
+    cursor: var(--chip-hover-cursor);
+    opacity: var(--chip-opacity);
     transition: all .1s ease-in-out;
+
+}
+
+:host([selected]) {
+    --chip-opacity: 1;
+    --chip-hover-cursor: grabbing;
+}
+
+@supports (scale: 1.25) {
+    :host([selected]) {
+        transform: none;
+        scale: var(--chip-scale);
+    }
+}
+
+@supports (not(scale: 1.25)) {
+    :host([selected]) {
+        transform: scale(var(--chip-scale));
+    }
+}
+
+.chip {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    inline-size: 100%;
+    block-size: 100%;
+    overflow: hidden;
 }
 
 .chip-txt {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-
     font-size: var(--chip-font-size);
     font-weight: var(--chip-font-weight);
-    line-height: var(--chip-inline-size);
-    text-align: var(--chip-text-align);
     color: var(--chip-text-color);
 }
 
-@supports (not(translate: -50% -50%)) {
-
-    .chip-txt {
-        transform: translate(-50%, -50%);
-    }
-
-}
-
-@supports (translate: -50% -50%) {
-
-    .chip-txt {
-        transform: none;
-        translate: -50% -50%;
-    }
-}
-
 .chip-img {
+    position: absolute;
+    z-index: -1;
+
     inline-size: 100%;
     aspect-ratio: 1 / 1;
 }
