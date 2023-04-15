@@ -1,0 +1,7 @@
+@media screen and (max-width: 600px) {
+
+    :host {
+        --host-inline-size: clamp(1rem, 6vw, 2rem);
+    }
+
+}
