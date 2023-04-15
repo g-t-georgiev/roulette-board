@@ -1,5 +1,4 @@
 @media screen and (max-width: 600px) {
-
     :host {
         --host-flex-basis: calc(65% - var(--app-container-row-gap));
 
@@ -24,5 +23,40 @@
             'rn-2 doz-3 n-34 n-35 n-36'
             '. . col-1 col-2 col-3';
     }
+}
 
+@media screen and (max-width: 550px) {
+    :host {
+        --host-flex-basis: calc(70% - var(--app-container-row-gap));
+    }
+}
+
+@media screen and (max-width: 500px) {
+    :host {
+        --host-flex-basis: calc(70% - var(--app-container-row-gap));
+    }
+}
+
+@media screen and (max-width: 450px) {
+    :host {
+        --host-flex-basis: calc(70% - var(--app-container-row-gap));
+    }
+}
+
+@media screen and (max-width: 400px) {
+    :host {
+        --host-flex-basis: calc(70% - var(--app-container-row-gap));
+    }
+}
+
+@media screen and (max-width: 350px) {
+    :host {
+        --host-flex-basis: calc(70% - var(--app-container-row-gap));
+    }
+}
+
+@media screen and (max-width: 300px) {
+    :host {
+        --host-flex-basis: calc(70% - var(--app-container-row-gap));
+    }
 }
