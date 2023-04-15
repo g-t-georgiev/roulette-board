@@ -44,7 +44,7 @@
     /* Override external value of none */
     --slot-chip-display: inline-block;
 
-    --host-inline-size: clamp(2.45rem, 3.5vw, 3.5rem);
+    --host-inline-size: clamp(2rem, 3.5vw, 3.5rem);
 
     --slot-chip-inline-size: 100%;
     --slot-chip-font-size: calc(var(--host-inline-size) / 3);
