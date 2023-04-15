@@ -7,13 +7,15 @@
 }
 
 :host {
+    --host-display: flex;
+
     --chip-cursor-inline-size: clamp(2rem, 3vw, 3rem);
     --chip-cursor-font-size: max(.65rem, calc(var(--chip-cursor-inline-size) / 3));
     --chip-cursor-font-weight: 700;
     --chip-cursor-text-align: center;
     --chip-cursor-text-color: #222;
 
-    display: flex;
+    display: var(--host-display);
     justify-content: center;
     align-items: center;
 
@@ -37,7 +39,7 @@
     :not([data-id]), 
     :not([data-value])
 )) {
-    display: none;
+    --host-display: none;
 }
 
 :host([data-id="1"]) {
