@@ -1,0 +1,28 @@
+{
+  "name": "roulette-board",
+  "version": "1.0.0",
+  "description": "Roulette board game application",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/g-t-georgiev/roulette-board.git"
+  },
+  "keywords": [
+    "roulette",
+    "board",
+    "game",
+    "gambling"
+  ],
+  "author": "Georgi Toni Georgiev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/g-t-georgiev/roulette-board/issues"
+  },
+  "homepage": "https://github.com/g-t-georgiev/roulette-board#readme",
+  "dependencies": {
+    "@g.t.georgiev/pubsub": "^1.0.0"
+  }
+}
