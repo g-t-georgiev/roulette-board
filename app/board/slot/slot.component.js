@@ -225,7 +225,6 @@ export class SlotComponent extends Component {
         const slotChip = this.#placeChipInSlot(
             { 
                 ...selectedChipDTO, 
-                value: selectedChipDTO.value, 
                 computedValue: summedValue 
             }, 
             this.#insertedChips.length + 1 > 1
