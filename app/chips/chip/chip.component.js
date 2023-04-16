@@ -96,9 +96,7 @@ export class ChipComponent extends Component {
             EventBus.publish(
                 'roulette:chipselected', 
                 { 
-                    id: this.dataset.id, 
-                    value: this.dataset.value, 
-                    selected: this.selected 
+                    ...config.detail 
                 }
             )
         ]);
