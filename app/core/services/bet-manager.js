@@ -1,4 +1,4 @@
-import { forEachOf } from '../../../utils/nested-list-iterator.js';
+import { forEachOf } from '../../../utils/index.js';
 import Roulette from '../../../utils/Roulette.js'
 
 /**

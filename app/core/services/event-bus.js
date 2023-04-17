@@ -1,3 +1,3 @@
-import { PubSub } from '../../../node_modules/@g.t.georgiev/pubsub/src/PubSub.js';
+import { PubSub } from '../../../utils/index.js';
 
 export const EventBus = PubSub.createInstance();
