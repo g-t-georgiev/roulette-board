@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/g-t-georgiev/roulette-board#readme",
   "dependencies": {
+    "@g.t.georgiev/foreachof": "^1.0.1",
     "@g.t.georgiev/pubsub": "^1.0.0"
   }
 }
