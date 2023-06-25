@@ -18,11 +18,11 @@ export class ChipsContainerComponent extends Component {
 
         const stylesheetElem = document.createElement('link');
         stylesheetElem.setAttribute('rel', 'stylesheet');
-        stylesheetElem.setAttribute('href', '/app/chips/chips.component.css');
+        stylesheetElem.setAttribute('href', './app/chips/chips.component.css');
 
         const responsiveStylesheetElem = document.createElement('link');
         responsiveStylesheetElem.setAttribute('rel', 'stylesheet');
-        responsiveStylesheetElem.setAttribute('href', '/app/chips/responsive.part.css');
+        responsiveStylesheetElem.setAttribute('href', './app/chips/responsive.part.css');
 
         stylesheets.push(stylesheetElem, responsiveStylesheetElem);
 
