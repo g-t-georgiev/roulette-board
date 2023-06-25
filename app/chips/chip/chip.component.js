@@ -4,8 +4,8 @@ import { EventBus } from '../../core/services/index.js';
 
 
 Roulette.fetchComponentStyles(
-    '/app/chips/chip/chip.component.css',
-    '/app/chips/chip/responsive.part.css'
+    './app/chips/chip/chip.component.css',
+    './app/chips/chip/responsive.part.css'
 )
     .then(cssTextStyles => {
         const styleElem = Roulette.createElement(
