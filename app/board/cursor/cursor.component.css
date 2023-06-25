@@ -43,15 +43,15 @@
 }
 
 :host([data-id="1"]) {
-    background-image: url("/assets/images/chip-background-1.png");
+    background-image: url("./assets/images/chip-background-1.png");
 }
 
 :host([data-id="2"]) {
-    background-image: url("/assets/images/chip-background-2.png");
+    background-image: url("./assets/images/chip-background-2.png");
 }
 
 :host([data-id="3"]) {
-    background-image: url("/assets/images/chip-background-3.png");
+    background-image: url("./assets/images/chip-background-3.png");
 }
 
 :host::before {
