@@ -42,11 +42,11 @@ export class BoardComponent extends Component {
 
         const stylesheetElem = document.createElement('link');
         stylesheetElem.setAttribute('rel', 'stylesheet');
-        stylesheetElem.setAttribute('href', '/app/board/board.component.css');
+        stylesheetElem.setAttribute('href', './app/board/board.component.css');
 
         const responsiveStylesheetElem = document.createElement('link');
         responsiveStylesheetElem.setAttribute('rel', 'stylesheet');
-        responsiveStylesheetElem.setAttribute('href', '/app/board/responsive.part.css');
+        responsiveStylesheetElem.setAttribute('href', './app/board/responsive.part.css');
 
         stylesheetLinks.push(stylesheetElem, responsiveStylesheetElem);
 
