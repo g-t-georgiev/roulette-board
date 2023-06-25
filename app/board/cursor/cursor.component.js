@@ -18,8 +18,8 @@ export class CursorComponent extends Component {
 
             const cssText = await Roulette
                 .fetchComponentStyles(
-                    '/app/board/cursor/cursor.component.css',
-                    '/app/board/cursor/responsive.part.css'
+                    './app/board/cursor/cursor.component.css',
+                    './app/board/cursor/responsive.part.css'
                 );
             // console.log(cssText);
             
