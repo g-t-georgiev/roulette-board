@@ -55,7 +55,7 @@ export class ChipComponent extends Component {
                         name: 'img',
                         attributes: {
                             classList: 'chip-img',
-                            src: `/assets/images/chip-background-${this.dataset.id}.png`,
+                            src: `./assets/images/chip-background-${this.dataset.id}.png`,
                             alt: `chip-background-${this.dataset.id}`
                         }
                     }
