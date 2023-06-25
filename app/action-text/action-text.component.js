@@ -43,7 +43,7 @@ export class ActionTextComponent extends Component {
         try {
             // console.log('Rendering notification');
             if (!stylesheets.length) {
-                const cssText = await Roulette.fetchComponentStyles('/app/action-text/action-text.component.css');
+                const cssText = await Roulette.fetchComponentStyles('./app/action-text/action-text.component.css');
                 // console.log(cssText);
                 const styleElem = document.createElement('style');
                 styleElem.textContent = cssText;
