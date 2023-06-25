@@ -34,8 +34,8 @@ export class SlotChipComponent extends Component {
             if (!stylesheets.length) {
 
                 const cssTextStyles = await Roulette.fetchComponentStyles(
-                    '/app/board/slot/slot-chip/slot-chip.component.css',
-                    '/app/board/slot/slot-chip/responsive.part.css'
+                    './app/board/slot/slot-chip/slot-chip.component.css',
+                    './app/board/slot/slot-chip/responsive.part.css'
                 );
 
                 const styleElem = Roulette.createElement(
@@ -64,7 +64,7 @@ export class SlotChipComponent extends Component {
                         name: 'img',
                         attributes: {
                             classList: 'chip-icon',
-                            src: `/assets/images/chip-background-${this.dataset.id}.png`,
+                            src: `./assets/images/chip-background-${this.dataset.id}.png`,
                             alt: 'chip icon',
                             width: '30',
                             height: '30'
