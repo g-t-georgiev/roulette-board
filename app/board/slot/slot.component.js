@@ -8,8 +8,8 @@ customElements.define('roulette-slot-chip', SlotChipComponent);
 
 
 Roulette.fetchComponentStyles(
-    '/app/board/slot/slot.component.css',
-    '/app/board/slot/responsive.part.css'
+    './app/board/slot/slot.component.css',
+    './app/board/slot/responsive.part.css'
 ).then((cssTextStyles) => {
     // console.log(cssTextStyles);
     const styleElems = cssTextStyles.map(cssText => {
