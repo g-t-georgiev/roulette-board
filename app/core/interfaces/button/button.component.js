@@ -5,7 +5,7 @@ import Roulette from '../../../../utils/Roulette.js';
 
 
 Roulette
-    .fetchComponentStyles('/app/core/interfaces/button/button.component.css')
+    .fetchComponentStyles('./app/core/interfaces/button/button.component.css')
     .then(cssText => {
         const styleElem = Roulette.createElement(
             {
