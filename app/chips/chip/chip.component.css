@@ -12,7 +12,7 @@
     
     --chip-inline-size: min(5.5rem, 100%);
     --chip-font-size: clamp(1rem, 3vw, 1.55rem);
-    --chip-font-weight: 600;
+    --chip-font-weight: 700;
     --chip-text-color: #222;
     --chip-hover-cursor: grab;
     --chip-opacity: .6;
