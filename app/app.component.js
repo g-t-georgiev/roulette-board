@@ -24,11 +24,11 @@ export class AppComponent extends Component {
 
         const stylesheetElem = document.createElement('link');
         stylesheetElem.setAttribute('rel', 'stylesheet');
-        stylesheetElem.setAttribute('href', '/app/app.component.css');
+        stylesheetElem.setAttribute('href', './app/app.component.css');
 
         const responsiveStylesheetElem = document.createElement('link');
         responsiveStylesheetElem.setAttribute('rel', 'stylesheet');
-        responsiveStylesheetElem.setAttribute('href', '/app/responsive.part.css');
+        responsiveStylesheetElem.setAttribute('href', './app/responsive.part.css');
 
         stylesheets.push(stylesheetElem, responsiveStylesheetElem);
 
