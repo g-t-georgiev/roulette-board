@@ -31,7 +31,6 @@ roulette-slot-chip {
     );
 
     --slot-font-family: 'Chronica Pro', sans-serif;
-    --slot-font-weight: 400;
     --slot-font-style: normal;
 
     --slot-border-top-left-radius: 0;
@@ -72,6 +71,7 @@ roulette-slot-chip {
 
 :host(.inside-bet) {
     --slot-text-color: var(--inside-bet-txt-color);
+    --slot-font-weight: 400;
 }
 
 :host(.inside-bet.zero) {
@@ -114,7 +114,6 @@ roulette-slot-chip {
     inline-size: 100%;
     block-size: 100%;
 
-    font-family: var(--slot-font-family);
     font-size: var(--slot-font-size);
     font-weight: var(--slot-font-weight);
     font-style: var(--slot-font-style);
