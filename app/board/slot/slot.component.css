@@ -30,7 +30,9 @@ roulette-slot-chip {
         var(--slot-max-font-size)
     );
 
+    --slot-font-family: 'Chronica Pro', sans-serif;
     --slot-font-weight: 400;
+    --slot-font-style: normal;
 
     --slot-border-top-left-radius: 0;
     --slot-border-top-right-radius: 0;
@@ -112,8 +114,10 @@ roulette-slot-chip {
     inline-size: 100%;
     block-size: 100%;
 
+    font-family: var(--slot-font-family);
     font-size: var(--slot-font-size);
     font-weight: var(--slot-font-weight);
+    font-style: var(--slot-font-style);
     color: var(--slot-text-color);
     background-color: var(--slot-background-color);
     border-radius: var(--slot-border-radius);
