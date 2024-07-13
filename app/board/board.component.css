@@ -276,7 +276,7 @@ roulette-slot {
 }
 
 /* Slot hover styles */
-.gameboard roulette-slot:hover::part(slot-container) {
+.gameboard:not([disabled]) roulette-slot:hover::part(slot-container) {
     cursor: pointer;
 }
 
