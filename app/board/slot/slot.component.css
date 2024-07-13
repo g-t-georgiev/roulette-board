@@ -127,6 +127,14 @@ roulette-slot-chip {
     border: 1px solid #000;
 }
 
+@keyframes highlighted {
+    to { opacity: 0; }
+}
+
+.slot-container:has(:not(roulette-slot-chip)) {
+    animation: highlighted 1s alternate ease-in-out;
+}
+
 /* Control popup text animation */
 
 roulette-action-text {

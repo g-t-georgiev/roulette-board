@@ -275,14 +275,6 @@ roulette-slot {
     grid-area: rn-2;
 }
 
-@keyframes highlight {
-    to { opacity: 0; }
-}
-
-.gameboard roulette-slot::part(slot-container:not(:has(roulette-slot-chip))) {
-    animation: highlight 1s alternate ease-in-out;
-}
-
 /* Slot hover styles */
 /* .gameboard roulette-slot::part(slot-container) {
     opacity: 1;
