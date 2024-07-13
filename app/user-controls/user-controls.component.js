@@ -54,7 +54,7 @@ export class UserControlsComponent extends Component {
                     {
                         name: 'img',
                         attributes: {
-                            src: `/assets/images/${data.imageUrl}`,
+                            src: `./assets/images/${data.imageUrl}`,
                             width: '55',
                             height: '55',
                             alt: data.alt,
