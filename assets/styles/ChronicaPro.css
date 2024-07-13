@@ -108,49 +108,13 @@
 
 @font-face {
     font-family: 'Chronica Pro';
-    src: url('../fonts/ChronicaPro/ChronicaPro-Italic.eot');
-    src: local('Chronica Pro Italic'), local('ChronicaPro-Italic'),
-        url('../fonts/ChronicaPro/ChronicaPro-Italic.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/ChronicaPro/ChronicaPro-Italic.woff2') format('woff2'),
-        url('../fonts/ChronicaPro/ChronicaPro-Italic.woff') format('woff'),
-        url('../fonts/ChronicaPro/ChronicaPro-Italic.ttf') format('truetype');
-    font-weight: 400;
-    font-style: italic;
-}
-
-@font-face {
-    font-family: 'Chronica Pro';
-    src: url('../fonts/ChronicaPro/ChronicaPro-ExtraLight.eot');
-    src: local('Chronica Pro Extra Light'), local('ChronicaPro-ExtraLight'),
-        url('../fonts/ChronicaPro/ChronicaPro-ExtraLight.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/ChronicaPro/ChronicaPro-ExtraLight.woff2') format('woff2'),
-        url('../fonts/ChronicaPro/ChronicaPro-ExtraLight.woff') format('woff'),
-        url('../fonts/ChronicaPro/ChronicaPro-ExtraLight.ttf') format('truetype');
-    font-weight: 300;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Chronica Pro';
-    src: url('../fonts/ChronicaPro/ChronicaPro-ExtraLightItalic.eot');
-    src: local('Chronica Pro Extra Light Italic'), local('ChronicaPro-ExtraLightItalic'),
-        url('../fonts/ChronicaPro/ChronicaPro-ExtraLightItalic.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/ChronicaPro/ChronicaPro-ExtraLightItalic.woff2') format('woff2'),
-        url('../fonts/ChronicaPro/ChronicaPro-ExtraLightItalic.woff') format('woff'),
-        url('../fonts/ChronicaPro/ChronicaPro-ExtraLightItalic.ttf') format('truetype');
-    font-weight: 300;
-    font-style: italic;
-}
-
-@font-face {
-    font-family: 'Chronica Pro';
     src: url('../fonts/ChronicaPro/ChronicaPro-SemiLight.eot');
     src: local('Chronica Pro Semi Light'), local('ChronicaPro-SemiLight'),
         url('../fonts/ChronicaPro/ChronicaPro-SemiLight.eot?#iefix') format('embedded-opentype'),
         url('../fonts/ChronicaPro/ChronicaPro-SemiLight.woff2') format('woff2'),
         url('../fonts/ChronicaPro/ChronicaPro-SemiLight.woff') format('woff'),
         url('../fonts/ChronicaPro/ChronicaPro-SemiLight.ttf') format('truetype');
-    font-weight: 200;
+    font-weight: 300;
     font-style: normal;
 }
 
@@ -162,7 +126,7 @@
         url('../fonts/ChronicaPro/ChronicaPro-SemiLightItalic.woff2') format('woff2'),
         url('../fonts/ChronicaPro/ChronicaPro-SemiLightItalic.woff') format('woff'),
         url('../fonts/ChronicaPro/ChronicaPro-SemiLightItalic.ttf') format('truetype');
-    font-weight: 200;
+    font-weight: 300;
     font-style: italic;
 }
 
