@@ -108,6 +108,18 @@
 
 @font-face {
     font-family: 'Chronica Pro';
+    src: url('../fonts/ChronicaPro/ChronicaPro-RegularItalic.eot');
+    src: local('Chronica Pro Regular Italic'), local('ChronicaPro-RegularItalic'),
+        url('../fonts/ChronicaPro/ChronicaPro-RegularItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/ChronicaPro/ChronicaPro-RegularItalic.woff2') format('woff2'),
+        url('../fonts/ChronicaPro/ChronicaPro-RegularItalic.woff') format('woff'),
+        url('../fonts/ChronicaPro/ChronicaPro-RegularItalic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Chronica Pro';
     src: url('../fonts/ChronicaPro/ChronicaPro-Light.eot');
     src: local('Chronica Pro Light'), local('ChronicaPro-Light'),
         url('../fonts/ChronicaPro/ChronicaPro-Light.eot?#iefix') format('embedded-opentype'),
