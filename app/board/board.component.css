@@ -276,11 +276,6 @@ roulette-slot {
 }
 
 /* Slot hover styles */
-/* .gameboard roulette-slot::part(slot-container) {
-    opacity: 1;
-    transition: all 0.2s ease-in-out;
-} */
-
 .gameboard roulette-slot:hover::part(slot-container) {
     cursor: pointer;
 }
