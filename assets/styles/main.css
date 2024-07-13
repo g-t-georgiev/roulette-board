@@ -6,6 +6,7 @@
     --fullscreen-height: 100vh;
 
     --font-weight: 400;
+    --font-style: normal;
     --font-size: 18px;
     --text-decoration: none;
     --color: #f5f1f0;
@@ -26,6 +27,7 @@
 html {
     font-family: 'Chronica Pro', sans-serif;
     font-weight: var(--font-weight);
+    font-style: var(--font-style);
     font-size: var(--font-size);
 }
 
