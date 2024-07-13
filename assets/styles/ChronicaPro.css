@@ -108,24 +108,24 @@
 
 @font-face {
     font-family: 'Chronica Pro';
-    src: url('../fonts/ChronicaPro/ChronicaPro-SemiLight.eot');
-    src: local('Chronica Pro Semi Light'), local('ChronicaPro-SemiLight'),
-        url('../fonts/ChronicaPro/ChronicaPro-SemiLight.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/ChronicaPro/ChronicaPro-SemiLight.woff2') format('woff2'),
-        url('../fonts/ChronicaPro/ChronicaPro-SemiLight.woff') format('woff'),
-        url('../fonts/ChronicaPro/ChronicaPro-SemiLight.ttf') format('truetype');
+    src: url('../fonts/ChronicaPro/ChronicaPro-Light.eot');
+    src: local('Chronica Pro Light'), local('ChronicaPro-Light'),
+        url('../fonts/ChronicaPro/ChronicaPro-Light.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/ChronicaPro/ChronicaPro-Light.woff2') format('woff2'),
+        url('../fonts/ChronicaPro/ChronicaPro-Light.woff') format('woff'),
+        url('../fonts/ChronicaPro/ChronicaPro-Light.ttf') format('truetype');
     font-weight: 300;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Chronica Pro';
-    src: url('../fonts/ChronicaPro/ChronicaPro-SemiLightItalic.eot');
-    src: local('Chronica Pro Semi Light Italic'), local('ChronicaPro-SemiLightItalic'),
-        url('../fonts/ChronicaPro/ChronicaPro-SemiLightItalic.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/ChronicaPro/ChronicaPro-SemiLightItalic.woff2') format('woff2'),
-        url('../fonts/ChronicaPro/ChronicaPro-SemiLightItalic.woff') format('woff'),
-        url('../fonts/ChronicaPro/ChronicaPro-SemiLightItalic.ttf') format('truetype');
+    src: url('../fonts/ChronicaPro/ChronicaPro-LightItalic.eot');
+    src: local('Chronica Pro Light Italic'), local('ChronicaPro-LightItalic'),
+        url('../fonts/ChronicaPro/ChronicaPro-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/ChronicaPro/ChronicaPro-LightItalic.woff2') format('woff2'),
+        url('../fonts/ChronicaPro/ChronicaPro-LightItalic.woff') format('woff'),
+        url('../fonts/ChronicaPro/ChronicaPro-LightItalic.ttf') format('truetype');
     font-weight: 300;
     font-style: italic;
 }
