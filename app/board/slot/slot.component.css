@@ -52,13 +52,13 @@ roulette-slot-chip {
     --inside-bet-bg-color-zero-contrast: 25%;
     --inside-bet-bg-color-zero: hsl(120, 100%, var(--inside-bet-bg-color-zero-contrast, 25%));
     --inside-bet-txt-color-contrast: 100%;
-    --inside-bet-txt-color: hsla(0, 0%, var(--inside-bet-txt-color-contrast, 100%), var(--slot-txt-color-alpha, 100%));
+    --inside-bet-txt-color: hsl(0, 0%, var(--inside-bet-txt-color-contrast, 100%));
 
     /* Outside bets vars */
     --outside-bet-bg-color-contrast: 95%;
     --outside-bet-bg-color: hsl(12, 20%, var(--outside-bet-bg-color-contrast, 95%));
     --outside-bet-txt-color-contrast: 0%;
-    --outside-bet-txt-color: hsla(0, 0%, var(--outside-bet-txt-color-contrast, 0%), var(--slot-txt-color-alpha, 100%));
+    --outside-bet-txt-color: hsl(0, 0%, var(--outside-bet-txt-color-contrast, 0%));
 }
 
 :host-context([theme="dark"]) {
