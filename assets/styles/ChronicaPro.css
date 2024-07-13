@@ -1,47 +1,47 @@
 @font-face {
     font-family: 'Chronica Pro';
-    src: url('../fonts/ChronicaPro/ChronicaPro-Black.eot');
-    src: local('Chronica Pro Black'), local('ChronicaPro-Black'),
-        url('../fonts/ChronicaPro/ChronicaPro-Black.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/ChronicaPro/ChronicaPro-Black.woff2') format('woff2'),
-        url('../fonts/ChronicaPro/ChronicaPro-Black.woff') format('woff'),
-        url('../fonts/ChronicaPro/ChronicaPro-Black.ttf') format('truetype');
+    src: url('../fonts/ChronicaPro/ChronicaPro-Bold.eot');
+    src: local('Chronica Pro Bold'), local('ChronicaPro-Bold'),
+        url('../fonts/ChronicaPro/ChronicaPro-Bold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/ChronicaPro/ChronicaPro-Bold.woff2') format('woff2'),
+        url('../fonts/ChronicaPro/ChronicaPro-Bold.woff') format('woff'),
+        url('../fonts/ChronicaPro/ChronicaPro-Bold.ttf') format('truetype');
     font-weight: 900;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Chronica Pro';
-    src: url('../fonts/ChronicaPro/ChronicaPro-BlackItalic.eot');
-    src: local('Chronica Pro Black Italic'), local('ChronicaPro-BlackItalic'),
-        url('../fonts/ChronicaPro/ChronicaPro-BlackItalic.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/ChronicaPro/ChronicaPro-BlackItalic.woff2') format('woff2'),
-        url('../fonts/ChronicaPro/ChronicaPro-BlackItalic.woff') format('woff'),
-        url('../fonts/ChronicaPro/ChronicaPro-BlackItalic.ttf') format('truetype');
+    src: url('../fonts/ChronicaPro/ChronicaPro-BoldItalic.eot');
+    src: local('Chronica Pro Bold Italic'), local('ChronicaPro-BoldItalic'),
+        url('../fonts/ChronicaPro/ChronicaPro-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/ChronicaPro/ChronicaPro-BoldItalic.woff2') format('woff2'),
+        url('../fonts/ChronicaPro/ChronicaPro-BoldItalic.woff') format('woff'),
+        url('../fonts/ChronicaPro/ChronicaPro-BoldItalic.ttf') format('truetype');
     font-weight: 900;
     font-style: italic;
 }
 
 @font-face {
     font-family: 'Chronica Pro';
-    src: url('../fonts/ChronicaPro/ChronicaPro-ExtraBold.eot');
-    src: local('Chronica Pro Extra Bold'), local('ChronicaPro-ExtraBold'),
-        url('../fonts/ChronicaPro/ChronicaPro-ExtraBold.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/ChronicaPro/ChronicaPro-ExtraBold.woff2') format('woff2'),
-        url('../fonts/ChronicaPro/ChronicaPro-ExtraBold.woff') format('woff'),
-        url('../fonts/ChronicaPro/ChronicaPro-ExtraBold.ttf') format('truetype');
+    src: url('../fonts/ChronicaPro/ChronicaPro-Bold.eot');
+    src: local('Chronica Pro Bold'), local('ChronicaPro-Bold'),
+        url('../fonts/ChronicaPro/ChronicaPro-Bold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/ChronicaPro/ChronicaPro-Bold.woff2') format('woff2'),
+        url('../fonts/ChronicaPro/ChronicaPro-Bold.woff') format('woff'),
+        url('../fonts/ChronicaPro/ChronicaPro-Bold.ttf') format('truetype');
     font-weight: 800;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Chronica Pro';
-    src: url('../fonts/ChronicaPro/ChronicaPro-ExtraBoldItalic.eot');
-    src: local('Chronica Pro Extra Bold Italic'), local('ChronicaPro-ExtraBoldItalic'),
-        url('../fonts/ChronicaPro/ChronicaPro-ExtraBoldItalic.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/ChronicaPro/ChronicaPro-ExtraBoldItalic.woff2') format('woff2'),
-        url('../fonts/ChronicaPro/ChronicaPro-ExtraBoldItalic.woff') format('woff'),
-        url('../fonts/ChronicaPro/ChronicaPro-ExtraBoldItalic.ttf') format('truetype');
+    src: url('../fonts/ChronicaPro/ChronicaPro-BoldItalic.eot');
+    src: local('Chronica Pro Bold Italic'), local('ChronicaPro-BoldItalic'),
+        url('../fonts/ChronicaPro/ChronicaPro-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/ChronicaPro/ChronicaPro-BoldItalic.woff2') format('woff2'),
+        url('../fonts/ChronicaPro/ChronicaPro-BoldItalic.woff') format('woff'),
+        url('../fonts/ChronicaPro/ChronicaPro-BoldItalic.ttf') format('truetype');
     font-weight: 800;
     font-style: italic;
 }
@@ -72,24 +72,48 @@
 
 @font-face {
     font-family: 'Chronica Pro';
-    src: url('../fonts/ChronicaPro/ChronicaPro-Medium.eot');
-    src: local('Chronica Pro Medium'), local('ChronicaPro-Medium'),
-        url('../fonts/ChronicaPro/ChronicaPro-Medium.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/ChronicaPro/ChronicaPro-Medium.woff2') format('woff2'),
-        url('../fonts/ChronicaPro/ChronicaPro-Medium.woff') format('woff'),
-        url('../fonts/ChronicaPro/ChronicaPro-Medium.ttf') format('truetype');
+    src: url('../fonts/ChronicaPro/ChronicaPro-Regular.eot');
+    src: local('Chronica Pro Regular'), local('ChronicaPro-Regular'),
+        url('../fonts/ChronicaPro/ChronicaPro-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/ChronicaPro/ChronicaPro-Regular.woff2') format('woff2'),
+        url('../fonts/ChronicaPro/ChronicaPro-Regular.woff') format('woff'),
+        url('../fonts/ChronicaPro/ChronicaPro-Regular.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Chronica Pro';
+    src: url('../fonts/ChronicaPro/ChronicaPro-Italic.eot');
+    src: local('Chronica Pro Italic'), local('ChronicaPro-Italic'),
+        url('../fonts/ChronicaPro/ChronicaPro-Italic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/ChronicaPro/ChronicaPro-Italic.woff2') format('woff2'),
+        url('../fonts/ChronicaPro/ChronicaPro-Italic.woff') format('woff'),
+        url('../fonts/ChronicaPro/ChronicaPro-Italic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Chronica Pro';
+    src: url('../fonts/ChronicaPro/ChronicaPro-Regular.eot');
+    src: local('Chronica Pro Regular'), local('ChronicaPro-Regular'),
+        url('../fonts/ChronicaPro/ChronicaPro-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/ChronicaPro/ChronicaPro-Regular.woff2') format('woff2'),
+        url('../fonts/ChronicaPro/ChronicaPro-Regular.woff') format('woff'),
+        url('../fonts/ChronicaPro/ChronicaPro-Regular.ttf') format('truetype');
     font-weight: 500;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Chronica Pro';
-    src: url('../fonts/ChronicaPro/ChronicaPro-MediumItalic.eot');
-    src: local('Chronica Pro Medium Italic'), local('ChronicaPro-MediumItalic'),
-        url('../fonts/ChronicaPro/ChronicaPro-MediumItalic.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/ChronicaPro/ChronicaPro-MediumItalic.woff2') format('woff2'),
-        url('../fonts/ChronicaPro/ChronicaPro-MediumItalic.woff') format('woff'),
-        url('../fonts/ChronicaPro/ChronicaPro-MediumItalic.ttf') format('truetype');
+    src: url('../fonts/ChronicaPro/ChronicaPro-Italic.eot');
+    src: local('Chronica Pro Italic'), local('ChronicaPro-Italic'),
+        url('../fonts/ChronicaPro/ChronicaPro-Italic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/ChronicaPro/ChronicaPro-Italic.woff2') format('woff2'),
+        url('../fonts/ChronicaPro/ChronicaPro-Italic.woff') format('woff'),
+        url('../fonts/ChronicaPro/ChronicaPro-Italic.ttf') format('truetype');
     font-weight: 500;
     font-style: italic;
 }
@@ -108,14 +132,14 @@
 
 @font-face {
     font-family: 'Chronica Pro';
-    src: url('../fonts/ChronicaPro/ChronicaPro-RegularItalic.eot');
-    src: local('Chronica Pro Regular Italic'), local('ChronicaPro-RegularItalic'),
-        url('../fonts/ChronicaPro/ChronicaPro-RegularItalic.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/ChronicaPro/ChronicaPro-RegularItalic.woff2') format('woff2'),
-        url('../fonts/ChronicaPro/ChronicaPro-RegularItalic.woff') format('woff'),
-        url('../fonts/ChronicaPro/ChronicaPro-RegularItalic.ttf') format('truetype');
+    src: url('../fonts/ChronicaPro/ChronicaPro-Italic.eot');
+    src: local('Chronica Pro Italic'), local('ChronicaPro-Italic'),
+        url('../fonts/ChronicaPro/ChronicaPro-Italic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/ChronicaPro/ChronicaPro-Italic.woff2') format('woff2'),
+        url('../fonts/ChronicaPro/ChronicaPro-Italic.woff') format('woff'),
+        url('../fonts/ChronicaPro/ChronicaPro-Italic.ttf') format('truetype');
     font-weight: 400;
-    font-style: normal;
+    font-style: italic;
 }
 
 @font-face {
@@ -144,60 +168,48 @@
 
 @font-face {
     font-family: 'Chronica Pro';
-    src: url('../fonts/ChronicaPro/ChronicaPro-Thin.eot');
-    src: local('Chronica Pro Thin'), local('ChronicaPro-Thin'),
-        url('../fonts/ChronicaPro/ChronicaPro-Thin.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/ChronicaPro/ChronicaPro-Thin.woff2') format('woff2'),
-        url('../fonts/ChronicaPro/ChronicaPro-Thin.woff') format('woff'),
-        url('../fonts/ChronicaPro/ChronicaPro-Thin.ttf') format('truetype');
-    font-weight: 100;
+    src: url('../fonts/ChronicaPro/ChronicaPro-Light.eot');
+    src: local('Chronica Pro Light'), local('ChronicaPro-Light'),
+        url('../fonts/ChronicaPro/ChronicaPro-Light.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/ChronicaPro/ChronicaPro-Light.woff2') format('woff2'),
+        url('../fonts/ChronicaPro/ChronicaPro-Light.woff') format('woff'),
+        url('../fonts/ChronicaPro/ChronicaPro-Light.ttf') format('truetype');
+    font-weight: 200;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Chronica Pro';
-    src: url('../fonts/ChronicaPro/ChronicaPro-ThinItalic.eot');
-    src: local('Chronica Pro Thin Italic'), local('ChronicaPro-ThinItalic'),
-        url('../fonts/ChronicaPro/ChronicaPro-ThinItalic.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/ChronicaPro/ChronicaPro-ThinItalic.woff2') format('woff2'),
-        url('../fonts/ChronicaPro/ChronicaPro-ThinItalic.woff') format('woff'),
-        url('../fonts/ChronicaPro/ChronicaPro-ThinItalic.ttf') format('truetype');
-    font-weight: 100;
-    font-style: italic;
-}
-
-@font-face {
-    font-family: 'Chronica Pro';
-    src: url('../fonts/ChronicaPro/ChronicaPro-ExtraLightItalic_1.eot');
-    src: local('Chronica Pro Extra Light Italic'), local('ChronicaPro-ExtraLightItalic'),
-        url('../fonts/ChronicaPro/ChronicaPro-ExtraLightItalic_1.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/ChronicaPro/ChronicaPro-ExtraLightItalic_1.woff2') format('woff2'),
-        url('../fonts/ChronicaPro/ChronicaPro-ExtraLightItalic_1.woff') format('woff'),
-        url('../fonts/ChronicaPro/ChronicaPro-ExtraLightItalic_1.ttf') format('truetype');
+    src: url('../fonts/ChronicaPro/ChronicaPro-LightItalic.eot');
+    src: local('Chronica Pro Light Italic'), local('ChronicaPro-LightItalic'),
+        url('../fonts/ChronicaPro/ChronicaPro-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/ChronicaPro/ChronicaPro-LightItalic.woff2') format('woff2'),
+        url('../fonts/ChronicaPro/ChronicaPro-LightItalic.woff') format('woff'),
+        url('../fonts/ChronicaPro/ChronicaPro-LightItalic.ttf') format('truetype');
     font-weight: 200;
     font-style: italic;
 }
 
 @font-face {
     font-family: 'Chronica Pro';
-    src: url('../fonts/ChronicaPro/ChronicaPro-Thin.eot');
-    src: local('Chronica Pro Thin'), local('ChronicaPro-Thin'),
-        url('../fonts/ChronicaPro/ChronicaPro-Thin.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/ChronicaPro/ChronicaPro-Thin.woff2') format('woff2'),
-        url('../fonts/ChronicaPro/ChronicaPro-Thin.woff') format('woff'),
-        url('../fonts/ChronicaPro/ChronicaPro-Thin.ttf') format('truetype');
+    src: url('../fonts/ChronicaPro/ChronicaPro-Light.eot');
+    src: local('Chronica Pro Light'), local('ChronicaPro-Light'),
+        url('../fonts/ChronicaPro/ChronicaPro-Light.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/ChronicaPro/ChronicaPro-Light.woff2') format('woff2'),
+        url('../fonts/ChronicaPro/ChronicaPro-Light.woff') format('woff'),
+        url('../fonts/ChronicaPro/ChronicaPro-Light.ttf') format('truetype');
     font-weight: 100;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Chronica Pro';
-    src: url('../fonts/ChronicaPro/ChronicaPro-Black.eot');
-    src: local('Chronica Pro Black'), local('ChronicaPro-Black'),
-        url('../fonts/ChronicaPro/ChronicaPro-Black.eot?#iefix') format('embedded-opentype'),
-        url('../fonts/ChronicaPro/ChronicaPro-Black.woff2') format('woff2'),
-        url('../fonts/ChronicaPro/ChronicaPro-Black.woff') format('woff'),
-        url('../fonts/ChronicaPro/ChronicaPro-Black.ttf') format('truetype');
-    font-weight: 900;
-    font-style: normal;
+    src: url('../fonts/ChronicaPro/ChronicaPro-LightItalic.eot');
+    src: local('Chronica Pro Light Italic'), local('ChronicaPro-LightItalic'),
+        url('../fonts/ChronicaPro/ChronicaPro-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/ChronicaPro/ChronicaPro-LightItalic.woff2') format('woff2'),
+        url('../fonts/ChronicaPro/ChronicaPro-LightItalic.woff') format('woff'),
+        url('../fonts/ChronicaPro/ChronicaPro-LightItalic.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
 }
