@@ -28,11 +28,11 @@ export class UserControlsComponent extends Component {
 
         const stylesheetElem = document.createElement('link');
         stylesheetElem.setAttribute('rel', 'stylesheet');
-        stylesheetElem.setAttribute('href', '/app/user-controls/user-controls.component.css');
+        stylesheetElem.setAttribute('href', './app/user-controls/user-controls.component.css');
 
         const responsiveStylesheetElem = document.createElement('link');
         responsiveStylesheetElem.rel = 'stylesheet';
-        responsiveStylesheetElem.href = '/app/user-controls/responsive.part.css';
+        responsiveStylesheetElem.href = './app/user-controls/responsive.part.css';
 
         stylesheets.push(stylesheetElem, responsiveStylesheetElem);
 
