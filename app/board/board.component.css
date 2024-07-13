@@ -275,17 +275,25 @@ roulette-slot {
     grid-area: rn-2;
 }
 
+@keyframes highlight {
+    to { opacity: 0; }
+}
+
+.gameboard roulette-slot::part(slot-container:not(:has(roulette-slot-chip))) {
+    animation: highlight 1s alternate ease-in-out;
+}
+
 /* Slot hover styles */
-.gameboard roulette-slot::part(slot-container) {
+/* .gameboard roulette-slot::part(slot-container) {
     opacity: 1;
     transition: all 0.2s ease-in-out;
-}
+} */
 
 .gameboard roulette-slot:hover::part(slot-container) {
     cursor: pointer;
 }
 
-.gameboard:not([disabled]):has(roulette-slot.inside-bet:hover) roulette-slot:is(.inside-bet:not(:hover), .outside-bet)::part(slot-container),
+/* .gameboard:not([disabled]):has(roulette-slot.inside-bet:hover) roulette-slot:is(.inside-bet:not(:hover), .outside-bet)::part(slot-container),
 .gameboard:not([disabled]):has(roulette-slot.outside-bet.black:hover) roulette-slot:is(.inside-bet.red, .inside-bet.zero, .outside-bet:not(.black))::part(slot-container),
 .gameboard:not([disabled]):has(roulette-slot.outside-bet.red:hover) roulette-slot:is(.inside-bet.black, .inside-bet.zero, .outside-bet:not(.red))::part(slot-container),
 .gameboard:not([disabled]):has(roulette-slot.outside-bet.even:hover) roulette-slot:is(.inside-bet.odd, .inside-bet.zero, .outside-bet:not(.even))::part(slot-container),
@@ -299,4 +307,4 @@ roulette-slot {
 .gameboard:not([disabled]):has(roulette-slot.outside-bet.col-2:hover) roulette-slot:is(.inside-bet:is(.col-1, .col-3), .inside-bet.zero, .outside-bet:not(.col-2))::part(slot-container),
 .gameboard:not([disabled]):has(roulette-slot.outside-bet.col-3:hover) roulette-slot:is(.inside-bet:is(.col-1, .col-2), .inside-bet.zero, .outside-bet:not(.col-3))::part(slot-container) {
     opacity: .1;
-}
+} */
