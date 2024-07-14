@@ -1,25 +1,28 @@
 import { ButtonComponent } from '../../core/interfaces/index.js';
 import { EventBus, BetManager } from '../../core/services/index.js'
 
+
+function clickHandler() {
+    if (this.disabled) return;
+
+    const result = BetManager.clearBets();
+    
+    if (!result) return;
+
+    EventBus.publish(
+        'roulette:chipscleared', 
+        result
+    );
+}
+
 export class ClearButtonComponent extends ButtonComponent {
     
+    #clickHandler;
+
     constructor() {
         super();
         this.rendered = false;
-        this.__clickHandler = this.#clickHandler.bind(this);
-    }
-
-    #clickHandler() {
-        if (this.disabled) return;
-
-        const result = BetManager.clearBets();
-        
-        if (!result) return;
-
-        EventBus.publish(
-            'roulette:chipscleared', 
-            result
-        );
+        this.#clickHandler = clickHandler.bind(this);
     }
 
     /**
@@ -34,12 +37,12 @@ export class ClearButtonComponent extends ButtonComponent {
         
         if (!this.rendered) {
             this.rendered = true;
-            this.addEventListener('pointerdown', this.__clickHandler);
+            this.addEventListener('click', this.#clickHandler);
         }
     }
 
     disconnectedCallback() {
-        this.removeEventListener('pointerdown', this.__clickHandler);
+        this.removeEventListener('click', this.#clickHandler);
     }
 
 }
