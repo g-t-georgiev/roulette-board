@@ -12,6 +12,29 @@ customElements.define('roulette-slot', SlotComponent);
 
 export class BoardComponent extends Component {
 
+    /**
+     * @private 
+     * @description Manages pointer enter events inside gameboard component. 
+     * Toggle the styles for displaying of the chip icon upon entering 
+     * of mouse cursor inside the boundaries of the gameboard component.
+     */
+    #cursorEnterHandler;
+
+    /**
+     * @private 
+     * @description Manages pointer leave events inside gameboard component. 
+     * Toggle the styles for hiding chip icon upon leaving of mouse
+     * cursor beyond the boundaries of the gameboard component.
+     */
+    #cursorLeaveHandler;
+
+    /**
+     * @private 
+     * @description Manages pointer move events inside gameboard component. 
+     * Toggle the styles necessary for mouse tracking of the chip icon. 
+     */
+    #cursorMoveHandler;
+
     #shadowRoot = this.attachShadow({ mode: 'open' });
     #subscriptions = [];
 
@@ -32,9 +55,48 @@ export class BoardComponent extends Component {
         this.#gameboard.classList.add('gameboard');
         this.#gameboard.id = 'roulette-board-area';
 
-        this.__cursorEnterHandler = this.#cursorEnterHandler.bind(this);
-        this.__cursorLeaveHandler = this.#cursorLeaveHandler.bind(this);
-        this.__cursorMoveHandler = this.#cursorMoveHandler.bind(this);
+        /**
+         * @this BoardComponent
+         * @param {PointerEvent} [e] 
+         * @returns {void} 
+         */
+        this.#cursorEnterHandler = () => {
+            if (!this.#cursor.isConnected) return;
+
+            this.#cursor.toggle(true);
+        };
+
+        /**
+         * @this BoardComponent 
+         * @param {PointerEvent} [e] 
+         * @returns {void} 
+         */
+        this.#cursorLeaveHandler = () => {
+            if (!this.#cursor.isConnected) return;
+
+            this.#cursor.toggle(false);
+        };
+
+
+        /**
+         * @this BoardComponent 
+         * @param {PointerEvent} e  
+         * @returns {void} 
+         */
+        this.#cursorMoveHandler = (e) => {
+            if (
+                !this.#cursor || 
+                !this.#gameboard || 
+                !this.#cursor.isConnected || 
+                !this.#gameboard.isConnected
+            ) return;
+    
+            let y = (e.clientY - this.#gameboard.offsetTop) * 100 / this.#gameboard.offsetHeight;
+            let x = (e.clientX - this.#gameboard.offsetLeft) * 100 / this.#gameboard.offsetWidth;
+    
+            // console.log(x, y);
+            this.#cursor.move(x, y);
+        };
     }
 
     #render() {
@@ -64,53 +126,11 @@ export class BoardComponent extends Component {
 
         this.#gameboard.append(...slotElemList);
         
-        this.#gameboard.addEventListener('pointerenter', this.__cursorEnterHandler);
-        this.#gameboard.addEventListener('pointerleave', this.__cursorLeaveHandler);
-        this.#gameboard.addEventListener('pointermove', this.__cursorMoveHandler);
+        this.#gameboard.addEventListener('pointerenter', this.#cursorEnterHandler);
+        this.#gameboard.addEventListener('pointerleave', this.#cursorLeaveHandler);
+        this.#gameboard.addEventListener('pointermove', this.#cursorMoveHandler);
 
         this.#shadowRoot.append(...stylesheetLinks, this.#gameboard);
-    }
-
-    /**
-     * Manages pointer enter events inside gameboard component. 
-     * Toggle the styles for displaying of the chip icon upon entering 
-     * of mouse cursor inside the boundaries of the gameboard component.
-     */
-    #cursorEnterHandler() {
-        if (!this.#cursor.isConnected) return;
-
-        this.#cursor.toggle(true);
-    }
-
-    /**
-     * Manages pointer leave events inside gameboard component. 
-     * Toggle the styles for hiding chip icon upon leaving of mouse
-     * cursor beyond the boundaries of the gameboard component.
-     */
-    #cursorLeaveHandler() {
-        if (!this.#cursor.isConnected) return;
-
-        this.#cursor.toggle(false);
-    }
-
-    /**
-     * Manages pointer move events inside gameboard component. 
-     * Toggle the styles necessary for mouse tracking of the chip icon.
-     * @param {MouseEvent} e 
-     */
-    #cursorMoveHandler(e) {
-        if (
-            !this.#cursor || 
-            !this.#gameboard || 
-            !this.#cursor.isConnected || 
-            !this.#gameboard.isConnected
-        ) return;
-
-        let y = (e.clientY - this.#gameboard.offsetTop) * 100 / this.#gameboard.offsetHeight;
-        let x = (e.clientX - this.#gameboard.offsetLeft) * 100 / this.#gameboard.offsetWidth;
-
-        // console.log(x, y);
-        this.#cursor.move(x, y);
     }
 
     connectedCallback() {
@@ -153,9 +173,9 @@ export class BoardComponent extends Component {
     }
 
     disconnectedCallback() {
-        this.#gameboard.removeEventListener('pointerenter', this.__cursorEnterHandler);
-        this.#gameboard.removeEventListener('pointerleave', this.__cursorLeaveHandler);
-        this.#gameboard.removeEventListener('pointermove', this.__cursorMoveHandler);
+        this.#gameboard.removeEventListener('pointerenter', this.#cursorEnterHandler);
+        this.#gameboard.removeEventListener('pointerleave', this.#cursorLeaveHandler);
+        this.#gameboard.removeEventListener('pointermove', this.#cursorMoveHandler);
         this.#subscriptions.forEach(_ => _?.unsubscribe());
     }
 

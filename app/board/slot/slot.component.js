@@ -25,92 +25,128 @@ Roulette.fetchComponentStyles(
 
 export class SlotComponent extends Component {
 
+    /**
+     * @private 
+     * @description Handles click events in the slot. Creates a slot chip instance for any selected chip 
+     * placed. If other instances of a chip element are present, shows a stacked version where 
+     * the text content is the summed value of all chip elements in that slot. But the real value 
+     * of the chip kept in the bets manager remains (1, 2, 5, etc.).
+     */
+    #clickHandler;
     #shadowRoot = this.attachShadow({ mode: 'open' });
     #subscriptions = [];
     #onRenderCallback = () => {};
 
-    #slotContainer = Roulette.createElement(
-        { 
-            name: 'div', 
-            attributes: { 
-                classList: 'slot-container',
-                part: 'slot-container', 
-            }, 
-            parent: this.#shadowRoot 
-        }
-    );
+    #slotContainer = Roulette.createElement({ 
+        name: 'div', 
+        attributes: { 
+            classList: 'slot-container',
+            part: 'slot-container', 
+        }, 
+        parent: this.#shadowRoot 
+    });
 
     #insertedChips = this.#slotContainer.getElementsByTagName('roulette-slot-chip');
 
-    #observer = new MutationObserver(
-        (mutationsList) => {
-            // console.log(mutationsList);
-            if (!mutationsList.length > 0) {
-                return;
-            }
+    #observer = new MutationObserver((mutationsList) => {
+        // console.log(mutationsList);
+        if (!mutationsList.length > 0) {
+            return;
+        }
 
-            const slotChipsMutationsList = [ ...mutationsList ].filter(
+        const slotChipsMutationsList = [ ...mutationsList ].filter(
+            mutationEntry => {
+                // console.log(mutationEntry);
+                const triggerElem = 
+                    mutationEntry.addedNodes.length > 0 
+                        ? mutationEntry.addedNodes.item(mutationEntry.addedNodes.length - 1) 
+                        : mutationEntry.removedNodes.length > 0 
+                            ? mutationEntry.removedNodes.item(mutationEntry.removedNodes.length - 1) 
+                            : null;
+                
+                
+                // console.log(triggerElem);
+                const ActionTextComponent = customElements.get('roulette-action-text');
+                
+                if (triggerElem == null) return false;
+
+                return !(triggerElem instanceof ActionTextComponent);
+            }
+        );
+
+        // console.log(slotChipsMutationsList);
+
+        if (slotChipsMutationsList.length > 0) {
+
+            const stateObject = {
+                value: 0,
+                state: undefined
+            };
+
+            slotChipsMutationsList.forEach(
                 mutationEntry => {
-                    // console.log(mutationEntry);
+                    const isAdded = mutationEntry.addedNodes.length > 0;
+                    const isRemoved = mutationEntry.removedNodes.length > 0;
+
                     const triggerElem = 
-                        mutationEntry.addedNodes.length > 0 
-                            ? mutationEntry.addedNodes.item(mutationEntry.addedNodes.length - 1) 
-                            : mutationEntry.removedNodes.length > 0 
+                            isAdded
+                            ? mutationEntry.addedNodes.item(mutationEntry.addedNodes.length - 1)
+                            : isRemoved
                                 ? mutationEntry.removedNodes.item(mutationEntry.removedNodes.length - 1) 
                                 : null;
                     
-                    
-                    // console.log(triggerElem);
-                    const ActionTextComponent = customElements.get('roulette-action-text');
-                    
-                    if (triggerElem == null) return false;
+                    if (slotChipsMutationsList.length === 1) {
+                        stateObject.id = triggerElem.dataset.id;
+                        stateObject.value = triggerElem.dataset.value;
+                    } else {
+                        stateObject.value += triggerElem ? Number(triggerElem.dataset.value) : 0;
+                    }
 
-                    return !(triggerElem instanceof ActionTextComponent);
+                    stateObject.state = isAdded ? 'appended' : isRemoved ? 'removed' : undefined;
                 }
             );
 
-            // console.log(slotChipsMutationsList);
-
-            if (slotChipsMutationsList.length > 0) {
-
-                const stateObject = {
-                    value: 0,
-                    state: undefined
-                };
-
-                slotChipsMutationsList.forEach(
-                    mutationEntry => {
-                        const isAdded = mutationEntry.addedNodes.length > 0;
-                        const isRemoved = mutationEntry.removedNodes.length > 0;
-
-                        const triggerElem = 
-                             isAdded
-                                ? mutationEntry.addedNodes.item(mutationEntry.addedNodes.length - 1)
-                                : isRemoved
-                                    ? mutationEntry.removedNodes.item(mutationEntry.removedNodes.length - 1) 
-                                    : null;
-                        
-                        if (slotChipsMutationsList.length === 1) {
-                            stateObject.id = triggerElem.dataset.id;
-                            stateObject.value = triggerElem.dataset.value;
-                        } else {
-                            stateObject.value += triggerElem ? Number(triggerElem.dataset.value) : 0;
-                        }
-
-                        stateObject.state = isAdded ? 'appended' : isRemoved ? 'removed' : undefined;
-                    }
-                );
-
-                // console.log(stateObject);
-                this.#toggleActionText(stateObject);
-            }
-
+            // console.log(stateObject);
+            this.#toggleActionText(stateObject);
         }
-    );
+    });
 
     constructor() {
         super();
         this.rendered = false;
+
+        /**
+         * @this SlotComponent 
+         * @param {PointerEvent} [e] 
+         * @returns {void} 
+         */
+        this.#clickHandler = () => {
+            // console.log('Slot toggled.');
+
+            const selectedChipDTO = BetManager.getPendingBet();
+            // console.log(selectedChipDTO);
+
+            if (!selectedChipDTO) return;
+
+            const lastPlacedChipNodeValue = this.#insertedChips.item(this.#insertedChips.length - 1)?.textContent ?? 0;
+            const summedValue = Number(lastPlacedChipNodeValue) + Number(selectedChipDTO.value);
+
+            const slotChip = this.#placeChipInSlot(
+                { 
+                    ...selectedChipDTO, 
+                    computedValue: summedValue 
+                }, 
+                this.#insertedChips.length + 1 > 1
+            );
+
+            BetManager.placeBet({ chip: { ...selectedChipDTO, ref: slotChip } });
+
+            if (this.#insertedChips.length === 1) {
+                EventBus.publish('roulette:boardnotempty');
+            }
+
+            // EventBus.publish('roulette:chipplaced', this, selectedChipDTO);
+        };
     }
 
     /**
@@ -120,21 +156,18 @@ export class SlotComponent extends Component {
      * @returns 
      */
     #placeChipInSlot(data, stacked = false) {
-
-        const elem = Roulette.createElement(
-            { 
-                name: 'roulette-slot-chip', 
-                attributes: {
-                    dataset: {
-                        id: String(data.id),
-                        value: String(data.value),
-                        computedValue: String(data.computedValue),
-                    },
-                    ...(stacked ? { stacked: '' } : {})
+        const elem = Roulette.createElement({ 
+            name: 'roulette-slot-chip', 
+            attributes: {
+                dataset: {
+                    id: String(data.id),
+                    value: String(data.value),
+                    computedValue: String(data.computedValue),
                 },
-                parent: this.#slotContainer
-            }
-        );
+                ...(stacked ? { stacked: '' } : {})
+            },
+            parent: this.#slotContainer
+        });
 
         return elem;
     }
@@ -150,16 +183,6 @@ export class SlotComponent extends Component {
         const notificationElem = Roulette.createElement({ name: 'roulette-action-text' });
         notificationElem?.initialize({ value, state });        
         this.#slotContainer.append(notificationElem);
-    }
-
-    /**
-     * Protected wrapper method forwarding the calls to 
-     * its private counterpart with the 'this' context 
-     * binded to the component instance.
-     * @param  {...any} args 
-     */
-    __clickHandler(...args) {
-        this.#clickHandler.call(this, ...args);
     }
 
     /**
@@ -190,57 +213,20 @@ export class SlotComponent extends Component {
     }
 
     #render() {
-        const spanElem = Roulette.createElement(
-            {
-                name: 'span',
-                attributes: {
-                    classList: 'slot-txt'
-                },
-                parent: this.#slotContainer
-            }
-        );
+        const spanElem = Roulette.createElement({
+            name: 'span',
+            attributes: {
+                classList: 'slot-txt'
+            },
+            parent: this.#slotContainer
+        });
 
         this.#onRenderCallback?.(spanElem);
-        this.addEventListener('pointerdown', this.__clickHandler);
+        this.addEventListener('click', this.#clickHandler);
         this.#observer.observe(this.#slotContainer, { childList: true });
     }
 
-    /**
-     * Handles click events in the slot. Creates a slot chip instance for any selected chip 
-     * placed. If other instances of a chip element are present, shows a stacked version where 
-     * the text content is the summed value of all chip elements in that slot. But the real value 
-     * of the chip kept in the bets manager remains (1, 2, 5, etc.).
-     */
-    #clickHandler() {
-        // console.log('Slot toggled.');
-
-        const selectedChipDTO = BetManager.getPendingBet();
-        // console.log(selectedChipDTO);
-
-        if (!selectedChipDTO) return;
-
-        const lastPlacedChipNodeValue = this.#insertedChips.item(this.#insertedChips.length - 1)?.textContent ?? 0;
-        const summedValue = Number(lastPlacedChipNodeValue) + Number(selectedChipDTO.value);
-
-        const slotChip = this.#placeChipInSlot(
-            { 
-                ...selectedChipDTO, 
-                computedValue: summedValue 
-            }, 
-            this.#insertedChips.length + 1 > 1
-        );
-
-        BetManager.placeBet({ chip: { ...selectedChipDTO, ref: slotChip } });
-
-        if (this.#insertedChips.length === 1) {
-            EventBus.publish('roulette:boardnotempty');
-        }
-
-        // EventBus.publish('roulette:chipplaced', this, selectedChipDTO);
-    }
-
     connectedCallback() {
-
         if (!this.rendered) {
             this.rendered = true;
             this.#render();
@@ -259,7 +245,7 @@ export class SlotComponent extends Component {
     }
 
     disconnectedCallback() {
-        this.removeEventListener('pointerdown', this.__clickHandler);
+        this.removeEventListener('click', this.#clickHandler);
         this.#subscriptions.forEach(_=>_.unsubscribe());
         this.#observer.disconnect();
     }
