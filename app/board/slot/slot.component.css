@@ -21,7 +21,7 @@ roulette-slot-chip {
     --slot-display: block;
 
     --slot-min-font-size: .65rem;
-    --slot-max-font-size: 1rem;
+    --slot-max-font-size: 1.3rem;
     --slot-prefered-font-size: 2vw;
 
     --slot-font-size: clamp(
@@ -63,7 +63,7 @@ roulette-slot-chip {
 :host(.inside-bet.zero) {
     --slot-min-font-size: .85rem;
     --slot-prefered-font-size: 3vw;
-    --slot-max-font-size: 1.3rem;
+    --slot-max-font-size: 1.5rem;
 
     --slot-background-color: var(--inside-bet-bg-color-zero);
 
@@ -81,7 +81,7 @@ roulette-slot-chip {
 
 :host(.outside-bet) {
     --slot-min-font-size: .5rem;
-    --slot-max-font-size: 1rem;
+    --slot-max-font-size: 1.3rem;
     --slot-prefered-font-size: 2vw;
 
     --slot-font-weight: 500;
