@@ -5,7 +5,7 @@
     }
 
     :host(.inside-bet.zero) {
-        --slot-min-font-size: .75rem;
+        --slot-min-font-size: 1.3rem;
         --slot-prefered-font-size: 4vw;
         --slot-max-font-size: 2rem;
 
