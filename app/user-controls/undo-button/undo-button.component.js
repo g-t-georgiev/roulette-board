@@ -1,40 +1,43 @@
 import { ButtonComponent } from '../../core/interfaces/index.js';
 import { EventBus, BetManager } from '../../core/services/index.js'
 
+
+function clickHandler() {
+    if (this.disabled) return;
+        
+    const result = BetManager.undoLastBet();
+    // console.log(result);
+
+    if (!result) return;
+
+    const hasPlacedBets = BetManager.hasPlacedBets();
+    // console.log(hasPlacedBets);
+
+    if (!hasPlacedBets) {
+
+        EventBus.publish(
+            'roulette:chipscleared',
+            result
+        );
+
+    } else {
+
+        EventBus.publish(
+            'roulette:betundone', 
+            result
+        );
+
+    }
+}
+
 export class UndoButtonComponent extends ButtonComponent {
+
+    #clickHandler;
     
     constructor() {
         super();
         this.rendered = false;
-        this.__clickHandler = this.#clickHandler.bind(this);
-    }
-
-    #clickHandler() {
-        if (this.disabled) return;
-        
-        const result = BetManager.undoLastBet();
-        // console.log(result);
-
-        if (!result) return;
-
-        const hasPlacedBets = BetManager.hasPlacedBets();
-        // console.log(hasPlacedBets);
-
-        if (!hasPlacedBets) {
-
-            EventBus.publish(
-                'roulette:chipscleared',
-                result
-            );
-
-        } else {
-
-            EventBus.publish(
-                'roulette:betundone', 
-                result
-            );
-
-        }
+        this.#clickHandler = clickHandler.bind(this);
     }
 
     /**
@@ -49,14 +52,14 @@ export class UndoButtonComponent extends ButtonComponent {
         
         if (!this.rendered) {
             this.rendered = true;
-            this.addEventListener('pointerdown', this.__clickHandler);
+            this.addEventListener('click', this.#clickHandler);
 
         }
     
     }
 
     disconnectedCallback() {
-        this.removeEventListener('pointerdown', this.__clickHandler);
+        this.removeEventListener('click', this.#clickHandler);
     }
 
 }
