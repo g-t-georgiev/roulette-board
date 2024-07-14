@@ -46,9 +46,9 @@
 .btn {
     inline-size: var(--buttons-inline-size);
     aspect-ratio: 1 / 1;
-
+    transform: scale(1);
+    transition: all .22s ease-in-out;
     cursor: pointer;
-    transition: all .3s ease-in-out;
 }
 
 .btn-icon {
@@ -68,7 +68,7 @@
 
 .btn:not([disabled], .disabled):active {
     transition-duration: .1s;
-    transform: scale(0.97);
+    transform: scale(0.95);
 }
 
 /* Control popup text animation */
