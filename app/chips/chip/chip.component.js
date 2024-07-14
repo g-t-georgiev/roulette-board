@@ -8,13 +8,7 @@ Roulette.fetchComponentStyles(
     './app/chips/chip/responsive.part.css'
 )
     .then(cssTextStyles => {
-        const styleElem = Roulette.createElement(
-            {
-                name: 'style'
-            },
-            ...(Array.isArray(cssTextStyles) ? cssTextStyles : [ cssTextStyles ])
-        );
-
+        const styleElem = Roulette.createElement({ name: 'style' }, ...(Array.isArray(cssTextStyles) ? cssTextStyles : [ cssTextStyles ]));
         EventBus.publish('CHIPSTYLESLOAD', styleElem);
     })
     .catch(error => {
@@ -23,6 +17,14 @@ Roulette.fetchComponentStyles(
 
 export class ChipComponent extends Component {
 
+    /**
+     * @private
+     * @description Click event handler managing chip selection toggling,
+     * sending custom select events with details about chip id, value 
+     * and a boolean select flag reflecting if the same chip instance 
+     * was first selected and then deselected.
+     */
+    #clickHandler;
     #shadowRoot = this.attachShadow({ mode: 'open' });
     #subscriptions = [];
 
@@ -37,7 +39,16 @@ export class ChipComponent extends Component {
     constructor() {
         super();
         this.rendered = false;
-        this.__clickHandler = this.#clickHandler.bind(this);
+
+        /**
+         * @this ChipComponent 
+         * @param {PointerEvent} [e] 
+         * @returns {void} 
+         */
+        this.#clickHandler = () => {
+            this.selected = !this.selected;
+            this.#notify();
+        };
     }
 
     async #render() {
@@ -71,7 +82,7 @@ export class ChipComponent extends Component {
                 )
             );
     
-            this.addEventListener('pointerdown', this.__clickHandler);
+            this.addEventListener('click', this.#clickHandler);
         } catch (error) {
             console.error(error);
         }
@@ -102,17 +113,6 @@ export class ChipComponent extends Component {
         ]);
     }
 
-    /**
-     * Pointer click event handler managing chip selection toggling,
-     * sending custom select events with details about chip id, value 
-     * and a boolean select flag reflecting if the same chip instance 
-     * was first selected and then deselected.
-     */
-    #clickHandler() {
-        this.selected = !this.selected;
-        this.#notify();
-    }
-
     connectedCallback() {
         
         if (!this.rendered) {
@@ -136,7 +136,7 @@ export class ChipComponent extends Component {
     }
 
     disconnectedCallback() {
-        this.removeEventListener('pointerdown', this.__clickHandler);
+        this.removeEventListener('click', this.#clickHandler);
         this.#subscriptions.forEach(_=>_?.unsubscribe());
     }
 
