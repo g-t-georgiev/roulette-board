@@ -61,25 +61,20 @@ export class ChipComponent extends Component {
                     },
                     parent: this.#shadowRoot
                 },
-                Roulette.createElement(
-                    {
-                        name: 'img',
-                        attributes: {
-                            classList: 'chip-img',
-                            src: `./assets/images/chip-background-${this.dataset.id}.png`,
-                            alt: `chip-background-${this.dataset.id}`
-                        }
+                Roulette.createElement({
+                    name: 'img',
+                    attributes: {
+                        classList: 'chip-img',
+                        src: `./assets/images/chip-background-${this.dataset.id}.png`,
+                        alt: `chip-background-${this.dataset.id}`
                     }
-                ),
-                Roulette.createElement(
-                    {
-                        name: 'span',
-                        attributes: {
-                            classList: 'chip-txt'
-                        }
-                    },
-                    this.dataset.value
-                )
+                }),
+                Roulette.createElement({
+                    name: 'span',
+                    attributes: {
+                        classList: 'chip-txt'
+                    }
+                }, this.dataset.value)
             );
     
             this.addEventListener('click', this.#clickHandler);
