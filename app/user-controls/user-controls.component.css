@@ -66,6 +66,10 @@
     transform: scale(1.1);
 }
 
+.btn:not([disabled], .disabled):active {
+    transform: scale(0.97);
+}
+
 /* Control popup text animation */
 
 roulette-action-text {
