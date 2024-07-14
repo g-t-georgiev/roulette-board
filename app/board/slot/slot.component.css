@@ -45,28 +45,14 @@ roulette-slot-chip {
         var(--slot-border-bottom-left-radius);
 
     /* Inside bets vars */
-    --inside-bet-bg-color-red-contrast: 50%;
-    --inside-bet-bg-color-red: hsl(0, 100%, var(--inside-bet-bg-color-red-contrast, 50%));
-    --inside-bet-bg-color-black-contrast: 0%;
-    --inside-bet-bg-color-black: hsl(0, 0%, var(--inside-bet-bg-color-black-contrast, 0%));
-    --inside-bet-bg-color-zero-contrast: 25%;
-    --inside-bet-bg-color-zero: hsl(120, 100%, var(--inside-bet-bg-color-zero-contrast, 25%));
-    --inside-bet-txt-color-contrast: 100%;
-    --inside-bet-txt-color: hsl(0, 0%, var(--inside-bet-txt-color-contrast, 100%));
+    --inside-bet-bg-color-red: hsl(0deg 100% 50%);
+    --inside-bet-bg-color-black: hsl(0deg 0% 0%);
+    --inside-bet-bg-color-zero: hsl(120deg 100% 25%);
+    --inside-bet-txt-color: hsl(0deg 0% 100%);
 
     /* Outside bets vars */
-    --outside-bet-bg-color-contrast: 95%;
-    --outside-bet-bg-color: hsl(12, 20%, var(--outside-bet-bg-color-contrast, 95%));
-    --outside-bet-txt-color-contrast: 0%;
-    --outside-bet-txt-color: hsl(0, 0%, var(--outside-bet-txt-color-contrast, 0%));
-}
-
-:host-context([theme="dark"]) {
-    --inside-bet-txt-color-contrast: 95%;
-    --inside-bet-bg-color-red-contrast: 40%;
-    --inside-bet-bg-color-green-contrast: 15%;
-
-    --outside-bet-bg-color-contrast: 85%;
+    --outside-bet-bg-color: hsl(0deg 20% 100% / 0);
+    --outside-bet-txt-color: hsl(0deg 0% 100%);
 }
 
 :host(.inside-bet) {
