@@ -2,42 +2,36 @@ import { ButtonComponent } from '../../core/interfaces/index.js';
 import { EventBus, BetManager } from '../../core/services/index.js'
 
 
-function clickHandler() {
-    if (this.disabled) return;
-        
-    const result = BetManager.undoLastBet();
-    // console.log(result);
-
-    if (!result) return;
-
-    const hasPlacedBets = BetManager.hasPlacedBets();
-    // console.log(hasPlacedBets);
-
-    if (!hasPlacedBets) {
-
-        EventBus.publish(
-            'roulette:chipscleared',
-            result
-        );
-
-    } else {
-
-        EventBus.publish(
-            'roulette:betundone', 
-            result
-        );
-
-    }
-}
-
 export class UndoButtonComponent extends ButtonComponent {
 
+    /**
+     * @private
+     * @description Manages click events on undo button.
+     */
     #clickHandler;
     
     constructor() {
         super();
         this.rendered = false;
-        this.#clickHandler = clickHandler.bind(this);
+
+        /**
+         * @this UndoButtonComponent 
+         * @param {PointerEvent} [e] 
+         * @returns {void}
+         */
+        this.#clickHandler = () => {
+            if (this.disabled) return;
+                
+            const result = BetManager.undoLastBet();
+            // console.log(result);
+        
+            if (!result) return;
+        
+            const hasPlacedBets = BetManager.hasPlacedBets();
+            // console.log(hasPlacedBets);
+
+            EventBus.publish(!hasPlacedBets ? 'roulette:chipscleared' : 'roulette:betundone', result);
+        };
     }
 
     /**

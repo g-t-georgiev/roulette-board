@@ -6,6 +6,10 @@ customElements.define('roulette-chip', ChipComponent);
 
 export class ChipsContainerComponent extends Component {
 
+    /** 
+     * @private
+     * @description Manages custom events about selected chip.
+     */
     #selectHandler;
     #shadowRoot = this.attachShadow({ mode: 'open' });
 
@@ -14,8 +18,8 @@ export class ChipsContainerComponent extends Component {
         this.rendered = false;
 
         /**
-         * Manage custom events about selected chip.
          * @param {CustomEvent<{ id: string, value: string, selected: boolean }>} e 
+         * @returns {void}
          */
         this.#selectHandler = (e) => {
             // console.log(e.detail);

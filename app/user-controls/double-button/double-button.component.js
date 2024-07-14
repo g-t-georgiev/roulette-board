@@ -2,24 +2,32 @@ import { ButtonComponent } from '../../core/interfaces/index.js';
 import { EventBus, BetManager } from '../../core/services/index.js'
 
 
-function clickHandler() {
-    if (this.disabled) return;
-
-    const result = BetManager.doubleBets();
-
-    if (!result) return;
-
-    EventBus.publish('roulette:chipsdoubled', result);
-}
-
 export class DoubleButtonComponent extends ButtonComponent {
     
+    /**
+     * @private
+     * @description Manages click events on double bets button.
+     */
     #clickHandler;
 
     constructor() {
         super();
         this.rendered = false;
-        this.#clickHandler = clickHandler.bind(this);
+
+        /**
+         * @this DoubleButtonComponent 
+         * @param {PointerEvent} [e] 
+         * @returns {void}
+         */
+        this.#clickHandler = () => {
+            if (this.disabled) return;
+
+            const result = BetManager.doubleBets();
+        
+            if (!result) return;
+        
+            EventBus.publish('roulette:chipsdoubled', result);
+        };
     }
 
     /**
