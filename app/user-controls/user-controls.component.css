@@ -67,6 +67,7 @@
 }
 
 .btn:not([disabled], .disabled):active {
+    transition-duration: .1s;
     transform: scale(0.97);
 }
 
