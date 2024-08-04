@@ -85,8 +85,9 @@ export class SlotComponent extends Component {
 
             slotChipsMutationsList.forEach(
                 mutationEntry => {
-                    const isAdded = mutationEntry.addedNodes.length > 0;
-                    const isRemoved = mutationEntry.removedNodes.length > 0;
+                    // Ensure that added/removed nodes are instances of ROULETTE-SLOT-CHIP
+                    const isAdded = mutationEntry.addedNodes.length > 0 && Array.from(mutationEntry.addedNodes).some(node => node.nodeName === 'ROULETTE-SLOT-CHIP');
+                    const isRemoved = mutationEntry.removedNodes.length > 0 && Array.from(mutationEntry.removedNodes).some(node => node.nodeName === 'ROULETTE-SLOT-CHIP');
 
                     const triggerElem = 
                             isAdded
@@ -102,6 +103,7 @@ export class SlotComponent extends Component {
                         stateObject.value += triggerElem ? Number(triggerElem.dataset.value) : 0;
                     }
 
+                    this.classList.toggle('empty', this.#insertedChips.length === 0);
                     stateObject.state = isAdded ? 'appended' : isRemoved ? 'removed' : undefined;
                 }
             );
@@ -224,6 +226,8 @@ export class SlotComponent extends Component {
         this.#onRenderCallback?.(spanElem);
         this.addEventListener('click', this.#clickHandler);
         this.#observer.observe(this.#slotContainer, { childList: true });
+
+        this.classList.toggle('empty', this.#insertedChips.length === 0);
     }
 
     connectedCallback() {
