@@ -4,6 +4,7 @@
   "description": "Roulette board game application",
   "main": "main.js",
   "scripts": {
+    "start": "http-server .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,5 +26,8 @@
   "dependencies": {
     "@g.t.georgiev/foreachof": "^1.1.0",
     "@g.t.georgiev/pubsub": "^2.1.1"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
   }
 }
